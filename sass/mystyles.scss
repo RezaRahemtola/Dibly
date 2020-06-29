@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+// Importing fonts
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
+
+// Fonts
+$family-monospace: 'Parisienne';
+
+
+
+@import "../node_modules/bulma/bulma.sass";
+
+.column{
+    margin: $column-gap;
+}

@@ -1,0 +1,64 @@
+<body>
+    <header>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" id="home">
+                    <h6 class="title is-3 is-family-monospace">Eco Club</h6>
+                </a>
+
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="mainNavbar" class="navbar-menu">
+                <div class="navbar-start">
+
+                    <a class="navbar-item" id="home">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span>Accueil</span>
+                    </a>
+
+                    <a class="navbar-item" id="events">
+                        <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                        <span>Événements</span>
+                    </a>
+
+                    <a class="navbar-item" id="individualInitiatives">
+                        <span class="icon"><i class="fas fa-user-graduate"></i></span>
+                        <span>Initiatives individuelles</span>
+                    </a>
+
+                    <a class="navbar-item" id="contact">
+                        <span class="icon"><i class="fas fa-edit"></i></span>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <hr style="margin: 0;">
+    </header>
+
+
+    {{> Template.dynamic template=currentMessage}}  <!-- Display the current message (if there's one) -->
+    {{> Template.dynamic template=currentModal}}  <!-- Display the current modal (if there's one) -->
+    {{> Template.dynamic template=currentPage}}  <!-- Dynamic Template to display the current page -->
+
+    <br>
+
+    <div class="columns">
+        <div class="column is-offset-1 is-7" style="background: white;">
+            <h2 class="title is-2 has-text-centered">Bienvenue sur le site de l’Eco club du Lycée Jules Ferry !</h2>
+            <div class="width-fit-content">
+                <img src="logo.png" alt="Logo de l'Eco Club" style="display: block; margin: 0 auto;">
+                <figcaption class="is-italic is-size-6">Logo réalisé par Élise Lavarenne</figcaption>
+            </div>
+        </div>
+        <div class="column is-3" style="background: white;">
+            <h3 class="title is-3 has-text-centered">Les potagers participatifs</h3>
+            <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/potager3.png" alt="">
+        </div>
+    </div>
+</body>

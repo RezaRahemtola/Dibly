@@ -1,0 +1,10 @@
+html{
+    background: url("https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/tournesol.jpg") no-repeat;
+    background-size: cover;
+}
+
+
+.width-fit-content{
+    width: -moz-fit-content;  /* Firefox */
+         width: fit-content;  /* Non-prefixed version, currently supported by Chrome */
+}
