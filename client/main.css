@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Parisienne&display=swap");
+.column {
+  margin: 1rem; }
+
 /*! bulma.io v0.9.0 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
@@ -4624,7 +4627,7 @@ label.panel-block {
   flex-basis: 0;
   flex-grow: 1;
   flex-shrink: 1;
-  padding: 0.75rem; }
+  padding: 1rem; }
   .columns.is-mobile > .column.is-narrow {
     flex: none; }
   .columns.is-mobile > .column.is-full {
@@ -5438,13 +5441,13 @@ label.panel-block {
       margin-left: 100%; } }
 
 .columns {
-  margin-left: -0.75rem;
-  margin-right: -0.75rem;
-  margin-top: -0.75rem; }
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-top: -1rem; }
   .columns:last-child {
-    margin-bottom: -0.75rem; }
+    margin-bottom: -1rem; }
   .columns:not(:last-child) {
-    margin-bottom: calc(1.5rem - 0.75rem); }
+    margin-bottom: calc(1.5rem - 1rem); }
   .columns.is-centered {
     justify-content: center; }
   .columns.is-gapless {
@@ -7480,6 +7483,3 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .footer {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
-
-.column {
-  margin: 0.75rem; }
