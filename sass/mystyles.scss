@@ -4,6 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
 
+// Update Bulma's global variables
+
+
+// Colors
+$primary: #e47312;  // Primary color in orange
+$link: #8cba51;  // Links in green
+$success: #8cba51;  // Green
+$danger: #DC310B;  // Shade of red
+$info: #1283e4;
+
 // Fonts
 $family-monospace: 'Parisienne';
 
@@ -11,4 +21,26 @@ $family-monospace: 'Parisienne';
 $column-gap: 1rem;
 .column{ margin: $column-gap; }
 
-@import "../node_modules/bulma/bulma.sass";
+
+// Importing only what we need from Bulma
+
+// Mandatory imports
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/base/_all.sass";
+@import "../node_modules/bulma/sass/helpers/_all.sass";
+
+// Full imports
+@import "../node_modules/bulma/sass/form/_all.sass";
+@import "../node_modules/bulma/sass/grid/_all.sass";
+@import "../node_modules/bulma/sass/layout/_all.sass";
+
+// Components
+@import "../node_modules/bulma/sass/components/modal.sass";
+@import "../node_modules/bulma/sass/components/navbar.sass";
+
+// Elements
+@import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/elements/icon.sass";
+@import "../node_modules/bulma/sass/elements/image.sass";
+@import "../node_modules/bulma/sass/elements/other.sass";
+@import "../node_modules/bulma/sass/elements/title.sass";

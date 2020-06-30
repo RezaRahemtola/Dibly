@@ -1,10 +1,38 @@
+/* Defining the background of the page */
 html{
     background: url("https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/tournesol.jpg") no-repeat;
     background-size: cover;
 }
 
 
+/* Disable text selection */
+.label, .navbar-item {
+  -webkit-touch-callout: none;  /* iOS Safari */
+    -webkit-user-select: none;  /* Safari */
+     -khtml-user-select: none;  /* Konqueror HTML */
+       -moz-user-select: none;  /* Old versions of Firefox */
+        -ms-user-select: none;  /* Internet Explorer/Edge */
+            user-select: none;  /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+
 .width-fit-content{
     width: -moz-fit-content;  /* Firefox */
          width: fit-content;  /* Non-prefixed version, currently supported by Chrome */
+}
+
+
+/* Styling icons in buttons */
+.button .icon:first-child:last-child {
+    margin-right: 0;
+}
+
+
+/* Styling links */
+.link{
+    cursor: pointer;  /* Default links cursor */
+    -webkit-text-decoration: underline #e47312;  /* Safari */
+            text-decoration: underline #e47312;
+
 }
