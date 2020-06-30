@@ -8,10 +8,20 @@ import './body.html';
 // JS imports
 import './home.js';
 
+// Messages imports
+import './messages/header.js';
+import './messages/verifyEmail.js';
+
 // Modals imports
+import './modals/forgotPassword.js';
 import './modals/login.js';
+import './modals/register.js';
+import './modals/resetPassword.js';
 
 // CSS import
+import './css/navbar.css';
+import './css/image.css';
+import './css/footer.css';
 import './css/generic.css';
 
 
@@ -41,7 +51,7 @@ Template.body.helpers({
         if(message !== null && modal === null){
             // There is a message to display and no modal is active
             return message.type;  // Return the message to display
-        } else if(Meteor.user()){
+        } else if(Meteor.user() && Meteor.user().emails){
             // User is logged in, checking if user's email is verified
             const hasVerifiedEmail = Meteor.user().emails[0].verified;
             if(!hasVerifiedEmail){

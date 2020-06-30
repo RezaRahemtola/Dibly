@@ -1,0 +1,7 @@
+.navbar-item img{
+    max-width: none;
+    max-height: none;
+}
+a.navbar-item{
+    display: flex;
+}

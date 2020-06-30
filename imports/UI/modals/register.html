@@ -1,0 +1,75 @@
+<template name="register">
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+
+        <div class="modal-card">
+
+            <header class="modal-card-head">
+                <p class="modal-card-title">Créer votre compte</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+
+            <section class="modal-card-body">
+                {{> Template.dynamic template=messageToDisplay}}  <!-- Display the current message (if there's one) -->
+                <form id="registerForm">
+                    <div class="field has-animated-label" id="usernameField">
+                        <div class="control has-icons-left">
+                            <input type="text" class="input has-animated-label" name="username" id="username" placeholder=" " required/>
+                            <label for="username" class="label is-animated">Nom d'utilisateur</label>
+                            <span class="icon is-left">
+                                <i class="fas fa-user-circle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-success"></p>
+                        <p class="help is-danger"></p>
+                    </div>
+
+                    <div class="field has-animated-label" id="emailField">
+                        <div class="control has-icons-left">
+                            <input type="email" class="input has-animated-label" name="email" id="email" placeholder=" " required>
+                            <label for="email" class="label is-animated">Email</label>
+                            <span class="icon is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                        <p class="help is-success"></p>
+                        <p class="help is-danger"></p>
+                    </div>
+
+                    <div class="field has-animated-label">
+                        <div class="control has-icons-left">
+                            <input type="password" class="input has-animated-label" name="password" id="password" placeholder=" " autocomplete="new-password" required>
+                            <label for="password" class="label is-animated">Mot de passe</label>
+                            <span class="icon is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field has-animated-label">
+                        <div class="control has-icons-left">
+                            <input type="password" class="input has-animated-label" name="confirmPassword" id="confirmPassword" placeholder=" " autocomplete="new-password" required>
+                            <label for="confirmPassword" class="label is-animated">Confirmer le mot de passe</label>
+                            <span class="icon is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                </form>
+
+                <br>
+
+                <button class="button is-medium is-fullwidth has-background-success" id="registerSubmit">S'inscrire</button>
+
+            </section>
+
+
+            <footer class="modal-card-foot">
+                <div class="card-footer-item">
+                    <p class="subtitle has-text-centered">Déjà membre ? <span class="login link has-text-weight-semibold">Connectez-vous</span> pour continuer</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</template>

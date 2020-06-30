@@ -33,9 +33,45 @@
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <a class="button is-primary login">
-                            <strong>Se connecter</strong>
-                        </a>
+                        {{#if currentUser}}
+                            <!-- Displayed only when the user is logged in (display a profile dropdown)-->
+                            <div class="navbar-item has-dropdown is-hoverable" id="profileDropdown">
+                                <!-- Dropdown link with user's profile picture -->
+                                <a class="navbar-link">
+                                    <img src="user.svg" alt="Photo de profil" class="image is-48x48"/>
+                                </a>
+                                <!-- Dropdown menu -->
+                                <div class="navbar-dropdown is-right is-hidden-touch">
+
+                                    <a class="navbar-item" id="informations">
+                                        <span class="icon"><i class="fas fa-user"></i></span>
+                                        <span>Mes informations</span>
+                                    </a>
+
+                                    <hr class="navbar-divider">
+
+                                    <a class="navbar-item logout">
+                                        <span class="icon"><i class="fas fa-power-off"></i></span>
+                                        <span>Se déconnecter</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <script>
+                                // Script to hide profile dropdown when in mobile mode
+                                $("#profileDropdown .navbar-link").click(function(){
+                                    // If navbar is in mobile mode
+                                    if($(".navbar-burger").hasClass("is-active")){
+                                        // Toggle dropdown options display
+                                        $('#profileDropdown .navbar-dropdown').toggleClass("is-hidden-touch");
+                                    }
+                                });
+                            </script>
+                        {{else}}
+                            <!-- Display a login button when the user is NOT logged in-->
+                            <a class="button is-primary login">
+                                <strong>Se connecter</strong>
+                            </a>
+                        {{/if}}
                     </div>
                 </div>
             </div>
