@@ -1,0 +1,41 @@
+<template name="userManagement">
+    <h2 class="title is-2 has-text-centered">Gestion des utilisateurs</h2>
+
+    <table class="table is-bordered is-striped is-hoverable" style="margin: 3rem auto;">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Accès</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each displayUsers}}
+                <tr>
+                    <td>{{username}}</td>
+                    <td>{{email}}</td>
+                    <td>
+                        <div class="select">
+                            <select id={{email}}>
+                                {{#each displayRoles}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <!-- Using an helper to select the corresponding role in the list -->
+                        {{selectUserRole email}}
+                    </td>
+                    <td>
+                        <div class="field">
+                            <input class="switch is-rounded" type="checkbox" id={{email}} name="accessAllowed">
+                            <label class="label" for={{email}} style="font-weight: inherit;"></label>
+                            <!-- Using an helper to check the switch input and fill the label -->
+                            {{checkAccessAllowedInput email}}
+                        </div>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>

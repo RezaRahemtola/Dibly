@@ -4,7 +4,11 @@ export const Rules = {
             minLength: 6,
             maxLength: 100,
             forbiddenChars: [' ']
-        }
+        },
+        roles: [
+            'admin',
+            'author'
+        ]
     },
     email: {
         verifyEmail: {

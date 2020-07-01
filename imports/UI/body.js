@@ -7,6 +7,7 @@ import './body.html';
 
 // JS imports
 import './home.js';
+import './userManagement.js';
 
 // Messages imports
 import './messages/header.js';
@@ -95,6 +96,36 @@ Template.body.events({
         // When the closing button of a modal is clicked
         Session.set('modal', null);  // Remove the modal
     },
+
+
+    // Navbar events
+    'click #home'(event){
+        event.preventDefault();
+        // When the brand of the navbar is clicked
+        Session.set('page', 'home');  // Switching page to home
+    },
+
+
+    // Profile dropdown events
+    'click #userInformations'(event){
+        event.preventDefault();
+        Session.set('page', 'userInformations');
+    },
+    'click #userManagement'(event){
+        event.preventDefault();
+        // User management option for administrators is clicked, checking if the current user is really an admin
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+            } else if(role === 'admin'){
+                // User is an admin, sending him to user management page
+                Session.set('page', 'userManagement');
+            } else{
+                // Role isn't admin
+                // TODO: error message
+            }
+        });
+    }
 });
 
 
