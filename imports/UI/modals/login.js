@@ -36,13 +36,26 @@ Template.login.events({
         var form = new FormData(document.getElementById('loginForm'));
         var email = form.get('email');
         var password = form.get('password');
-        Meteor.loginWithPassword(email, password, function(error){
+
+        // Checking if the user is allowed to login
+        Meteor.call('checkIfAccessAllowed', {email: email}, function(error, accessAllowed){
             if(error){
-                // There was an error while logging in
-                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
-                $(event.target).removeClass("is-loading");  // Remove the loading effect of the button
+                // TODO: error
+            } else if(accessAllowed){
+                // User is allowed to login
+                Meteor.loginWithPassword(email, password, function(error){
+                    if(error){
+                        // There was an error while logging in
+                        Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                        $(event.target).removeClass("is-loading");  // Remove the loading effect of the button
+                    } else{
+                        Session.set('modal', null)  // Remove the login modal
+                    }
+                });
             } else{
-                Session.set('modal', null)  // Remove the login modal
+                // User isn't allowed to login
+                Session.set('message', {type:"header", headerContent:"Vous n'êtes pas autorisé à vous connecter, veuillez contacter un administrateur pour qu'il vous débloque l'accès.", style:"is-danger"});  // Display an error message
+                $(event.target).removeClass("is-loading");  // Remove the loading effect of the button
             }
         });
     },
