@@ -107,8 +107,35 @@ Template.userManagement.helpers({
                 // TODO: error
             } else{
                 // Role was successfully returned, set the select value with it
-                document.querySelector('select[id="'+email+'"]').value = role;
+                var select = document.querySelector('select[id="'+email+'"]');
+                select.value = role;
+
+                // Adding an event listener on the select to change role of the user
+                select.onchange = function(){
+                    // Catching user email & the selected role
+                    const email = this.id;
+                    const newRole = this.value;
+
+                    // Calling a method to update the role in the database
+                    Meteor.call('changeRole', {email: email, newRole: newRole}, function(error, result){
+                        if(error){
+                            // TODO:
+                        } else{
+                            // Role was successfully updated
+                        }
+                    });
+                }
             }
         });
+    }
+});
+
+
+Template.userManagement.events({
+    'click button#addNewUser'(event){
+        event.preventDefault();
+        // Button to add a new user was clicked, displaying the corresponding modal
+        // TODO: check if user is admin
+        Session.set('modal', 'addUser');
     }
 });

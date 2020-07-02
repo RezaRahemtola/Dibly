@@ -161,5 +161,41 @@ Meteor.methods({
         UsersInformations.update(informationsId, { $set: {
             accessAllowed: false
         }});
+    },
+    'changeRole'({email, newRole}){
+        // Type check to prevent malicious calls
+        check(email, String);
+        check(newRole, String);
+
+        // TODO: check if user is admin
+
+        // TODO: check if newRole is in the list of allowed roles (in rules)
+
+        // Carching id to update the database
+        const informationsId = UsersInformations.findOne({email: email})._id;
+
+        // Updating database
+        UsersInformations.update(informationsId, { $set: {
+            role: newRole
+        }});
+    },
+    'addUser'({email, role}){
+        // Type check to prevent malicious calls
+        check(email, String);
+        check(role, String);
+
+        // TODO: check if user is admin
+
+        // TODO: check if email is a valid email address
+        // TODO: check if email isn't taken by another user
+        // TODO: check if role is in the list of available roles
+
+        UsersInformations.insert({
+            userId: '',  // Unknown for the moment, will be updated after registration
+            username: "",  // Same than userId
+            email: email,
+            role: role,
+            accessAllowed: true
+        });
     }
 })
