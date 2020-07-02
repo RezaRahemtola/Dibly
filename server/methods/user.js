@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { UsersInformations } from '../../imports/databases/usersInformations.js';
 import { Rules } from '../rules.js';
 
+
 Meteor.methods({
     'checkIfUsernameIsTaken'({username}){
         // Type check to prevent malicious calls

@@ -43,10 +43,12 @@
                                 <!-- Dropdown menu -->
                                 <div class="navbar-dropdown is-right is-hidden-touch">
 
-                                    <a class="navbar-item" id="userManagement">
-                                        <span class="icon"><i class="fas fa-user-cog"></i></span>
-                                        <span>Gestion des utilisateurs</span>
-                                    </a>
+                                    {{#if userIsAdmin}}
+                                        <a class="navbar-item" id="userManagement">
+                                            <span class="icon"><i class="fas fa-user-cog"></i></span>
+                                            <span>Gestion des utilisateurs</span>
+                                        </a>
+                                    {{/if}}
 
                                     <a class="navbar-item" id="userInformations">
                                         <span class="icon"><i class="fas fa-user"></i></span>

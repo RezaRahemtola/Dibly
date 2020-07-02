@@ -71,10 +71,14 @@ Template.userManagement.helpers({
                 });
 
                 // Adding an event listener on the input to change remove/allow access to the user
-                input.onchange = function(){
-                    if(this.checked){
+                // There's a problem with the switch class in the table element with the select role, we need to catch click on the label
+                label.onclick = function(){
+                    // Changing input state
+                    input.checked = !input.checked;
+
+                    if(input.checked){
                         // Access was just granted for this user, catching email & updating the database
-                        const email = this.id;
+                        const email = input.id;
                         Meteor.call('allowAccess', {email: email}, function(error, result){
                             if(error){
                                 // TODO: error
@@ -85,7 +89,7 @@ Template.userManagement.helpers({
                         });
                     } else{
                         // Access was just remove for this user, catching email & updating the database
-                        const email = this.id;
+                        const email = input.id;
                         Meteor.call('removeAccess', {email: email}, function(error, result){
                             if(error){
                                 // TODO: error

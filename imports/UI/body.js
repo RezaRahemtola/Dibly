@@ -38,7 +38,6 @@ Template.body.onCreated(function(){
         // No modal set (one could have been set by a function executed before the body creation, like Accounts.onResetPasswordLink)
         Session.set('modal', null);  // No modal to display for the moment
     }
-
 });
 
 
@@ -68,6 +67,18 @@ Template.body.helpers({
             // There is an active modal
             return Session.get('modal');  // Return the modal to display
         }
+    },
+    userIsAdmin: function(){
+        // Checking if user is an administrator
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+            } else{
+                // User role was successfully retrieved, saving it in a Session variable
+                Session.set('currentUserRole', role);
+            }
+        });
+        return Session.get('currentUserRole') === 'admin';
     }
 });
 
