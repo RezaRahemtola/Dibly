@@ -1,120 +1,126 @@
 <body>
-    <header>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" id="home">
-                    <h6 class="title is-3 is-family-monospace">Eco Club</h6>
-                </a>
-
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="mainNavbar" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" id="events">
-                        <span class="icon"><i class="fas fa-calendar-alt"></i></span>
-                        <span>Événements</span>
+    <div id="content-wrap">
+        <header>
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" id="home">
+                        <h6 class="title is-3 is-family-monospace">Eco Club</h6>
                     </a>
 
-                    <a class="navbar-item" id="individualInitiatives">
-                        <span class="icon"><i class="fas fa-user-graduate"></i></span>
-                        <span>Initiatives individuelles</span>
-                    </a>
-
-                    <a class="navbar-item" id="contact">
-                        <span class="icon"><i class="fas fa-edit"></i></span>
-                        <span>Contact</span>
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </a>
                 </div>
 
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        {{#if currentUser}}
-                            <!-- Displayed only when the user is logged in (display a profile dropdown)-->
-                            <div class="navbar-item has-dropdown is-hoverable" id="profileDropdown">
-                                <!-- Dropdown link with user's profile picture -->
-                                <a class="navbar-link">
-                                    <img src="user.svg" alt="Photo de profil" class="image is-48x48"/>
-                                </a>
-                                <!-- Dropdown menu -->
-                                <div class="navbar-dropdown is-right is-hidden-touch">
+                <div id="mainNavbar" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" id="events">
+                            <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                            <span>Événements</span>
+                        </a>
 
-                                    {{#if userIsAdmin}}
-                                        <a class="navbar-item" id="userManagement">
-                                            <span class="icon"><i class="fas fa-user-cog"></i></span>
-                                            <span>Gestion des utilisateurs</span>
+                        <a class="navbar-item" id="individualInitiatives">
+                            <span class="icon"><i class="fas fa-user-graduate"></i></span>
+                            <span>Initiatives individuelles</span>
+                        </a>
+
+                        <a class="navbar-item" id="contact">
+                            <span class="icon"><i class="fas fa-edit"></i></span>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            {{#if currentUser}}
+                                <!-- Displayed only when the user is logged in (display a profile dropdown)-->
+                                <div class="navbar-item has-dropdown is-hoverable" id="profileDropdown">
+                                    <!-- Dropdown link with user's profile picture -->
+                                    <a class="navbar-link">
+                                        <img src="user.svg" alt="Photo de profil" class="image is-48x48"/>
+                                    </a>
+                                    <!-- Dropdown menu -->
+                                    <div class="navbar-dropdown is-right is-hidden-touch">
+
+                                        {{#if userIsAdmin}}
+                                            <a class="navbar-item" id="userManagement">
+                                                <span class="icon"><i class="fas fa-user-cog"></i></span>
+                                                <span>Gestion des utilisateurs</span>
+                                            </a>
+                                        {{/if}}
+
+                                        <a class="navbar-item" id="userInformations">
+                                            <span class="icon"><i class="fas fa-user"></i></span>
+                                            <span>Mes informations</span>
                                         </a>
-                                    {{/if}}
 
-                                    <a class="navbar-item" id="userInformations">
-                                        <span class="icon"><i class="fas fa-user"></i></span>
-                                        <span>Mes informations</span>
-                                    </a>
+                                        <hr class="navbar-divider">
 
-                                    <hr class="navbar-divider">
-
-                                    <a class="navbar-item logout">
-                                        <span class="icon"><i class="fas fa-power-off"></i></span>
-                                        <span>Se déconnecter</span>
-                                    </a>
+                                        <a class="navbar-item logout">
+                                            <span class="icon"><i class="fas fa-power-off"></i></span>
+                                            <span>Se déconnecter</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <script>
-                                // Script to hide profile dropdown when in mobile mode
-                                $("#profileDropdown .navbar-link").click(function(){
-                                    // If navbar is in mobile mode
-                                    if($(".navbar-burger").hasClass("is-active")){
-                                        // Toggle dropdown options display
-                                        $('#profileDropdown .navbar-dropdown').toggleClass("is-hidden-touch");
-                                    }
-                                });
-                            </script>
-                        {{else}}
-                            <!-- Display a login button when the user is NOT logged in-->
-                            <a class="button is-primary login">
-                                <strong>Se connecter</strong>
-                            </a>
-                        {{/if}}
+                                <script>
+                                    // Script to hide profile dropdown when in mobile mode
+                                    $("#profileDropdown .navbar-link").click(function(){
+                                        // If navbar is in mobile mode
+                                        if($(".navbar-burger").hasClass("is-active")){
+                                            // Toggle dropdown options display
+                                            $('#profileDropdown .navbar-dropdown').toggleClass("is-hidden-touch");
+                                        }
+                                    });
+                                </script>
+                            {{else}}
+                                <!-- Display a login button when the user is NOT logged in-->
+                                <a class="button is-primary login">
+                                    <strong>Se connecter</strong>
+                                </a>
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
+
+
+            </nav>
+            <hr style="margin: 0;">
+        </header>
+
+
+        {{> Template.dynamic template=currentMessage}}  <!-- Display the current message (if there's one) -->
+        {{> Template.dynamic template=currentModal}}  <!-- Display the current modal (if there's one) -->
+
+        <br>
+
+        <div class="columns">
+            <div class="column is-offset-1 is-7" style="background: white; height: fit-content">
+                {{> Template.dynamic template=currentPage}}  <!-- Dynamic Template to display the current page -->
             </div>
+            <div class="column is-3">
+                <div class="columns is-multiline">
+                    <div class="column is-full" style="background: white;">
+                        <h3 class="title is-3 has-text-centered">Les potagers participatifs</h3>
+                        <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/potager3.png" alt="">
+                    </div>
 
+                    <div class="column is-full" style="background: white;">
+                        <h3 class="title is-3 has-text-centered">Le tri au lycée</h3>
+                        <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/IMG_1894-scaled.jpg" alt="">
+                    </div>
 
-        </nav>
-        <hr style="margin: 0;">
-    </header>
-
-
-    {{> Template.dynamic template=currentMessage}}  <!-- Display the current message (if there's one) -->
-    {{> Template.dynamic template=currentModal}}  <!-- Display the current modal (if there's one) -->
-
-    <br>
-
-    <div class="columns">
-        <div class="column is-offset-1 is-7" style="background: white; height: fit-content">
-            {{> Template.dynamic template=currentPage}}  <!-- Dynamic Template to display the current page -->
-        </div>
-        <div class="column is-3">
-            <div class="columns is-multiline">
-                <div class="column is-full" style="background: white;">
-                    <h3 class="title is-3 has-text-centered">Les potagers participatifs</h3>
-                    <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/potager3.png" alt="">
-                </div>
-
-                <div class="column is-full" style="background: white;">
-                    <h3 class="title is-3 has-text-centered">Le tri au lycée</h3>
-                    <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/IMG_1894-scaled.jpg" alt="">
-                </div>
-
-                <div class="column is-full" style="background: white;">
-                    <h3 class="title is-3 has-text-centered">La biodiversité</h3>
-                    <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/IMG_2448-scaled.jpg" alt="">
+                    <div class="column is-full" style="background: white;">
+                        <h3 class="title is-3 has-text-centered">La biodiversité</h3>
+                        <img class="image" src="https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/IMG_2448-scaled.jpg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer class="footer" style="background-color: #f3f3f3;">
+        <img src="sponsor.png" class="image" style="margin: 0 auto;">
+    </footer>
 </body>
