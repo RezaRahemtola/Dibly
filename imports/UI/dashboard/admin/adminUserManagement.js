@@ -3,19 +3,20 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 // HTML imports
-import './userManagement.html';
+import './adminUserManagement.html';
 
 // Initializing Session variables
 Session.set('displayUsersManagement', []);  // Array used to store all users
 Session.set('availableRoles', []);  // Array used to store all the available roles
 
-Template.userManagement.onRendered(function(){
+
+Template.adminUserManagement.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
 });
 
 
-Template.userManagement.helpers({
+Template.adminUserManagement.helpers({
     displayUsers: function(){
         Meteor.call('getUsersForManagement', function(error, users){
             if(error){
@@ -123,7 +124,7 @@ Template.userManagement.helpers({
                     // Calling a method to update the role in the database
                     Meteor.call('changeRole', {email: email, newRole: newRole}, function(error, result){
                         if(error){
-                            // TODO:
+                            // TODO: error
                         } else{
                             // Role was successfully updated
                         }
@@ -135,7 +136,7 @@ Template.userManagement.helpers({
 });
 
 
-Template.userManagement.events({
+Template.adminUserManagement.events({
     'click button#addNewUser'(event){
         event.preventDefault();
         // Button to add a new user was clicked, displaying the corresponding modal

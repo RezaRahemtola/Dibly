@@ -7,7 +7,6 @@ import './body.html';
 
 // JS imports
 import './home.js';
-import './userManagement.js';
 import './dashboard/dashboard.js';
 
 // Messages imports

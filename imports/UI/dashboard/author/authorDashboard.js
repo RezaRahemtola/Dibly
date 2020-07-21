@@ -5,6 +5,9 @@ import { Template } from 'meteor/templating';
 // HTML import
 import './authorDashboard.html';
 
+// JS import
+import './authorArticlesDashboard.js';
+
 
 Template.authorDashboard.onRendered(function(){
     // Scrolling the window back to the top

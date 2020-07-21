@@ -6,8 +6,8 @@ import { Template } from 'meteor/templating';
 import './dashboard.html';
 
 // JS imports
-import './adminDashboard.js';
-import './authorDashboard.js';
+import './admin/adminDashboard.js';
+import './author/authorDashboard.js';
 
 
 Template.dashboard.onCreated(function(){
