@@ -10,3 +10,12 @@ Template.authorArticlesDashboard.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
 });
+
+
+Template.authorArticlesDashboard.events({
+    'click #addArticle'(event){
+        event.preventDefault();
+        // Add article is clicked, sending user to the page
+        Session.set('page', 'addArticle');
+    }
+});

@@ -1,0 +1,33 @@
+<template name="addArticle">
+
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Ajouter un article</h3>
+    </header>
+
+    <form id="newArticle" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding an hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section class="section">
+            <h4 class="title is-4 has-text-centered">Informations générales</h4>
+
+            <div class="field has-animated-label">
+                <input type="text" class="input has-animated-label" name="title" id="title" placeholder=" " required >
+                <label for="title" class="label is-animated">Titre de l'article <span class="has-text-danger">*</span></label>
+            </div>
+
+            <div class="field has-animated-label">
+                <div class="control has-icons-left">
+                    <textarea class="textarea has-animated-label" name="text" id="text" placeholder=" " required></textarea>
+                    <label for="text" class="label is-animated">Texte <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitArticle" type="submit">Ajouter l'article</button>
+    </form>
+</template>

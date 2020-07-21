@@ -1,0 +1,15 @@
+<template name="latestArticles">
+    {{#each displayLatestArticles}}
+        <article class="message is-info">
+            <div class="productBanner">
+                <div class="message-header">
+                    <p>{{title}}</p>
+                </div>
+
+                <div class="message-body">
+                    <p>{{text}}</p>
+                </div>
+            </div>
+        </article>
+    {{/each}}
+</template>

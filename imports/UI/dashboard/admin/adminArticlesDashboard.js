@@ -13,19 +13,9 @@ Template.adminArticlesDashboard.onRendered(function(){
 
 
 Template.adminArticlesDashboard.events({
-    'click #adminUserManagement'(event){
+    'click #addArticle'(event){
         event.preventDefault();
-        // User management option for administrators is clicked, checking if the current user is really an admin
-        Meteor.call('getCurrentUserRole', function(error, role){
-            if(error){
-                // TODO: error
-            } else if(role === 'admin'){
-                // User is an admin, sending him to user management page
-                Session.set('page', 'adminUserManagement');
-            } else{
-                // Role isn't admin
-                // TODO: error message
-            }
-        });
+        // Add article is clicked, sending user to the page
+        Session.set('page', 'addArticle');
     }
 });

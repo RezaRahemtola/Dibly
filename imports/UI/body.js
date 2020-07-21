@@ -7,7 +7,9 @@ import './body.html';
 
 // JS imports
 import './home.js';
+import './addArticle.js';
 import './dashboard/dashboard.js';
+import './latestArticles.js';
 
 // Messages imports
 import './messages/header.js';
@@ -103,6 +105,10 @@ Template.body.events({
         event.preventDefault();
         // When the brand of the navbar is clicked
         Session.set('page', 'home');  // Switching page to home
+    },
+    'click #latestArticles'(event){
+        event.preventDefault();
+        Session.set('page', 'latestArticles');
     },
 
 
