@@ -8,6 +8,7 @@ import './body.html';
 // JS imports
 import './home.js';
 import './userManagement.js';
+import './dashboard/dashboard.js';
 
 // Messages imports
 import './messages/header.js';
@@ -67,18 +68,6 @@ Template.body.helpers({
             // There is an active modal
             return Session.get('modal');  // Return the modal to display
         }
-    },
-    userIsAdmin: function(){
-        // Checking if user is an administrator
-        Meteor.call('getCurrentUserRole', function(error, role){
-            if(error){
-                // TODO: error
-            } else{
-                // User role was successfully retrieved, saving it in a Session variable
-                Session.set('currentUserRole', role);
-            }
-        });
-        return Session.get('currentUserRole') === 'admin';
     }
 });
 
@@ -119,24 +108,13 @@ Template.body.events({
 
 
     // Profile dropdown events
+    'click #dashboard'(event){
+        event.preventDefault();
+        Session.set('page', 'dashboard');
+    },
     'click #userInformations'(event){
         event.preventDefault();
         Session.set('page', 'userInformations');
-    },
-    'click #userManagement'(event){
-        event.preventDefault();
-        // User management option for administrators is clicked, checking if the current user is really an admin
-        Meteor.call('getCurrentUserRole', function(error, role){
-            if(error){
-                // TODO: error
-            } else if(role === 'admin'){
-                // User is an admin, sending him to user management page
-                Session.set('page', 'userManagement');
-            } else{
-                // Role isn't admin
-                // TODO: error message
-            }
-        });
     }
 });
 
