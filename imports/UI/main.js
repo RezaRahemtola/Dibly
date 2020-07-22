@@ -96,7 +96,7 @@ Template.main.events({
     },
     'click .logout'(event){
         event.preventDefault();
-        BlazeLayout.render('main', {currentPage: 'home'});  // Sending user to the home page
+        FlowRouter.go('/');  // Sending user to the home page
         Meteor.logout();  // Log out the user
     },
     'click div.message-header button.delete'(event){
