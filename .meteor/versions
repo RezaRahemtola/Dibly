@@ -37,6 +37,7 @@ htmljs@1.0.11
 id-map@1.1.0
 inter-process-messaging@0.1.1
 jquery@3.0.0
+kadira:blaze-layout@2.0.1
 launch-screen@1.2.0
 livedata@1.0.18
 localstorage@1.2.0
@@ -59,6 +60,7 @@ npm-bcrypt@0.9.3
 npm-mongo@3.7.1
 observe-sequence@1.0.16
 ordered-dict@1.1.0
+ostrio:flow-router-extra@3.7.5
 promise@0.11.2
 random@1.2.0
 rate-limit@1.0.9

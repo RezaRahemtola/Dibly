@@ -23,3 +23,5 @@ session
 underscore
 accounts-password
 check
+ostrio:flow-router-extra
+kadira:blaze-layout
