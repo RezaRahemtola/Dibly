@@ -12,13 +12,25 @@ Meteor.methods({
         check(title, String);
         check(text, String);
 
-        // TODO: check if user is allowed to add an article
-
-        Articles.insert({
-            title: title,
-            text: text,
-            createdAt: new Date()
-        })
+        if(!Meteor.userId()){
+            // User isn't logged in, throwing an error message
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he's allowed to add an article
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole === 'admin' || userRole === 'author'){
+                // User can create an article, inserting it in the database
+                Articles.insert({
+                    title: title,
+                    text: text,
+                    createdAt: new Date,
+                    authorId: Meteor.userId()
+                });
+            } else{
+                // This user has not the correct role to publish an article, throwing an error message
+                throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de publier des articles.');
+            }
+        }
     },
     'getLatestArticles'(){
         // Return all articles sorted by date of creation
@@ -31,7 +43,9 @@ Meteor.methods({
         articlesCursor.forEach(function(doc){
             articles.push({
                 title: doc.title,
-                text: doc.text
+                text: doc.text,
+                createdAt: doc.createdAt,
+                authorId: doc.author
             });
         });
 

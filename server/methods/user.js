@@ -118,85 +118,137 @@ Meteor.methods({
     'getUsersForManagement'(){
         // TODO: move to a file for admin methods
 
-        // TODO: check if user is admin
 
-        // Catching the list of all users
-        const usersCursor = UsersInformations.find();
-        // Initializing an array to return informations in a proper format
-        var usersInformations = [];
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to access users management (administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole !== 'admin'){
+                // User isn't allowed to access users management, throwing an error
+                throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
+            } else{
+                // User is an administrator, catching the list of all users
+                const usersCursor = UsersInformations.find();
+                // Initializing an array to return informations in a proper format
+                var usersInformations = [];
 
-        usersCursor.forEach(function(doc){
-            usersInformations.push({
-                userId: doc.userId,
-                username: doc.username,
-                email: doc.email,
-                role: doc.role,
-                accessAllowed: doc.accessAllowed
-            })
-        });
+                usersCursor.forEach(function(doc){
+                    usersInformations.push({
+                        userId: doc.userId,
+                        username: doc.username,
+                        email: doc.email,
+                        role: doc.role,
+                        accessAllowed: doc.accessAllowed
+                    })
+                });
 
-        return usersInformations;
+                return usersInformations;
+            }
+        }
     },
     'allowAccess'({email}){
         // Type check to prevent malicious calls
         check(email, String);
 
-        // TODO: check if user is admin
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to change user access (administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole !== 'admin'){
+                // User isn't allowed to change user access, throwing an error
+                throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
+            } else{
+                // User is an administrator, catching id of the targeted user's informations
+                const informationsId = UsersInformations.findOne({email: email})._id;
 
-        // Catching id to update the database
-        const informationsId = UsersInformations.findOne({email: email})._id;
-
-        UsersInformations.update(informationsId, { $set: {
-            accessAllowed: true
-        }});
+                UsersInformations.update(informationsId, { $set: {
+                    accessAllowed: true
+                }});
+            }
+        }
     },
     'removeAccess'({email}){
         // Type check to prevent malicious calls
         check(email, String);
 
-        // TODO: check if user is admin
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to change user access (administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole !== 'admin'){
+                // User isn't allowed to change user access, throwing an error
+                throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
+            } else{
+                // User is an administrator, catching id of the targeted user's informations
+                const informationsId = UsersInformations.findOne({email: email})._id;
 
-        // Catching id to update the database
-        const informationsId = UsersInformations.findOne({email: email})._id;
-
-        UsersInformations.update(informationsId, { $set: {
-            accessAllowed: false
-        }});
+                UsersInformations.update(informationsId, { $set: {
+                    accessAllowed: false
+                }});
+            }
+        }
     },
     'changeRole'({email, newRole}){
         // Type check to prevent malicious calls
         check(email, String);
         check(newRole, String);
 
-        // TODO: check if user is admin
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to change user role (administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole !== 'admin'){
+                // User isn't allowed to change user role, throwing an error
+                throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
+            } else{
+                // User is an administrator, catching id of the targeted user's informations
+                const informationsId = UsersInformations.findOne({email: email})._id;
 
-        // TODO: check if newRole is in the list of allowed roles (in rules)
+                // TODO: check if newRole is in the list of allowed roles (in rules)
 
-        // Carching id to update the database
-        const informationsId = UsersInformations.findOne({email: email})._id;
-
-        // Updating database
-        UsersInformations.update(informationsId, { $set: {
-            role: newRole
-        }});
+                // Updating database
+                UsersInformations.update(informationsId, { $set: {
+                    role: newRole
+                }});
+            }
+        }
     },
     'addUser'({email, role}){
         // Type check to prevent malicious calls
         check(email, String);
         check(role, String);
 
-        // TODO: check if user is admin
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to create a new user (administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            if(userRole !== 'admin'){
+                // User isn't allowed to add an user, throwing an error
+                throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
+            } else{
+                // User is an administrator, creating the user
+                // TODO: check if email is a valid email address
+                // TODO: check if email isn't taken by another user
+                // TODO: check if role is in the list of available roles
 
-        // TODO: check if email is a valid email address
-        // TODO: check if email isn't taken by another user
-        // TODO: check if role is in the list of available roles
-
-        UsersInformations.insert({
-            userId: '',  // Unknown for the moment, will be updated after registration
-            username: "",  // Same than userId
-            email: email,
-            role: role,
-            accessAllowed: true
-        });
+                UsersInformations.insert({
+                    userId: '',  // Unknown for the moment, will be updated after registration
+                    username: "",  // Same than userId
+                    email: email,
+                    role: role,
+                    accessAllowed: true
+                });
+            }
+        }
     }
 })
