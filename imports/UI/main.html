@@ -1,9 +1,9 @@
-<body>
+<template name="main">
     <div id="content-wrap">
         <header>
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
-                    <a class="navbar-item" id="home">
+                    <a class="navbar-item" href="/">
                         <h6 class="title is-3 is-family-monospace">Eco Club</h6>
                     </a>
 
@@ -26,7 +26,7 @@
                             <span>Initiatives individuelles</span>
                         </a>
 
-                        <a class="navbar-item" id="latestArticles">
+                        <a class="navbar-item" href="/latest-articles">
                             <span class="icon"><i class="fas fa-file-alt"></i></span>
                             <span>Nos derniers articles</span>
                         </a>
@@ -49,12 +49,12 @@
                                     <!-- Dropdown menu -->
                                     <div class="navbar-dropdown is-right is-hidden-touch">
 
-                                        <a class="navbar-item" id="dashboard">
+                                        <a class="navbar-item" href="/dashboard">
                                             <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                                             <span>Tableau de bord</span>
                                         </a>
 
-                                        <a class="navbar-item" id="userInformations">
+                                        <a class="navbar-item">
                                             <span class="icon"><i class="fas fa-user"></i></span>
                                             <span>Mes informations</span>
                                         </a>
@@ -126,4 +126,4 @@
     <footer class="footer" style="background-color: #f3f3f3;">
         <img src="/sponsor.png" class="image" style="margin: 0 auto;">
     </footer>
-</body>
+</template>

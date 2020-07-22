@@ -72,3 +72,9 @@ Template.addUser.helpers({
         return Session.get('availableRoles');
     }
 });
+
+
+Template.addUser.onDestroyed(function(){
+    // When the template is destroyed, we send the user back to the last page (to remove the URL of this modal)
+    window.history.back();
+});

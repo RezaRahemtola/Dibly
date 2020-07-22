@@ -1,14 +1,16 @@
 <template name="authorArticlesDashboard">
     <div class="columns">
         <div class="column">
-            <div class="card width-fit-content" id="addArticle" style="cursor: pointer; margin: 0 auto;">
-                <header class="card-header">
-                    <p class="card-header-title has-text-centered" style="display: block;">Ajouter un article</p>
-                </header>
-                <div class="card-content">
-                    <img src="/addArticle.svg" class="image is-128x128" style="margin: 0 auto;">
+            <a href="/dashboard/articles/add">
+                <div class="card width-fit-content" style="cursor: pointer; margin: 0 auto;">
+                    <header class="card-header">
+                        <p class="card-header-title has-text-centered" style="display: block;">Ajouter un article</p>
+                    </header>
+                    <div class="card-content">
+                        <img src="/addArticle.svg" class="image is-128x128" style="margin: 0 auto;">
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </template>

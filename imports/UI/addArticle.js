@@ -45,7 +45,7 @@ Template.addArticle.events({
                 // Article was added without any error, displaying a success message
                 Session.set('message', {type: "header", headerContent: "Article publié avec succès !", style:"is-success"});
                 // Sending user to his dashboard
-                Session.set('page', 'dashboard');
+                FlowRouter.go('/dashboard');
             }
         })
     }

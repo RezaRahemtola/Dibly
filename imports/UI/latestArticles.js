@@ -1,12 +1,22 @@
 // Useful imports
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML imports
 import './latestArticles.html';
 
 // Initializing Session variable
 Session.set('latestArticles', []);
+
+
+FlowRouter.route('/latest-articles', {
+    name: 'latestArticles',
+    action(){
+        BlazeLayout.render('main', {currentPage: 'latestArticles'});
+    }
+});
 
 
 Template.latestArticles.onRendered(function(){

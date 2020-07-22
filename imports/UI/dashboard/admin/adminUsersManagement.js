@@ -3,20 +3,20 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 // HTML imports
-import './adminUserManagement.html';
+import './adminUsersManagement.html';
 
 // Initializing Session variables
 Session.set('displayUsersManagement', []);  // Array used to store all users
 Session.set('availableRoles', []);  // Array used to store all the available roles
 
 
-Template.adminUserManagement.onRendered(function(){
+Template.adminUsersManagement.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
 });
 
 
-Template.adminUserManagement.helpers({
+Template.adminUsersManagement.helpers({
     displayUsers: function(){
         Meteor.call('getUsersForManagement', function(error, users){
             if(error){
@@ -132,15 +132,5 @@ Template.adminUserManagement.helpers({
                 }
             }
         });
-    }
-});
-
-
-Template.adminUserManagement.events({
-    'click button#addNewUser'(event){
-        event.preventDefault();
-        // Button to add a new user was clicked, displaying the corresponding modal
-        // TODO: check if user is admin
-        Session.set('modal', 'addUser');
     }
 });

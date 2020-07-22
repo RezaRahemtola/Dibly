@@ -1,12 +1,15 @@
 // Useful imports
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './body.html';
+import './main.html';
 
 // JS imports
 import './home.js';
+import './404NotFound.js';
 import './addArticle.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
@@ -22,17 +25,28 @@ import './modals/login.js';
 import './modals/register.js';
 import './modals/resetPassword.js';
 
-// CSS import
+// CSS imports
 import './css/navbar.css';
 import './css/image.css';
 import './css/footer.css';
 import './css/generic.css';
 
+// Render layouts directly into the body
+BlazeLayout.setRoot('body');
 
-Template.body.onCreated(function(){
+
+FlowRouter.route('/', {
+    name: 'index',
+    action(){
+        // Render a template using Blaze
+        BlazeLayout.render('main', {currentPage: 'home'});
+    }
+});
+
+
+Template.main.onCreated(function(){
 
     // Initializing Session variables
-    Session.set('page', 'home');  // Site loads with home page
     Session.set('navigation', []);  // Used to store page navigation history to use return button
     Session.set('message', null);  // No message to display for the moment
 
@@ -43,10 +57,7 @@ Template.body.onCreated(function(){
 });
 
 
-Template.body.helpers({
-    currentPage: function(){
-        return Session.get('page');  // Return the page to display
-    },
+Template.main.helpers({
     currentMessage: function(){
         // Catching current message & modal
         const message = Session.get('message');
@@ -73,7 +84,7 @@ Template.body.helpers({
 });
 
 
-Template.body.events({
+Template.main.events({
     // Global events :
     'click .register'(event){
         event.preventDefault();
@@ -85,7 +96,7 @@ Template.body.events({
     },
     'click .logout'(event){
         event.preventDefault();
-        Session.set('page', 'home');  // Set the page to default
+        BlazeLayout.render('main', {currentPage: 'home'});  // Sending user to the home page
         Meteor.logout();  // Log out the user
     },
     'click div.message-header button.delete'(event){
@@ -97,29 +108,6 @@ Template.body.events({
         event.preventDefault();
         // When the closing button of a modal is clicked
         Session.set('modal', null);  // Remove the modal
-    },
-
-
-    // Navbar events
-    'click #home'(event){
-        event.preventDefault();
-        // When the brand of the navbar is clicked
-        Session.set('page', 'home');  // Switching page to home
-    },
-    'click #latestArticles'(event){
-        event.preventDefault();
-        Session.set('page', 'latestArticles');
-    },
-
-
-    // Profile dropdown events
-    'click #dashboard'(event){
-        event.preventDefault();
-        Session.set('page', 'dashboard');
-    },
-    'click #userInformations'(event){
-        event.preventDefault();
-        Session.set('page', 'userInformations');
     }
 });
 
