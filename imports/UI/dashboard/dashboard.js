@@ -83,8 +83,7 @@ FlowRouter.route('/dashboard/users/add', {
                 // TODO: send him back to home page (else a blank page is displayed)
             } else if(role === 'admin'){
                 // User is an admin, we will render the modal
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminUsersDashboard'});
-                Session.set('modal', 'addUser');
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminUsersDashboard', currentModal: 'addUser'});
             }
         });
     }

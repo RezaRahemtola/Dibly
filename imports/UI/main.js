@@ -13,6 +13,7 @@ import './404NotFound.js';
 import './addArticle.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
+import './contact.js';
 
 // Messages imports
 import './messages/header.js';
@@ -47,22 +48,20 @@ FlowRouter.route('/', {
 Template.main.onCreated(function(){
 
     // Initializing Session variables
-    Session.set('navigation', []);  // Used to store page navigation history to use return button
     Session.set('message', null);  // No message to display for the moment
 
-    if(Session.get('modal') === undefined){
-        // No modal set (one could have been set by a function executed before the body creation, like Accounts.onResetPasswordLink)
-        Session.set('modal', null);  // No modal to display for the moment
+    if(Session.get('resetPasswordToken') !== null){
+        // There's a token to reset the password that has been set
+        FlowRouter.go('/resetPassword');  // Display the reset password modal
     }
 });
 
 
 Template.main.helpers({
     currentMessage: function(){
-        // Catching current message & modal
+        // Catching current message
         const message = Session.get('message');
-        const modal = Session.get('modal');
-        if(message !== null && modal === null){
+        if(message !== null){
             // There is a message to display and no modal is active
             return message.type;  // Return the message to display
         } else if(Meteor.user() && Meteor.user().emails){
@@ -73,27 +72,12 @@ Template.main.helpers({
                 Session.set('message', {type:"verifyEmail"} );  // Set the message
             }
         }
-    },
-    currentModal: function(){
-        // Return the modal to display if there's one
-        if(Session.get('modal') !== null){
-            // There is an active modal
-            return Session.get('modal');  // Return the modal to display
-        }
     }
 });
 
 
 Template.main.events({
     // Global events :
-    'click .register'(event){
-        event.preventDefault();
-        Session.set('modal', 'register');  // Display the register modal
-    },
-    'click .login'(event){
-        event.preventDefault();
-        Session.set('modal', 'login');  // Display the login modal
-    },
     'click .logout'(event){
         event.preventDefault();
         FlowRouter.go('/');  // Sending user to the home page
@@ -107,7 +91,7 @@ Template.main.events({
     'click .modal-card-head .delete, click .modal-background'(event){
         event.preventDefault();
         // When the closing button of a modal is clicked
-        Session.set('modal', null);  // Remove the modal
+        FlowRouter.go('/');  // Remove the modal by going back to the home page
     }
 });
 

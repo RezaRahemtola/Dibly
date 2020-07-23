@@ -17,6 +17,8 @@ Meteor.startup(function(){
         const { username, password, host, port, isSecure } = Meteor.settings.smtp;
         const scheme = isSecure ? 'smtps' : 'smtp';
         process.env.MAIL_URL = `${scheme}://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}:${port}`;
+
+        process.env.SENDGRID_CONTACT_API_KEY = Meteor.settings.sendgridContactApiKey;
     }
 
     // Calling the method to define email settings and templates :

@@ -1,0 +1,46 @@
+<template name="contact">
+    <h3 class="title is-3 has-text-centered">Contact</h3>
+
+    <p class="has-text-centered">
+        <span>Une question, un avis à donner, un bug à signaler ?</span>
+        <br>
+        <span>Remplissez simplement le formulaire ci-dessous et nous reviendrons vers vous aussi rapidement que possible.</span>
+    </p>
+
+    <br><br>
+
+    <form class="container" id="contactForm">
+        <div class="field has-animated-label" id="emailField">
+            <div class="control has-icons-left">
+                <input class="input has-animated-label" type="email" name="email" id="email" placeholder=" " required>
+                <label for="email" class="label is-animated">Email <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </div>
+            <p class="help is-danger"></p>
+        </div>
+
+        <div class="field has-animated-label">
+            <input type="text" class="input has-animated-label" name="subject" id="subject" placeholder=" " required >
+            <label for="name" class="label is-animated">Sujet <span class="has-text-danger">*</span></label>
+            <span id="subjectCharCounter" class="character-counter"></span>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <textarea class="textarea has-animated-label" name="message" id="message" placeholder=" " required></textarea>
+                <label for="description" class="label is-animated">Message <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-file-alt"></i>
+                </span>
+            </div>
+            <span id="messageCharCounter" class="character-counter"></span>
+        </div>
+    </form>
+
+    <br>
+    <div class="container">
+        <button class="button is-medium is-success is-fullwidth" id="sendMessage">Envoyer le message</button>
+    </div>
+</template>

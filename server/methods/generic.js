@@ -54,5 +54,31 @@ Meteor.methods({
                         <p>Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet e-mail en toute sécurité.</p>`;
             }
         };
+    },
+    'sendContactMessage'({email, subject, message}){
+        // Type check to prevent malicious calls
+        check(email, String);
+        check(subject, String);
+        check(message, String);
+
+        // TODO: length verifications
+        // TODO: email verification
+        const from = Rules.email.contactForm.sender;
+        const to = Rules.email.contactForm.receiver;
+        const emailSubject = "Formulaire de contact";
+
+        // Creating the body content of the email
+        const html = `<h3>Sujet: `+ subject +`</h3>
+                      <h4>Adresse email : `+ email +`</h4>
+                      <p>Message : `+ message +`</p>`;
+
+        // Sending email using SendGrid (https://app.sendgrid.com/guide/integrate/langs/nodejs):
+
+        // Using Twilio SendGrid's v3 Node.js Library (https://github.com/sendgrid/sendgrid-nodejs)
+        const sendGrid = require('@sendgrid/mail');
+        sendGrid.setApiKey(process.env.SENDGRID_CONTACT_API_KEY);
+        sendGrid.send({to: to, from: from, subject: emailSubject, html: html});
+
+        return true;
     }
 });

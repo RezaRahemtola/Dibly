@@ -33,7 +33,7 @@ Template.addUser.events({
     'click #addSubmit' (event){
         event.preventDefault();
         $(event.target).addClass("is-loading");  // Add a loading effect to the button
-        var form = new FormData(document.getElementById('loginForm'));
+        var form = new FormData(document.getElementById('addUserForm'));
         const email = form.get('email');
         const role = form.get('role');
 
@@ -45,7 +45,7 @@ Template.addUser.events({
             } else{
                 // User was successfully added, displaying a success message
                 // TODO: success message
-                Session.set('modal', null);  // Remove the modal
+                FlowRouter.go('/dashboard/users')  // Remove the modal by sending user to the users' dashboard page
             }
         });
     }
@@ -71,10 +71,4 @@ Template.addUser.helpers({
         });
         return Session.get('availableRoles');
     }
-});
-
-
-Template.addUser.onDestroyed(function(){
-    // When the template is destroyed, we send the user back to the last page (to remove the URL of this modal)
-    window.history.back();
 });

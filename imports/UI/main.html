@@ -31,7 +31,7 @@
                             <span>Nos derniers articles</span>
                         </a>
 
-                        <a class="navbar-item" id="contact">
+                        <a href="/contact" class="navbar-item">
                             <span class="icon"><i class="fas fa-edit"></i></span>
                             <span>Contact</span>
                         </a>
@@ -79,7 +79,7 @@
                                 </script>
                             {{else}}
                                 <!-- Display a login button when the user is NOT logged in-->
-                                <a class="button is-primary login">
+                                <a href="/login" class="button is-primary">
                                     <strong>Se connecter</strong>
                                 </a>
                             {{/if}}
@@ -124,6 +124,7 @@
     </div>
 
     <footer class="footer" style="background-color: #f3f3f3;">
+        <p class="has-text-centered"><i>TODO : replace with custom HTML & Bulma design to link each sponsor separately</i></p>
         <img src="/sponsor.png" class="image" style="margin: 0 auto;">
     </footer>
 </template>
