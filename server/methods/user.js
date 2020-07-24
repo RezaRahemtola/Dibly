@@ -209,15 +209,21 @@ Meteor.methods({
                 // User isn't allowed to change user role, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching id of the targeted user's informations
-                const informationsId = UsersInformations.findOne({email: email})._id;
+                // User is an administrator so he can change the role, checking if the new role is in the list of available roles
+                const availableRoles = Rules.user.roles;
 
-                // TODO: check if newRole is in the list of allowed roles (in rules)
+                if(!availableRoles.includes(newRole)){
+                    // The role isn't in the list of available roles, throwing an error
+                    throw new Meteor.Error('roleNotAvailable', 'Le rôle "'+role+'" ne peut pas être sélectionné, veuillez choisir un autre rôle.');
+                } else{
+                    // The role is available, catching id of the targeted user's informations
+                    const informationsId = UsersInformations.findOne({email: email})._id;
 
-                // Updating database
-                UsersInformations.update(informationsId, { $set: {
-                    role: newRole
-                }});
+                    // Updating database
+                    UsersInformations.update(informationsId, { $set: {
+                        role: newRole
+                    }});
+                }
             }
         }
     },
@@ -236,17 +242,42 @@ Meteor.methods({
                 // User isn't allowed to add an user, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, creating the user
-                // TODO: check if email is a valid email address
-                // TODO: check if email isn't taken by another user
-                // TODO: check if role is in the list of available roles
+                // User is an administrator, he's allowed to create an user
 
-                UsersInformations.insert({
-                    userId: '',  // Unknown for the moment, will be updated after registration
-                    username: "",  // Same than userId
-                    email: email,
-                    role: role,
-                    accessAllowed: true
+                // Checking if email is valid
+                Meteor.call('checkEmailInput', function(error, result){
+                    if(error){
+                        // Email address is invalid, throwing an error
+                        throw new Meteor.Error('invalidEmail', 'Adresse email invalide.');
+                    } else{
+                        // Email address is valid, checking if it's not taken by another user
+                        Meteor.call('checkIfEmailIsTaken', {email: email}, function(error, isTaken){
+                            if(error){
+                                // There was an error while checking if email is taken, throwing an error to the client
+                                throw new Meteor.Error('checkTakenEmailError', 'Une erreur est survenue lors des vérifications, veuillez réessayer.');
+                            } else if(isTaken){
+                                // Email address is already taken, throwing an error
+                                throw new Meteor.Error('emailAlreadyTaken', 'Cette adresse email est déjà utilisée par un autre utilisateur.');
+                            } else{
+                                // Email address isn't taken by another user, checking if the role is in the list of available roles
+                                const availableRoles = Rules.user.roles;
+                                if(!availableRoles.includes(role)){
+                                    // The role isn't in the list of possible roles, throwing an error
+                                    throw new Meteor.Error('roleNotAvailable', 'Le rôle "'+role+'" ne peut pas être sélectionné, veuillez choisir un autre rôle.');
+                                } else{
+                                    // The role is available, creating the user
+
+                                    UsersInformations.insert({
+                                        userId: '',  // Unknown for the moment, will be updated after registration
+                                        username: "",  // Same than userId
+                                        email: email,
+                                        role: role,
+                                        accessAllowed: true
+                                    });
+                                }
+                            }
+                        });
+                    }
                 });
             }
         }
