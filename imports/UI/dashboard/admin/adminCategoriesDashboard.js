@@ -3,13 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 // HTML import
-import './adminDashboard.html';
-
-// JS imports
-import './adminUsersDashboard.js';
-import './adminUsersManagement.js';
-import './adminArticlesDashboard.js';
-import './adminCategoriesDashboard.js';
+import './adminCategoriesDashboard.html';
 
 
 Template.adminDashboard.onRendered(function(){

@@ -126,6 +126,41 @@ FlowRouter.route('/dashboard/articles/add', {
 });
 
 
+FlowRouter.route('/dashboard/categories', {
+    name: 'dashboardCategories',
+    action(){
+        // We will render the categories dashboard using Blaze, checking if user is an administrator
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin'){
+                // User can access the dashboard
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminCategoriesDashboard'});
+            }
+        });
+    }
+});
+
+
+FlowRouter.route('/dashboard/categories/add', {
+    name: 'dashboardAddCategories',
+    action(){
+        // We will render the add article template using Blaze, checking if user is allowed to add a new categoty
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin'){
+                // User can add a category
+                BlazeLayout.render('main', {currentPage: 'addCategory'});
+            }
+        });
+    }
+});
+
+
 Template.dashboard.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);

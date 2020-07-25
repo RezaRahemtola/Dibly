@@ -11,6 +11,7 @@ import './main.html';
 import './home.js';
 import './404NotFound.js';
 import './addArticle.js';
+import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
 import './contact.js';

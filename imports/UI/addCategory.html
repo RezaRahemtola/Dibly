@@ -1,0 +1,23 @@
+<template name="addCategory">
+
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Ajouter une catégorie</h3>
+    </header>
+
+    <form id="newCategory" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding an hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section class="section">
+
+            <div class="field has-animated-label">
+                <input type="text" class="input has-animated-label" name="name" id="name" placeholder=" " required >
+                <label for="name" class="label is-animated">Nom de la catégorie <span class="has-text-danger">*</span></label>
+            </div>
+
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitCategory" type="submit">Ajouter la catégorie</button>
+    </form>
+</template>
