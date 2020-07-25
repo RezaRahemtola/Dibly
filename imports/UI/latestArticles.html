@@ -8,6 +8,11 @@
 
                 <div class="message-body">
                     <p>{{text}}</p>
+                    <div class="tags">
+                        {{#each categories}}
+                            <span class="tag is-link">{{this}}</span>
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </article>

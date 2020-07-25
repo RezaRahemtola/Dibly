@@ -4,31 +4,40 @@ import { Accounts } from 'meteor/accounts-base';
 
 // Importing databases
 import { Articles } from '../../imports/databases/articles.js';
+import { UsersInformations } from '../../imports/databases/usersInformations.js';
 
 
 Meteor.methods({
-    'addArticle'({title, text}){
+    'addArticle'({title, text, categories}){
         // Type check to prevent malicious calls
         check(title, String);
         check(text, String);
 
-        if(!Meteor.userId()){
-            // User isn't logged in, throwing an error message
-            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        if(!Array.isArray(categories)){
+            // Categories isn't an array
+            throw new Meteor.Error('categoriesNotArray', "Une erreur est survenue lors de l'ajout des catégories, veuillez réessayer.");
         } else{
-            // User is logged in, checking if he's allowed to add an article
-            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
-            if(userRole === 'admin' || userRole === 'author'){
-                // User can create an article, inserting it in the database
-                Articles.insert({
-                    title: title,
-                    text: text,
-                    createdAt: new Date,
-                    authorId: Meteor.userId()
-                });
+            // All parameters are of the correct type, checking if user is logged in
+
+            if(!Meteor.userId()){
+                // User isn't logged in, throwing an error message
+                throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
             } else{
-                // This user has not the correct role to publish an article, throwing an error message
-                throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de publier des articles.');
+                // User is logged in, checking if he's allowed to add an article
+                const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+                if(userRole === 'admin' || userRole === 'author'){
+                    // User can create an article, inserting it in the database
+                    Articles.insert({
+                        title: title,
+                        text: text,
+                        categories: categories,
+                        createdAt: new Date,
+                        authorId: Meteor.userId()
+                    });
+                } else{
+                    // This user has not the correct role to publish an article, throwing an error message
+                    throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de publier des articles.');
+                }
             }
         }
     },
@@ -44,6 +53,7 @@ Meteor.methods({
             articles.push({
                 title: doc.title,
                 text: doc.text,
+                categories: doc.categories,
                 createdAt: doc.createdAt,
                 authorId: doc.author
             });

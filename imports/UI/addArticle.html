@@ -28,6 +28,32 @@
             </div>
         </section>
 
+        <section class="section" style="border-top: solid grey 0.1rem;">
+            <h4 class="title is-4 has-text-centered">Catégories</h4>
+
+            <div class="field">
+                <div class="select width-fit-content" style="margin: 0 auto; display: block;">
+                    <select id="categories">
+                        <option value="add" selected disabled hidden>Ajouter une catégorie</option>
+                        {{#each displayCategories}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="field is-grouped is-grouped-multiline width-fit-content" id="categoryTags" style="margin: 1rem auto;">
+                    {{#each displaySelectedCategories}}
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <a class="tag is-link">{{this}}</a>
+                                <a class="tag is-delete"></a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
         <button class="button is-success is-medium is-fullwidth" id="submitArticle" type="submit">Ajouter l'article</button>
     </form>
 </template>

@@ -28,5 +28,13 @@ Meteor.methods({
                 throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de créer une catégorie');
             }
         }
+    },
+    'getCategories'(){
+        const categoriesCursor = Categories.find();
+        var categories = [];
+        for(var category of categoriesCursor){
+            categories.push(category.name);
+        }
+        return categories;
     }
 });
