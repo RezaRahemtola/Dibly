@@ -85,6 +85,9 @@ Meteor.methods({
                 sendGrid.setApiKey(process.env.SENDGRID_CONTACT_API_KEY);
                 sendGrid.send({to: to, from: from, subject: emailSubject, html: html});
             }
-        });    
+        });
+    },
+    'getGiphyApiKey'(){
+        return process.env.GIPHY_API_KEY;
     }
 });

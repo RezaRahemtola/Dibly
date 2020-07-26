@@ -10,12 +10,15 @@
         <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
         <section class="section">
-
             <div class="field has-animated-label">
-                <input type="text" class="input has-animated-label" name="name" id="name" placeholder=" " required >
-                <label for="name" class="label is-animated">Nom de la catégorie <span class="has-text-danger">*</span></label>
+                <div class="control has-icons-left">
+                    <input type="text" class="input has-animated-label" name="name" id="name" placeholder=" " required>
+                    <label for="name" class="label is-animated">Nom de la catégorie <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-list"></i>
+                    </span>
+                </div>
             </div>
-
         </section>
 
         <button class="button is-success is-medium is-fullwidth" id="submitCategory" type="submit">Ajouter la catégorie</button>

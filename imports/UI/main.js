@@ -51,6 +51,15 @@ Template.main.onCreated(function(){
     // Initializing Session variables
     Session.set('message', null);  // No message to display for the moment
 
+    // Catching giphy api key
+    Meteor.call('getGiphyApiKey', function(error, apikey){
+        if(error){
+            // TODO: error
+        } else{
+            Session.set('giphyApiKey', apikey);
+        }
+    });
+
     if(Session.get('resetPasswordToken') !== null){
         // There's a token to reset the password that has been set
         FlowRouter.go('/resetPassword');  // Display the reset password modal

@@ -24,9 +24,7 @@ html{
 
 
 /* Styling icons in buttons */
-.button .icon:first-child:last-child {
-    margin-right: 0;
-}
+.button .icon:first-child:last-child { margin-right: 0; }
 
 
 /* Styling links */
@@ -37,3 +35,6 @@ html{
             text-decoration: underline #e47312;
 
 }
+
+/* Adding a bullet for ul */
+ul{ list-style: inside; }

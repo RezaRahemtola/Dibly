@@ -11,23 +11,6 @@ Template.addArticle.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
 
-    // Catching text input
-    const textInput = document.querySelector('textarea#text');
-    textInput.oninput = function(){
-        // When a char is added or removed, auto expand the field to display the text correctly
-        // Sending mandatory informations only to preserve server resources
-        fieldForServer = {value: textInput.value, scrollHeight: textInput.scrollHeight};
-        Meteor.call('autoExpand', {field:fieldForServer}, function(error, result){
-            if(error){
-                // There was an error
-                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});  // Display an error message
-            } else if(result){
-                // Result is the height to apply to the field
-                textInput.style.height = result;
-            }
-        });
-    }
-
     // Dynamically check and show selected categories
     Session.set('selectedCategories', []);  // // Creating an array to store the categories and saving it in a Session variable to allow removing from events
     const select = document.querySelector("select#categories");  // Catching the select element
@@ -41,6 +24,35 @@ Template.addArticle.onRendered(function(){
         }
         select.value = 'add';  // Reseting the select with the default value
     }
+
+
+    $('div#editor').trumbowyg({
+        lang: 'fr',
+        autogrow: true,
+        defaultLinkTarget: '_blank',
+        btns: [
+            ['viewHTML'],
+            ['undo', 'redo'], // Only supported in Blink browsers
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['foreColor', 'backColor'],
+            // ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['giphy'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['removeformat'],
+            //['horizontalRule'],
+            ['unorderedList', 'orderedList'],
+            ['fullscreen']
+
+        ],
+        plugins: {
+            giphy: {
+                apiKey: Session.get('giphyApiKey')
+            }
+        }
+    });
 });
 
 
