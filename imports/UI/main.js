@@ -15,6 +15,7 @@ import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
 import './contact.js';
+import './articleBanner.js';
 
 // Messages imports
 import './messages/header.js';

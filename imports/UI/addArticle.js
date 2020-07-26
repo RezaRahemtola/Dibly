@@ -29,18 +29,48 @@ Template.addArticle.onRendered(function(){
     $('div#editor').trumbowyg({
         lang: 'fr',
         autogrow: true,
+        urlProtocol: true,
+        semantic: {
+            'del' : 's'  /* Replace del tags to resolve turning off bug
+                            Issue: https://github.com/Alex-D/Trumbowyg/issues/293
+                            Docs about semantic: https://alex-d.github.io/Trumbowyg/documentation/#semantic */
+        },
         defaultLinkTarget: '_blank',
+        btnsDef: {
+            buttnName: {
+                fn: function(){
+                    document.querySelector('div#editor').innerHTML += "<br><div class='columns'><div class='column'>truc</div><div class='column'>truc</div></div>";
+                },
+                tag: 'tagName',
+                title: 'Button tooltip',
+                text: 'Colonnes',
+                isSupported: function () { return true; },
+                hasIcon: false
+            },
+            align: {
+                dropdown: ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                title: 'Alignement',
+                ico: 'justifyLeft'
+            },
+            formatage: {
+                dropdown: ['p', 'blockquote', 'h3', 'h4', 'h5', 'h6'],
+                title: 'Formatage',
+                ico: 'p'
+            }
+        },
         btns: [
             ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
-            ['formatting'],
+            ['formatage'],
             ['strong', 'em', 'del'],
             ['foreColor', 'backColor'],
             // ['superscript', 'subscript'],
+            ['buttnName'],
             ['link'],
             ['insertImage'],
             ['giphy'],
-            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['noembed'],
+            ['align'],
             ['removeformat'],
             //['horizontalRule'],
             ['unorderedList', 'orderedList'],
@@ -52,7 +82,10 @@ Template.addArticle.onRendered(function(){
                 apiKey: Session.get('giphyApiKey')
             }
         }
-    });
+    })
+    .on('tbwchange', function(){
+         $('.trumbowyg-editor h3').addClass('title is-3');
+     });
 });
 
 
@@ -63,10 +96,10 @@ Template.addArticle.events({
         // Catching inputs for the call :
         const form = new FormData(document.getElementById('newArticle'));
         const title = form.get('title');
-        const text = form.get('text');
+        const html = document.querySelector('div#editor').innerHTML;
         const categories = Session.get('selectedCategories');
 
-        Meteor.call('addArticle', {title: title, text: text, categories: categories}, function(error, result){
+        Meteor.call('addArticle', {title: title, html: html, categories: categories}, function(error, result){
             if(error){
                 // TODO: error
             } else{

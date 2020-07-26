@@ -8,10 +8,10 @@ import { UsersInformations } from '../../imports/databases/usersInformations.js'
 
 
 Meteor.methods({
-    'addArticle'({title, text, categories}){
+    'addArticle'({title, html, categories}){
         // Type check to prevent malicious calls
         check(title, String);
-        check(text, String);
+        check(html, String);
 
         if(!Array.isArray(categories)){
             // Categories isn't an array
@@ -29,7 +29,7 @@ Meteor.methods({
                     // User can create an article, inserting it in the database
                     Articles.insert({
                         title: title,
-                        text: text,
+                        html: html,
                         categories: categories,
                         createdAt: new Date,
                         authorId: Meteor.userId()
@@ -51,8 +51,9 @@ Meteor.methods({
         var articles = [];
         articlesCursor.forEach(function(doc){
             articles.push({
+                _id: doc._id,
                 title: doc.title,
-                text: doc.text,
+                html: doc.html,
                 categories: doc.categories,
                 createdAt: doc.createdAt,
                 authorId: doc.author

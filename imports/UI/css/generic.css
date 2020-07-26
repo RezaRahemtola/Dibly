@@ -38,3 +38,13 @@ html{
 
 /* Adding a bullet for ul */
 ul{ list-style: inside; }
+
+
+/*  Styling blockquote elements (not handled by bulma)*/
+blockquote{
+    margin-left: 32px;
+    font-family: "Segoe Print", "Times New Roman", Verdana;
+    padding-left: 48px;
+    background: url('https://www.xul.fr/css/images/blockquote.png') no-repeat;
+    min-height: 30px;
+}
