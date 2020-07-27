@@ -11,6 +11,7 @@ import './main.html';
 import './home.js';
 import './404NotFound.js';
 import './addArticle.js';
+import './deleteArticle.js';
 import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
@@ -23,6 +24,7 @@ import './messages/verifyEmail.js';
 
 // Modals imports
 import './modals/addUser.js';
+import './modals/confirmDeleteArticle.js';
 import './modals/forgotPassword.js';
 import './modals/login.js';
 import './modals/register.js';

@@ -54,6 +54,42 @@ FlowRouter.route('/dashboard/articles', {
 });
 
 
+FlowRouter.route('/dashboard/articles/add', {
+    name: 'dashboardAddArticle',
+    action(){
+        // We will render the add article template using Blaze, checking if user is allowed to add an article
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin' || role === 'author'){
+                // User can add an article
+                BlazeLayout.render('main', {currentPage: 'addArticle'});
+            }
+        });
+    }
+});
+
+
+FlowRouter.route('/dashboard/articles/delete', {
+    name: 'dashboardDeleteArticle',
+    action(){
+        // We will render the add article template using Blaze, checking if user is allowed to add an article
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin' || role === 'author'){
+                // User can delete an article
+                BlazeLayout.render('main', {currentPage: 'deleteArticle'});
+            }
+        });
+    }
+});
+
+
 FlowRouter.route('/dashboard/users', {
     name: 'dashboardUsers',
     action(){
@@ -102,24 +138,6 @@ FlowRouter.route('/dashboard/users/manage', {
             } else if(role === 'admin'){
                 // User is an admin, we will render the template
                 BlazeLayout.render('main', {currentPage: 'adminUsersManagement'});
-            }
-        });
-    }
-});
-
-
-FlowRouter.route('/dashboard/articles/add', {
-    name: 'dashboardAddArticle',
-    action(){
-        // We will render the add article template using Blaze, checking if user is allowed to add an article
-
-        Meteor.call('getCurrentUserRole', function(error, role){
-            if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
-            } else if(role === 'admin' || role === 'author'){
-                // User can add an article
-                BlazeLayout.render('main', {currentPage: 'addArticle'});
             }
         });
     }

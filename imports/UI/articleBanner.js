@@ -7,5 +7,5 @@ import './articleBanner.html';
 
 
 Template.articleBanner.onRendered(function(){
-    document.querySelector('.htmlContainer#'+this.data._id).innerHTML = this.data.html;
+    document.querySelector('.htmlContainer[id="'+this.data._id+'"]').innerHTML = this.data.html;
 });

@@ -1,0 +1,25 @@
+<template name="deleteArticle">
+    <h2 class="title is-2 has-text-centered">Supprimer un article</h2>
+
+    <table class="table is-bordered is-striped is-hoverable" style="margin: 3rem auto;">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each displayArticles}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{author}}</td>
+                    <td>{{createdAt}}</td>
+                    <td class="deleteArticle" id={{_id}} style="cursor: pointer;">
+                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
