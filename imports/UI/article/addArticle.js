@@ -70,7 +70,7 @@ Template.addArticle.onRendered(function(){
             ['strong', 'em', 'del'],
             ['foreColor', 'backColor'],
             // ['superscript', 'subscript'],
-            ['columns'],
+            ['fontfamily'],
             ['link'],
             ['insertImage'],
             ['giphy'],
@@ -79,12 +79,25 @@ Template.addArticle.onRendered(function(){
             ['removeformat'],
             //['horizontalRule'],
             ['unorderedList', 'orderedList'],
+            ['columns'],
             ['fullscreen']
 
         ],
         plugins: {
             giphy: {
                 apiKey: Session.get('giphyApiKey')
+            },
+            fontfamily: {
+                fontList: [
+                    {name: 'Arial Black', family: 'Arial Black, Gadget, sans-serif'},
+                    {name: 'Changa One', family: 'Changa One, Helvetica, sans-serif'},
+                    {name: 'Comic Sans', family: 'Comic Sans MS, Textile, cursive, sans-serif'},
+                    {name: 'Courier New', family: 'Courier New, Courier, monospace'},
+                    {name: 'Impact', family: 'Impact, Charcoal, sans-serif'},
+                    {name: 'Lucida Console', family: 'Lucida Console, Monaco, monospace'},
+                    {name: 'Parisienne', family: 'Parisienne, sans-serif'},
+                    {name: 'Times New Roman', family: 'Times New Roman, Times, serif'}
+                ]
             }
         }
     })

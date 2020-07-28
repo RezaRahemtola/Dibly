@@ -34,12 +34,8 @@ import './modals/login.js';
 import './modals/register.js';
 import './modals/resetPassword.js';
 
-// CSS imports
-import './css/articles.css';
-import './css/navbar.css';
-import './css/image.css';
-import './css/footer.css';
-import './css/generic.css';
+// CSS import
+import './css/_all.js';
 
 // Render layouts directly into the body
 BlazeLayout.setRoot('body');

@@ -45,6 +45,6 @@ blockquote{
     margin-left: 32px;
     font-family: "Segoe Print", "Times New Roman", Verdana;
     padding-left: 48px;
-    background: url('https://www.xul.fr/css/images/blockquote.png') no-repeat;
+    background: url('/blockquote.png') no-repeat;
     min-height: 30px;
 }

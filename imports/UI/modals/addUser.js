@@ -5,9 +5,6 @@ import { Template } from 'meteor/templating';
 // HTML import
 import './addUser.html';
 
-// CSS import
-import '../css/form.css';
-
 
 Template.addUser.onRendered(function(){
     // Live email validation

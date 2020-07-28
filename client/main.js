@@ -27,5 +27,8 @@ import '../node_modules/trumbowyg/dist/plugins/giphy/trumbowyg.giphy.min.js';
 // Trumbowyg plugin to embed any content from a link using noembed.com API
 import '../node_modules/trumbowyg/dist/plugins/noembed/trumbowyg.noembed.min.js';
 
+// Trumbowyg plugin which allows user to custom font family
+import '../node_modules/trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js';
+
 // Set the Trumbowyg's icons path
 $.trumbowyg.svgPath = '/trumbowyg-icons.svg';
