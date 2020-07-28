@@ -10,13 +10,16 @@ import './main.html';
 // JS imports
 import './home.js';
 import './404NotFound.js';
-import './addArticle.js';
-import './deleteArticle.js';
 import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
 import './contact.js';
-import './articleBanner.js';
+
+// Article pages imports
+import './article/addArticle.js';
+import './article/deleteArticle.js';
+import './article/articleBanner.js';
+import './article/articlePage.js';
 
 // Messages imports
 import './messages/header.js';

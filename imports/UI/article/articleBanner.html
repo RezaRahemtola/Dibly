@@ -1,13 +1,13 @@
 <template name="articleBanner">
-    <article class="message is-info">
-        <div class="articleBanner">
+    <a href="/article/{{_id}}">
+        <article class="message is-info">
             <div class="message-header">
                 <h2 class="title is-2 has-text-centered" style="margin: 0 auto;">{{title}}</h2>
             </div>
 
             <div class="message-body">
-                <p>Publié le {{createdAt}} par {{author}}</p>
-                <div class="htmlContainer" id={{_id}}>
+                <p>Publié le <span class="icon"><i class="fas fa-calendar-alt"></i></span>{{createdAt}} par <span class="icon"><i class="fas fa-user"></i></span>{{author}}</p>
+                <div class="htmlContainer" id={{_id}} style="max-height: 16rem; overflow: hidden;">
                 </div>
                 <div class="tags">
                     {{#each categories}}
@@ -15,6 +15,6 @@
                     {{/each}}
                 </div>
             </div>
-        </div>
-    </article>
+        </article>
+    </a>
 </template>
