@@ -1,0 +1,34 @@
+<template name="addUser">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Ajouter un utilisateur</h3>
+    </header>
+
+    <form id="addUserForm" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding an hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <div class="field has-animated-label" id="emailField">
+            <div class="control has-icons-left">
+                <input class="input has-animated-label" type="email" name="email" id="email" placeholder=" " required>
+                <label for="email" class="label is-animated">Email</label>
+                <span class="icon is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </div>
+            <p class="help is-success"></p>
+            <p class="help is-danger"></p>
+        </div>
+
+        <div class="select">
+            <select name='role' id='role'>
+                <option value="chooseRole" selected disabled hidden>Choisir un rôle</option>
+                {{#each displayRoles}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <button class="button is-medium is-fullwidth has-background-success" id="addSubmit">Valider</button>
+    </form>
+</template>

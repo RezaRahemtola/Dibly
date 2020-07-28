@@ -1,9 +1,29 @@
 // Useful imports
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
 import './addUser.html';
+
+
+FlowRouter.route('/dashboard/users/add', {
+    name: 'dashboardUsersAdd',
+    action(){
+        // We will render the form to add an user using Blaze, checking if user is really an administrator
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin'){
+                // User is an admin, we will render the form
+                BlazeLayout.render('main', {currentPage: 'addUser'});
+            }
+        });
+    }
+});
 
 
 Template.addUser.onRendered(function(){
@@ -42,7 +62,7 @@ Template.addUser.events({
             } else{
                 // User was successfully added, displaying a success message
                 // TODO: success message
-                FlowRouter.go('/dashboard/users')  // Remove the modal by sending user to the users' dashboard page
+                FlowRouter.go('/dashboard/users')  // Sending user to the users' dashboard page
             }
         });
     }
@@ -50,13 +70,6 @@ Template.addUser.events({
 
 
 Template.addUser.helpers({
-    messageToDisplay: function(){
-        var message = Session.get('message');
-        if(message !== null){
-            // There is a message to display
-            return message.type;  // Return the message to display
-        }
-    },
     displayRoles: function(){
         Meteor.call('getRoles', function(error, roles){
             if(error){

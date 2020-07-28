@@ -6,10 +6,10 @@ import { Template } from 'meteor/templating';
 import './adminDashboard.html';
 
 // JS imports
-import './adminUsersDashboard.js';
-import './adminUsersManagement.js';
-import './adminArticlesDashboard.js';
-import './adminCategoriesDashboard.js';
+import './addUser.js';
+import './usersDashboard.js';
+import './usersManagement.js';
+import './categoriesDashboard.js';
 
 
 Template.adminDashboard.onRendered(function(){

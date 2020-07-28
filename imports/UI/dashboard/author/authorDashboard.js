@@ -6,7 +6,7 @@ import { Template } from 'meteor/templating';
 import './authorDashboard.html';
 
 // JS import
-import './authorArticlesDashboard.js';
+import './articlesDashboard.js';
 
 
 Template.authorDashboard.onRendered(function(){

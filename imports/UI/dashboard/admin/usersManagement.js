@@ -1,13 +1,33 @@
 // Useful imports
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
-// HTML imports
-import './adminUsersManagement.html';
+// HTML import
+import './usersManagement.html';
 
 // Initializing Session variables
 Session.set('displayUsersManagement', []);  // Array used to store all users
 Session.set('availableRoles', []);  // Array used to store all the available roles
+
+
+FlowRouter.route('/dashboard/users/manage', {
+    name: 'dashboardUsersManage',
+    action(){
+        // We will render the manage users template using Blaze, checking if user is really an administrator
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin'){
+                // User is an admin, we will render the template
+                BlazeLayout.render('main', {currentPage: 'adminUsersManagement'});
+            }
+        });
+    }
+});
 
 
 Template.adminUsersManagement.onRendered(function(){

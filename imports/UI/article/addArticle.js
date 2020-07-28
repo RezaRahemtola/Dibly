@@ -2,9 +2,28 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML imports
 import './addArticle.html';
+
+
+FlowRouter.route('/dashboard/articles/add', {
+    name: 'dashboardAddArticle',
+    action(){
+        // We will render the add article template using Blaze, checking if user is allowed to add an article
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin' || role === 'author'){
+                // User can add an article
+                BlazeLayout.render('main', {currentPage: 'addArticle'});
+            }
+        });
+    }
+});
 
 
 Template.addArticle.onRendered(function(){

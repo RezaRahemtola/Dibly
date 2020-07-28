@@ -245,7 +245,7 @@ Meteor.methods({
                 // User is an administrator, he's allowed to create an user
 
                 // Checking if email is valid
-                Meteor.call('checkEmailInput', function(error, result){
+                Meteor.call('checkEmailInput', {email: email}, function(error, result){
                     if(error){
                         // Email address is invalid, throwing an error
                         throw new Meteor.Error('invalidEmail', 'Adresse email invalide.');

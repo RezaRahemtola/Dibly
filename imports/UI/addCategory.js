@@ -2,9 +2,28 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
-// HTML imports
+// HTML import
 import './addCategory.html';
+
+
+FlowRouter.route('/dashboard/categories/add', {
+    name: 'dashboardAddCategories',
+    action(){
+        // We will render the add article template using Blaze, checking if user is allowed to add a new categoty
+
+        Meteor.call('getCurrentUserRole', function(error, role){
+            if(error){
+                // TODO: error
+                // TODO: send him back to home page (else a blank page is displayed)
+            } else if(role === 'admin'){
+                // User can add a category
+                BlazeLayout.render('main', {currentPage: 'addCategory'});
+            }
+        });
+    }
+});
 
 
 Template.addCategory.onRendered(function(){
