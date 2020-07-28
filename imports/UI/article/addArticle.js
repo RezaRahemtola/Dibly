@@ -37,12 +37,17 @@ Template.addArticle.onRendered(function(){
         },
         defaultLinkTarget: '_blank',
         btnsDef: {
-            buttnName: {
+            columns: {
                 fn: function(){
-                    document.querySelector('div#editor').innerHTML += "<br><div class='columns'><div class='column'>truc</div><div class='column'>truc</div></div>";
+                    document.querySelector('div#editor').innerHTML += `
+                    <br>
+                    <div class='columns'>
+                        <div class='column' style="text-align: center;">Colonne 1</div>
+                        <div class='column' style="text-align: center;">Colonne 2</div>
+                    </div>
+                    <p>Après les colonnes</p>`;
                 },
-                tag: 'tagName',
-                title: 'Button tooltip',
+                title: 'Insérer des colonnes',
                 text: 'Colonnes',
                 isSupported: function () { return true; },
                 hasIcon: false
@@ -65,7 +70,7 @@ Template.addArticle.onRendered(function(){
             ['strong', 'em', 'del'],
             ['foreColor', 'backColor'],
             // ['superscript', 'subscript'],
-            ['buttnName'],
+            ['columns'],
             ['link'],
             ['insertImage'],
             ['giphy'],
@@ -84,7 +89,13 @@ Template.addArticle.onRendered(function(){
         }
     })
     .on('tbwchange', function(){
-         $('.trumbowyg-editor h3').addClass('title is-3');
+        // When the content is changed, add Bulma CSS classes to style the elements
+
+        // Titles
+        $('.trumbowyg-editor h3').addClass('title is-3');
+        $('.trumbowyg-editor h4').addClass('title is-4');
+        $('.trumbowyg-editor h5').addClass('title is-5');
+        $('.trumbowyg-editor h6').addClass('title is-6');
      });
 });
 

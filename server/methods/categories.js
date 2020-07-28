@@ -36,5 +36,11 @@ Meteor.methods({
             categories.push(category.name);
         }
         return categories;
+    },
+    'getCategoryNameById'({categoryId}){
+        // Type check to prevent malicious calls
+        check(categoryId, String);
+
+        return Categories.findOne({_id: categoryId}).name;
     }
 });

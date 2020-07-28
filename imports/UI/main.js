@@ -14,6 +14,7 @@ import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
 import './contact.js';
+import './categoryPage.js';
 
 // Article pages imports
 import './article/addArticle.js';
@@ -34,6 +35,7 @@ import './modals/register.js';
 import './modals/resetPassword.js';
 
 // CSS imports
+import './css/articles.css';
 import './css/navbar.css';
 import './css/image.css';
 import './css/footer.css';

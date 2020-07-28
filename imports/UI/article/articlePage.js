@@ -11,7 +11,7 @@ import './articlePage.html';
 Session.set('currentArticle', {});
 
 FlowRouter.route('/article/:_id', {
-    name: 'dashboard',
+    name: 'articlePage',
     action(params, queryParams){
         // Catching articleId
         const articleId = params['_id'];

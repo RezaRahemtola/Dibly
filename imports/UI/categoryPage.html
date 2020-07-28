@@ -1,0 +1,6 @@
+<template name="categoryPage">
+    <h2 class="title is-2 has-text-centered">Articles de la catégorie {{getCategoryName}}</h2>
+    {{#each displayCategoryArticles}}
+        {{> articleBanner}}
+    {{/each}}
+</template>

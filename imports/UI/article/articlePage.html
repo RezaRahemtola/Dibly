@@ -1,9 +1,11 @@
 <template name="articlePage">
     {{#with displayArticle}}
         <h2 class="title is-2 has-text-centered" style="margin: 0 auto;">{{title}}</h2>
+        <br>
         <p>Publié le <span class="icon"><i class="fas fa-calendar-alt"></i></span>{{createdAt}} par <span class="icon"><i class="fas fa-user"></i></span>{{author}}</p>
-        <div class="htmlContainer" id={{_id}}>
-        </div>
+        <br>
+        <div class="htmlContainer" id={{_id}}></div>
+
         <div class="tags">
             {{#each categories}}
                 <span class="tag is-link">{{this}}</span>
