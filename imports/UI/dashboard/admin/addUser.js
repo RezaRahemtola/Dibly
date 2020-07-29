@@ -15,11 +15,16 @@ FlowRouter.route('/dashboard/users/add', {
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else if(role === 'admin'){
                 // User is an admin, we will render the form
                 BlazeLayout.render('main', {currentPage: 'addUser'});
+            } else{
+                // User doesn't have the correct role to access this page, sending him back to home page
+                FlowRouter.go('/');
             }
         });
     }
@@ -57,7 +62,8 @@ Template.addUser.events({
         // Calling a method to add the new user
         Meteor.call('addUser', {email: email, role: role}, function(error, result){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 $(event.target).removeClass("is-loading");  // Remove the loading effect of the button
             } else{
                 // User was successfully added, displaying a success message
@@ -73,7 +79,8 @@ Template.addUser.helpers({
     displayRoles: function(){
         Meteor.call('getRoles', function(error, roles){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Available roles were successfully retrieved, saving them in a Session variable
                 Session.set('availableRoles', roles);

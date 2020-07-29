@@ -2,14 +2,23 @@
     {{#with displayArticle}}
         <h2 class="title is-2 has-text-centered" style="margin: 0 auto;">{{title}}</h2>
         <br>
-        <p>Publié le <span class="icon"><i class="fas fa-calendar-alt"></i></span>{{createdAt}} par <span class="icon"><i class="fas fa-user"></i></span>{{author}}</p>
+        <p>
+            <span>Publié le </span>
+            <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+            <span>{{createdAt}}</span>
+            <span> par </span>
+            <span class="icon"><i class="fas fa-user"></i></span>
+            <span>{{author}}</span>
+            <span> dans </span>
+            {{#each categories}}
+                <span class="tag is-link">
+                    <span class="icon"><i class="fas fa-folder-open"></i></span>
+                    <span> {{this}}</span>
+                </span>
+            {{/each}}
+        </p>
         <br>
         <div class="htmlContainer" id={{_id}}></div>
 
-        <div class="tags">
-            {{#each categories}}
-                <span class="tag is-link">{{this}}</span>
-            {{/each}}
-        </div>
     {{/with}}
 </template>

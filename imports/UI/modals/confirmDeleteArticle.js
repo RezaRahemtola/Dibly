@@ -31,7 +31,8 @@ Template.confirmDeleteArticle.helpers({
     'getArticleById': function(){
         Meteor.call('getArticleById', {articleId: FlowRouter.getQueryParam('articleId')}, function(error, article){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 Session.set('confirmDeleteArticle', article);
             }
@@ -54,7 +55,8 @@ Template.confirmDeleteArticle.events({
         // Delete article button was clicked, calling the method to delete the article
         Meteor.call('deleteArticle', {articleId: FlowRouter.getQueryParam('articleId')}, function(error, result){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Article was successfully deleted, showing a confirmation message and sending user to delete article page
                 Session.set('message', {type:"header", headerContent:"L'article a bien été supprimé", style:"is-success"});

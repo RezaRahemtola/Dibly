@@ -57,7 +57,8 @@ Template.main.onCreated(function(){
     // Catching giphy api key
     Meteor.call('getGiphyApiKey', function(error, apikey){
         if(error){
-            // TODO: error
+            // There was an error
+            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
         } else{
             Session.set('giphyApiKey', apikey);
         }
@@ -76,7 +77,8 @@ Template.main.onRendered(function(){
         // User is connected, checking if he's allowed to access the site (access may have been removed but cookies are still logging the user)
         Meteor.call('checkIfAccessAllowed', {email: Meteor.user().emails[0].address}, function(error, isAllowed){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else if(!isAllowed){
                 // Access isn't allowed, logout the user and sending him to home page
                 FlowRouter.go('/');  // Sending user to the home page
@@ -107,7 +109,8 @@ Template.main.helpers({
         // Calling a server-side method to get the array of columns
         Meteor.call('getMainPageColumns', function(error, columnsArray){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 console.log(error)
             } else{
                 // Columns array was returned, catching the container

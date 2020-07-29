@@ -115,7 +115,8 @@ Template.register.events({
 
                         Meteor.call('checkIfAccessAllowed', {email: email}, function(error, accessAllowed){
                             if(error){
-                                // TODO: error
+                                // There was an error
+                                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                             } else if(accessAllowed){
                                 // This email is allowed to create an account
                                 Accounts.createUser({

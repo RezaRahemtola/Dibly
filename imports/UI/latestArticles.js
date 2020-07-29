@@ -30,7 +30,8 @@ Template.latestArticles.helpers({
         // Calling the method to get the articles
         Meteor.call('getLatestArticles', function(error, articles){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Articles were successfully returned, saving them in a Session variable
                 Session.set('latestArticles', articles);

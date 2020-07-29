@@ -18,7 +18,8 @@ FlowRouter.route('/article/:_id', {
         // Retrieving product informations
         Meteor.call('getArticleById', {articleId: articleId}, function(error, article){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Article was successfully retrieved, saving it in a Session variable & displaying the page
                 Session.set('currentArticle', article);

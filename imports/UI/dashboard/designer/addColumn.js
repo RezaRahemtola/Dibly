@@ -18,11 +18,16 @@ FlowRouter.route('/dashboard/design/columns/add', {
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
                 BlazeLayout.render('main', {currentPage: 'addColumn'});
+            } else{
+                // User doesn't have the correct role to access this page, sending him back to home page
+                FlowRouter.go('/');
             }
         });
     }
@@ -48,7 +53,8 @@ Template.addColumn.events({
 
         Meteor.call('addMainPageColumn', {position: position, html: html}, function(error, result){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Column was added without any error, displaying a success message
                 Session.set('message', {type: "header", headerContent: "Colonne ajoutée avec succès !", style:"is-success"});

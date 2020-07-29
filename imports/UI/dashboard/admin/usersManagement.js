@@ -19,11 +19,16 @@ FlowRouter.route('/dashboard/users/manage', {
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else if(role === 'admin'){
                 // User is an admin, we will render the template
                 BlazeLayout.render('main', {currentPage: 'adminUsersManagement'});
+            } else{
+                // User doesn't have the correct role to access this page, sending him back to home page
+                FlowRouter.go('/');
             }
         });
     }
@@ -40,7 +45,8 @@ Template.adminUsersManagement.helpers({
     displayUsers: function(){
         Meteor.call('getUsersForManagement', function(error, users){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Array of users was successfully retrieved, saving it in a Session variable
                 Session.set('displayUsersManagement', users);
@@ -52,7 +58,8 @@ Template.adminUsersManagement.helpers({
     displayRoles: function(){
         Meteor.call('getRoles', function(error, roles){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Available roles were successfully retrieved, saving them in a Session variable
                 Session.set('availableRoles', roles);
@@ -64,7 +71,8 @@ Template.adminUsersManagement.helpers({
         // Checking if access is allowed for this user
         Meteor.call('checkIfAccessAllowed', {email: email}, function(error, accessAllowed){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // No error has occurred, we check the input & change label value depending on accessAllowed
 
@@ -84,7 +92,8 @@ Template.adminUsersManagement.helpers({
                 // Checking the role to disable access changes
                 Meteor.call('getUserRole', {email: email}, function(error, role){
                     if(error){
-                        // TODO: error
+                        // There was an error
+                        Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                     } else if(role === 'admin'){
                         // User is an administrator so his access can't be bloqued, disabling switch input
                         input.disabled = true;
@@ -102,7 +111,8 @@ Template.adminUsersManagement.helpers({
                         const email = input.id;
                         Meteor.call('allowAccess', {email: email}, function(error, result){
                             if(error){
-                                // TODO: error
+                                // There was an error
+                                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                             } else{
                                 // Database updated, changing the displayed label
                                 label.textContent = "Autorisé";
@@ -113,7 +123,8 @@ Template.adminUsersManagement.helpers({
                         const email = input.id;
                         Meteor.call('removeAccess', {email: email}, function(error, result){
                             if(error){
-                                // TODO: error
+                                // There was an error
+                                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                             } else{
                                 // Database updated, changing the displayed label
                                 label.textContent = "Bloqué";
@@ -129,7 +140,8 @@ Template.adminUsersManagement.helpers({
         // Retrieving user role with the given email
         Meteor.call('getUserRole', {email: email}, function(error, role){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Role was successfully returned, set the select value with it
                 var select = document.querySelector('select[id="'+email+'"]');
@@ -144,7 +156,8 @@ Template.adminUsersManagement.helpers({
                     // Calling a method to update the role in the database
                     Meteor.call('changeRole', {email: email, newRole: newRole}, function(error, result){
                         if(error){
-                            // TODO: error
+                            // There was an error
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                         } else{
                             // Role was successfully updated
                         }

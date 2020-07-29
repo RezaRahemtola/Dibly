@@ -20,7 +20,8 @@ FlowRouter.route('/category/:_id', {
         // Retrieving product informations
         Meteor.call('getArticlesByCategoryId', {categoryId: categoryId}, function(error, articles){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Articles were successfully retrieved, saving them in a Session variable & displaying the page
                 Session.set('categoryArticles', articles);
@@ -42,7 +43,8 @@ Template.categoryPage.helpers({
         // Return the name of the category with the id
         Meteor.call('getCategoryNameById', {categoryId: FlowRouter.getParam('_id')}, function(error, name){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Category name was successfully retrieved, saving it in a Session variable
                 Session.set('currentCategoryName', name);

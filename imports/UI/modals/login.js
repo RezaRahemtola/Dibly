@@ -54,7 +54,8 @@ Template.login.events({
         // Checking if the user is allowed to login
         Meteor.call('checkIfAccessAllowed', {email: email}, function(error, accessAllowed){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else if(accessAllowed){
                 // User is allowed to login
                 Meteor.loginWithPassword(email, password, function(error){

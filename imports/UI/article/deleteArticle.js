@@ -18,11 +18,16 @@ FlowRouter.route('/dashboard/articles/delete', {
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else if(role === 'admin' || role === 'author'){
                 // User can delete an article
                 BlazeLayout.render('main', {currentPage: 'deleteArticle'});
+            } else{
+                // User doesn't have the correct role to access this page, sending him back to home page
+                FlowRouter.go('/');
             }
         });
     }
@@ -39,8 +44,10 @@ Template.deleteArticle.helpers({
     'displayArticles': function(){
         Meteor.call('getArticlesToDelete', function(error, articles){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
+                // Articles were successfully retrieved, saving them in a Session variable
                 Session.set('articlesToDelete', articles);
             }
         });

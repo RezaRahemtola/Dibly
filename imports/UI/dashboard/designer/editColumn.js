@@ -18,11 +18,16 @@ FlowRouter.route('/dashboard/design/columns/edit', {
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
-                // TODO: error
-                // TODO: send him back to home page (else a blank page is displayed)
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
                 BlazeLayout.render('main', {currentPage: 'editColumn'});
+            } else{
+                // User doesn't have the correct role to access this page, sending him back to home page
+                FlowRouter.go('/');
             }
         });
     }
@@ -42,7 +47,8 @@ Template.editColumn.onRendered(function(){
         // Calling a server-side method to get the columns array
         Meteor.call('getMainPageColumns', function(error, columnsArray){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 // Disable & empty the Trumbowyg editor
                 $('div#editor').trumbowyg('disable');
                 $('#editor').trumbowyg('empty');
@@ -79,7 +85,8 @@ Template.editColumn.events({
 
         Meteor.call('editMainPageColumn', {position: position, html: html}, function(error, result){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Column was modified without any error, displaying a success message
                 Session.set('message', {type: "header", headerContent: "Colonne modifiée avec succès !", style:"is-success"});
