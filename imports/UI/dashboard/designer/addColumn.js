@@ -42,20 +42,19 @@ Template.addColumn.events({
         event.preventDefault();
 
         // Catching inputs for the call :
-        const form = new FormData(document.getElementById('newArticle'));
+        const form = new FormData(document.querySelector('form#addColumn'));
         const position = form.get('position');
-        console.log(typeof(position))
         const html = document.querySelector('div#editor').innerHTML;
 
         Meteor.call('addMainPageColumn', {position: position, html: html}, function(error, result){
             if(error){
                 // TODO: error
             } else{
-                // Colum, was added without any error, displaying a success message
+                // Column was added without any error, displaying a success message
                 Session.set('message', {type: "header", headerContent: "Colonne ajoutée avec succès !", style:"is-success"});
                 // Sending user to columns dashboard
                 FlowRouter.go('/dashboard/design/columns');
             }
-        })
+        });
     }
 });

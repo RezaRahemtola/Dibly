@@ -9,6 +9,7 @@ import './dashboard.html';
 import './design.js';
 import './columns.js';
 import './addColumn.js';
+import './editColumn.js';
 
 
 Template.designerDashboard.onRendered(function(){

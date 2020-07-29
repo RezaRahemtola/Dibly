@@ -26,6 +26,8 @@ Meteor.methods({
         check(position, String);
         check(html, String);
 
+        // TODO: check role (designer admin)
+
         // Converting the position to integer
         position = parseInt(position);
         // Catching if of columns in the database and the columnsArray
@@ -44,5 +46,29 @@ Meteor.methods({
         Design.update(columnsId, { $set: {
             value: columnsArray
         }});
+    },
+    'editMainPageColumn'({position, html}){
+        // Type check to prevent malicious calls
+        check(position, String);
+        check(html, String);
+
+        // TODO: check role (designer admin)
+
+        // Converting the position to integer
+        position = parseInt(position);
+        // Catching if of columns in the database and the columnsArray
+        const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
+        var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
+
+        // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
+        if(!isNaN(position) && columnsArray.hasOwnProperty(position-1)){
+            // Position is an integer & the corresponding index exists, we can update the value in the array
+            columnsArray[position-1] = html;
+
+            // Updating the database
+            Design.update(columnsId, { $set: {
+                value: columnsArray
+            }});
+        }
     }
 });

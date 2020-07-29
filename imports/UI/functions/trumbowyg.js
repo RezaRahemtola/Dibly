@@ -83,5 +83,8 @@ displayEditorOn = function(selector){
         $('.trumbowyg-editor h4').addClass('title is-4');
         $('.trumbowyg-editor h5').addClass('title is-5');
         $('.trumbowyg-editor h6').addClass('title is-6');
+
+        // iframe generally have a fixed width that may exceed their container, set a max-width to handle it
+        $('.trumbowyg-editor iframe').css('max-width', '-webkit-fill-available');
      });
 }
