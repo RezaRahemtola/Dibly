@@ -70,6 +70,23 @@ Template.main.onCreated(function(){
 });
 
 
+Template.main.onRendered(function(){
+    // When the page is rendered, checking if user connected
+    if(Meteor.userId() && Meteor.user()){
+        // User is connected, checking if he's allowed to access the site (access may have been removed but cookies are still logging the user)
+        Meteor.call('checkIfAccessAllowed', {email: Meteor.user().emails[0].address}, function(error, isAllowed){
+            if(error){
+                // TODO: error
+            } else if(!isAllowed){
+                // Access isn't allowed, logout the user and sending him to home page
+                FlowRouter.go('/');  // Sending user to the home page
+                Meteor.logout()
+            }
+        });
+    }
+});
+
+
 Template.main.helpers({
     currentMessage: function(){
         // Catching current message
@@ -85,6 +102,24 @@ Template.main.helpers({
                 Session.set('message', {type:"verifyEmail"} );  // Set the message
             }
         }
+    },
+    displayColumns: function(){
+        // Calling a server-side method to get the array of columns
+        Meteor.call('getMainPageColumns', function(error, columnsArray){
+            if(error){
+                // TODO: error
+                console.log(error)
+            } else{
+                // Columns array was returned, adding each columns to the page
+                for(var columnHTML of columnsArray){
+                    var column = document.createElement('div');  // Creating a div element
+                    column.classList += "column is-full";  // Adding column classes
+                    column.style.background = "white";  // White background to overwrite the page background
+                    column.innerHTML = columnHTML;  // Adding the HTML content in the column
+                    document.querySelector('#columnsContainer').appendChild(column);  // Adding the column at the last child of the container
+                }
+            }
+        });
     }
 });
 

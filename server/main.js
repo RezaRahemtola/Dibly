@@ -25,4 +25,7 @@ Meteor.startup(function(){
 
     // Calling the method to define email settings and templates :
     Meteor.call('setAccountsSettings');
+
+    // Calling the method to fill the Design collection with basic informations
+    Meteor.call('setBasicDesign')
 });

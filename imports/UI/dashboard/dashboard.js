@@ -8,8 +8,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './dashboard.html';
 
 // JS imports
-import './admin/adminDashboard.js';
-import './author/authorDashboard.js';
+import './admin/dashboard.js';
+import './author/dashboard.js';
+import './designer/dashboard.js';
 
 
 FlowRouter.route('/dashboard', {
@@ -27,6 +28,9 @@ FlowRouter.route('/dashboard', {
             } else if(role === 'author'){
                 // User is an author, we will send him to author dashboard
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'authorDashboard'});
+            } else if(role === 'designer'){
+                // User is a designer, we will send him to designer dashboard
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'designerDashboard'});
             }
         });
     }

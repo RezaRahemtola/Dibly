@@ -7,7 +7,8 @@ export const Rules = {
         },
         roles: [
             'admin',
-            'author'
+            'author',
+            'designer'
         ]
     },
     email: {

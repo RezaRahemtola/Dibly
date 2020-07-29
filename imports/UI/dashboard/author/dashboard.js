@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 // HTML import
-import './authorDashboard.html';
+import './dashboard.html';
 
 // JS import
 import './articlesDashboard.js';
