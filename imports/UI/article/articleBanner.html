@@ -6,14 +6,22 @@
             </div>
 
             <div class="message-body">
-                <p>Publié le <span class="icon"><i class="fas fa-calendar-alt"></i></span>{{createdAt}} par <span class="icon"><i class="fas fa-user"></i></span>{{author}}</p>
-                <div class="htmlContainer" id={{_id}} style="max-height: 16rem; overflow: hidden;">
-                </div>
-                <div class="tags">
+                <p>
+                    <span>Publié le </span>
+                    <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                    <span>{{createdAt}}</span>
+                    <span> par </span>
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span>{{author}}</span>
+                    <span> dans </span>
                     {{#each categories}}
-                        <span class="tag is-link">{{this}}</span>
+                        <span class="tag is-link">
+                            <span class="icon"><i class="fas fa-folder-open"></i></span>
+                            <span> {{this}}</span>
+                        </span>
                     {{/each}}
-                </div>
+                </p>
+                <div class="htmlContainer" id={{_id}} style="max-height: 16rem; overflow: hidden;"></div>
             </div>
         </article>
     </a>
