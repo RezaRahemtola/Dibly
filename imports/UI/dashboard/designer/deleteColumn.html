@@ -1,21 +1,20 @@
-<template name="addColumn">
+<template name="deleteColumn">
     <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
-        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Ajouter une colonne</h3>
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Supprimer une colonne</h3>
     </header>
 
-    <form id="addColumn" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+    <form id="deleteColumn" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
 
         <!-- Prevent form submission with enter key by adding an hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
         <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
         <div class="field has-animated-label">
             <input type="number" class="input has-animated-label" name="position" id="position" placeholder=" " required >
-            <label for="position" class="label is-animated">Position <span class="has-text-danger">*</span></label>
+            <label for="position" class="label is-animated">Position de la colonne <span class="has-text-danger">*</span></label>
         </div>
 
-        <div id="editor">
-        </div>
+        <div id="editor"></div>
 
-        <button class="button is-success is-medium is-fullwidth" id="submitColumn" type="submit">Ajouter la colonne</button>
+        <button class="button is-success is-medium is-fullwidth" id="submitDeleteColumn" type="submit">Supprimer la colonne</button>
     </form>
 </template>

@@ -29,15 +29,17 @@ FlowRouter.route('/dashboard/articles/delete/confirm', {
 
 Template.confirmDeleteArticle.helpers({
     'getArticleById': function(){
-        Meteor.call('getArticleById', {articleId: FlowRouter.getQueryParam('articleId')}, function(error, article){
-            if(error){
-                // There was an error
-                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
-            } else{
-                Session.set('confirmDeleteArticle', article);
-            }
-        });
-        return Session.get('confirmDeleteArticle');
+        if(FlowRouter.getQueryParam('articleId')){
+            Meteor.call('getArticleById', {articleId: FlowRouter.getQueryParam('articleId')}, function(error, article){
+                if(error){
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                } else{
+                    Session.set('confirmDeleteArticle', article);
+                }
+            });
+            return Session.get('confirmDeleteArticle');
+        }
     }
 });
 

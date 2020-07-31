@@ -67,7 +67,7 @@ Template.addUser.events({
                 $(event.target).removeClass("is-loading");  // Remove the loading effect of the button
             } else{
                 // User was successfully added, displaying a success message
-                // TODO: success message
+                Session.set('message', {type:"header", headerContent:"Utilisateur ajouté avec succès.", style:"is-success"});
                 FlowRouter.go('/dashboard/users')  // Sending user to the users' dashboard page
             }
         });
