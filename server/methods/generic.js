@@ -4,6 +4,19 @@ import { Accounts } from 'meteor/accounts-base';
 
 // Importing databases
 import { Rules } from '../rules.js';
+import { Images } from '../../imports/databases/images.js'
+
+// Allow all client-side insertions on the Images collection
+Images.allow({ insert() { return true; } } );
+
+// Deny client-side remove on the Images collection
+Images.deny({ remove() { return true; } } );
+
+
+// Publish images collection to allow reading on client
+Meteor.publish('images', function(){
+    return Images.find().cursor;
+});
 
 
 Meteor.methods({

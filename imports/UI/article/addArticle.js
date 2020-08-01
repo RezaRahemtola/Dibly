@@ -10,6 +10,9 @@ import './addArticle.html';
 // Functions import
 import '../functions/trumbowyg.js';
 
+// Database import
+import { Images } from '../../databases/images.js';
+
 
 FlowRouter.route('/dashboard/articles/add', {
     name: 'dashboardAddArticle',
@@ -54,6 +57,39 @@ Template.addArticle.onRendered(function(){
 
     // Display the Trumbowyg editor on the given selector
     displayEditorOn('div#editor');
+
+
+    var coverImageInput = document.querySelector('input#coverImage');
+    coverImageInput.onchange = function(){
+        if(coverImageInput.files.length === 1){
+            // There isone uploaded file, we transform it to pass it to the server (File object can't be pass)
+            for(file of coverImageInput.files){
+                var serverFile = ({size: file.size, type: file.type});
+            }
+            Meteor.call('checkImageInput', {file: serverFile}, function(error, result){
+                if(error){
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"} );  // Display an error message
+                } else{
+
+                    const upload = Images.insert({
+                        file: coverImageInput.files[0],
+                        streams: 'dynamic',
+                        chunkSize: 'dynamic'
+                    });
+                    upload.on('end', function(error, fileObj){
+                        if(error){
+                            // There was an error
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"} );  // Display an error message
+                        } else if(fileObj){
+                            // The image was succesfully inserted, we can set the cover image Id with the new one
+                            Session.set('currentImageId', fileObj._id);
+                        }
+                    });
+                }
+            });
+        }
+    }
 });
 
 
@@ -111,5 +147,11 @@ Template.addArticle.helpers({
     },
     displaySelectedCategories: function(){
         return Session.get('selectedCategories');
-    }
+    },
+    displayImageLink: function(){
+        if(Images.findOne({_id: Session.get('currentImageId')}) !== undefined){
+            // There is an uploaded cover image, returning it (in an array to use each)
+            return Images.findOne({_id: Session.get('currentImageId')}).link();
+        }
+    },
 });

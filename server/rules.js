@@ -11,6 +11,9 @@ export const Rules = {
             'designer'
         ]
     },
+    image: {
+        maxMbSize: 5
+    },
     email: {
         verifyEmail: {
             sender: "Plexar <accounts@plexar.fr>"

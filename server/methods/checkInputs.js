@@ -74,6 +74,21 @@ Meteor.methods({
             return false;
         }
     },
+    'checkImageInput'({file}){
+        // Checking if the size is correct
+        const maxSize = Rules.image.maxMbSize*1000000;  // File size is in bytes, converting maxSize (1 MegaByte = 1 000 000 bytes)
+
+        if(file.size > maxSize){
+            // One of the file is too big, throwing an error to handle in client side
+            throw new Meteor.Error('fileTooBig', "La taille maximale autorisée par fichier est de "+imageRules.maxMbSize+" MB.");
+        } else if(!file.type.includes('image')){
+            // File is not an image
+            throw new Meteor.Error('incorrectType', "Ce type de fichier n'est pas autorisé.");
+        } else{
+            // File match all criteria
+            return true;
+        }
+    },
     'autoExpand'({field}){
 
         // Type check to prevent malicious calls

@@ -53,6 +53,7 @@ Template.main.onCreated(function(){
 
     // Initializing Session variables
     Session.set('message', null);  // No message to display for the moment
+    Session.set('currentImageId', '');  // No image for the moment
 
     // Catching giphy api key
     Meteor.call('getGiphyApiKey', function(error, apikey){
@@ -68,6 +69,9 @@ Template.main.onCreated(function(){
         // There's a token to reset the password that has been set
         FlowRouter.go('/resetPassword');  // Display the reset password modal
     }
+
+    // Subscribing to allow operations on the Images database
+    Meteor.subscribe('images');
 });
 
 
