@@ -10,6 +10,9 @@ import './addColumn.html';
 // Functions import
 import '../../functions/trumbowyg.js';
 
+// Database import
+import { Images } from '../../../databases/images.js';
+
 
 FlowRouter.route('/dashboard/design/columns/add', {
     name: 'dashboardDesignColumnsAdd',
@@ -39,6 +42,40 @@ Template.addColumn.onRendered(function(){
 
     // Display the Trumbowyg editor on the given selector
     displayEditorOn('div#editor');
+
+    // Create an event listener on the file input
+    var imageInput = document.querySelector('input#imageInput');
+    Session.set('currentImageId', '');  // Reset the variable
+    imageInput.onchange = function(){
+        if(imageInput.files.length === 1){
+            // There is one uploaded file, we transform it to pass it to the server (File object can't be pass)
+            for(file of imageInput.files){
+                var serverFile = ({size: file.size, type: file.type});
+            }
+            Meteor.call('checkImageInput', {file: serverFile}, function(error, result){
+                if(error){
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"} );  // Display an error message
+                } else{
+
+                    const upload = Images.insert({
+                        file: imageInput.files[0],
+                        streams: 'dynamic',
+                        chunkSize: 'dynamic'
+                    });
+                    upload.on('end', function(error, fileObj){
+                        if(error){
+                            // There was an error
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"} );  // Display an error message
+                        } else if(fileObj){
+                            // The image was succesfully inserted, we can set the current image with the new one
+                            Session.set('currentImageId', fileObj._id);
+                        }
+                    });
+                }
+            });
+        }
+    }
 });
 
 
@@ -62,5 +99,15 @@ Template.addColumn.events({
                 FlowRouter.go('/dashboard/design/columns');
             }
         });
+    }
+});
+
+
+Template.addColumn.helpers({
+    displayImage: function(){
+        if(Images.findOne({_id: Session.get('currentImageId')}) !== undefined){
+            // There is an uploaded image, returning it
+            return Images.findOne({_id: Session.get('currentImageId')});
+        }
     }
 });
