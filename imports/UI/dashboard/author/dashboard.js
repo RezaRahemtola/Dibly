@@ -7,6 +7,9 @@ import './dashboard.html';
 
 // JS import
 import './articlesDashboard.js';
+import './addArticle.js';
+import './editArticle.js';
+import './deleteArticle.js';
 
 
 Template.authorDashboard.onRendered(function(){

@@ -42,6 +42,44 @@ Meteor.methods({
             }
         }
     },
+    'editArticle'({articleId, title, html, categories}){
+        // Type check to prevent malicious calls
+        check(articleId, String);
+        check(title, String);
+        check(html, String);
+
+        if(!Array.isArray(categories)){
+            // Categories isn't an array
+            throw new Meteor.Error('categoriesNotArray', "Une erreur est survenue lors de l'ajout des catégories, veuillez réessayer.");
+        } else{
+            // All parameters are of the correct type, checking if user is logged in
+
+            if(!Meteor.userId()){
+                // User isn't logged in, throwing an error message
+                throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+            } else{
+                // User is logged in, checking if he's allowed to add an article
+                const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+                if(userRole === 'admin' || userRole === 'author'){
+                    // User can edit an article, check if this article exists
+                    if(Articles.findOne({_id: articleId}) === undefined){
+                        // This article isn't in the database, throwing an error
+                        throw new Meteor.Error('articleNotFound', "Cet article n'existe pas, veuillez réessayer.");
+                    } else{
+                        // This article exists, edit the content in the database
+                        Articles.update(articleId, { $set: {
+                            title: title,
+                            html: html,
+                            categories: categories
+                        }});
+                    }
+                } else{
+                    // This user has not the correct role to publish an article, throwing an error message
+                    throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de publier des articles.');
+                }
+            }
+        }
+    },
     'deleteArticle'({articleId}){
         // Type check to prevent malicious calls
         check(articleId, String);

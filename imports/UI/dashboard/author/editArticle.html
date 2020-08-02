@@ -1,0 +1,106 @@
+<template name="chooseArticleToEdit">
+    <h2 class="title is-2 has-text-centered">Modifier un article</h2>
+
+    <table class="table is-bordered is-striped is-hoverable" style="margin: 3rem auto;">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Date</th>
+                <th><span class="icon"><i class="fas fa-pen"></i></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each displayArticles}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{author}}</td>
+                    <td>{{createdAt}}</td>
+                    <td class="editArticle" id={{_id}} style="cursor: pointer;">
+                        <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+
+
+
+<template name="editArticle">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier un article</h3>
+    </header>
+
+    <form id="editArticle" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section class="section">
+            <h4 class="title is-4 has-text-centered">Informations générales</h4>
+
+            <div class="field has-animated-label">
+                <input type="text" class="input has-animated-label" name="title" id="title" placeholder=" " required >
+                <label for="title" class="label is-animated">Titre de l'article <span class="has-text-danger">*</span></label>
+            </div>
+
+            <div id="editor"></div>
+
+            <section style="border-top: solid grey 0.1rem;">
+                <div class="columns">
+                    <div class="column field has-text-centered">
+                        <span>Ajouter une image depuis votre ordinateur :</span>
+                        <div class="file has-name is-boxed width-fit-content" style="margin: auto;">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="imageInput" id="imageInput" accept="image/*">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-file-image"></i>
+                                    </span>
+                                    <span class="file-label">Choisir un fichier…</span>
+                                </span>
+                            </label>
+                        </div>
+                        {{#with displayImage}}
+                            <div class="width-fit-content" style="display: inline-block;">
+                                <img src="{{this.link}}" alt="{{this.name}}" class="image is-128x128"/>
+                            </div>
+                            <p class="has-text-centered">{{this.link}}</p>
+                        {{/with}}
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <section class="section" style="border-top: solid grey 0.1rem;">
+            <h4 class="title is-4 has-text-centered">Catégories</h4>
+
+            <div class="field">
+                <div class="select width-fit-content" style="margin: 0 auto; display: block;">
+                    <select id="categories">
+                        <option value="add" selected disabled hidden>Ajouter une catégorie</option>
+                        {{#each displayCategories}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="field is-grouped is-grouped-multiline width-fit-content" id="categoryTags" style="margin: 1rem auto;">
+                    {{#each displaySelectedCategories}}
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <a class="tag is-link">{{this}}</a>
+                                <a class="tag is-delete"></a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitEditArticle" type="submit">Modifier l'article</button>
+    </form>
+</template>

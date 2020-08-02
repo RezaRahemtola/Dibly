@@ -17,8 +17,6 @@ import './contact.js';
 import './categoryPage.js';
 
 // Article pages imports
-import './article/addArticle.js';
-import './article/deleteArticle.js';
 import './article/articleBanner.js';
 import './article/articlePage.js';
 

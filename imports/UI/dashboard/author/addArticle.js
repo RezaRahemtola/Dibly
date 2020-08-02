@@ -4,14 +4,14 @@ import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
-// HTML imports
+// HTML import
 import './addArticle.html';
 
 // Functions import
-import '../functions/trumbowyg.js';
+import '../../functions/trumbowyg.js';
 
 // Database import
-import { Images } from '../../databases/images.js';
+import { Images } from '../../../databases/images.js';
 
 
 FlowRouter.route('/dashboard/articles/add', {
@@ -42,7 +42,7 @@ Template.addArticle.onRendered(function(){
     window.scrollTo(0, 0);
 
     // Dynamically check and show selected categories
-    Session.set('selectedCategories', []);  // // Creating an array to store the categories and saving it in a Session variable to allow removing from events
+    Session.set('selectedCategories', []);  // Creating an array to store the categories and saving it in a Session variable to allow removing from events
     const select = document.querySelector("select#categories");  // Catching the select element
     select.onchange = function(){
         var selectedCategories = Session.get('selectedCategories');  // Catching the array of categories that are already selected

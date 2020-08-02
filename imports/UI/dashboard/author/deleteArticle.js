@@ -14,7 +14,7 @@ Session.set('articlesToDelete', []);
 FlowRouter.route('/dashboard/articles/delete', {
     name: 'dashboardDeleteArticle',
     action(){
-        // We will render the add article template using Blaze, checking if user is allowed to add an article
+        // We will render the delete article template using Blaze, checking if user is allowed to delete an article
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
@@ -41,7 +41,7 @@ Template.deleteArticle.onRendered(function(){
 
 
 Template.deleteArticle.helpers({
-    'displayArticles': function(){
+    displayArticles: function(){
         Meteor.call('getArticlesToDelete', function(error, articles){
             if(error){
                 // There was an error
