@@ -8,6 +8,8 @@ import '../imports/databases/_all.js';
 // Importing methods
 import './methods/_all.js';
 
+import { Articles } from '../imports/databases/articles.js';
+
 
 Meteor.startup(function(){
     // Code to run on server at startup
@@ -22,6 +24,9 @@ Meteor.startup(function(){
 
         process.env.GIPHY_API_KEY = Meteor.settings.giphyApiKey;
     }
+
+    // Creating text index to enable search in those fields of the database :
+    Articles.rawCollection().createIndex({title: "text", html: "text"});
 
     // Calling the method to define email settings and templates :
     Meteor.call('setAccountsSettings');

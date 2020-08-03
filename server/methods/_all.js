@@ -4,4 +4,5 @@ import './categories.js';
 import './checkInputs.js';
 import './design.js';
 import './generic.js';
+import './search.js';
 import './user.js';

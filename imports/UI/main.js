@@ -9,6 +9,7 @@ import './main.html';
 
 // JS imports
 import './home.js';
+import './search.js';
 import './404NotFound.js';
 import './addCategory.js';
 import './dashboard/dashboard.js';
@@ -50,6 +51,8 @@ FlowRouter.route('/', {
 Template.main.onCreated(function(){
 
     // Initializing Session variables
+    Session.set("searchedArticles", [] );  // No search for the moment
+    Session.set('search', {query: "", categories: []});
     Session.set('message', null);  // No message to display for the moment
     Session.set('currentImageId', '');  // No image for the moment
 
