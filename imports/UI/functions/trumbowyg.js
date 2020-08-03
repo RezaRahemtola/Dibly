@@ -9,7 +9,6 @@ displayEditorOn = function(selector){
                             Issue: https://github.com/Alex-D/Trumbowyg/issues/293
                             Docs about semantic: https://alex-d.github.io/Trumbowyg/documentation/#semantic */
         },
-        defaultLinkTarget: '_blank',
         btnsDef: {
             columns: {
                 fn: function(){
@@ -46,9 +45,7 @@ displayEditorOn = function(selector){
             // ['superscript', 'subscript'],
             ['fontfamily'],
             ['link'],
-            ['insertImage'],
-            ['giphy'],
-            ['noembed'],
+            ['insertImage', 'giphy', 'noembed'],
             ['align'],
             ['removeformat'],
             //['horizontalRule'],

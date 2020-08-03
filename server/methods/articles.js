@@ -146,8 +146,8 @@ Meteor.methods({
 
         return articles;
     },
-    'getArticlesToDelete'(){
-        // Return all articles that the current user is allowed to delete
+    'getArticlesToEditOrDelete'(){
+        // Return all articles that the current user is allowed to edit or delete
 
         if(!Meteor.userId()){
             // User isn't logged in, throwing an error message
@@ -156,10 +156,10 @@ Meteor.methods({
             // User is logged in, catching his role
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
             if(userRole === 'author'){
-                // User can only delete his own articles, catching them
+                // User can only edit and delete his own articles, catching them
                 var articlesCursor = Articles.find({authorId: Meteor.userId()});
             } else if(userRole === 'admin'){
-                // User can delete articles without any restriction, catching all articles
+                // User can edit & delete articles without any restriction, catching all articles
                 var articlesCursor = Articles.find();
             }
 

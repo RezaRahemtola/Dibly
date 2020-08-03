@@ -10,7 +10,7 @@
         "visualize": "meteor --production --extra-packages bundle-visualizer"
     },
     "dependencies": {
-        "@babel/runtime": "^7.10.5",
+        "@babel/runtime": "^7.11.0",
         "@sendgrid/mail": "^7.2.2",
         "bcrypt": "^5.0.0",
         "bulma-switch": "^2.0.0",

@@ -42,7 +42,7 @@ Template.deleteArticle.onRendered(function(){
 
 Template.deleteArticle.helpers({
     displayArticles: function(){
-        Meteor.call('getArticlesToDelete', function(error, articles){
+        Meteor.call('getArticlesToEditOrDelete', function(error, articles){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
