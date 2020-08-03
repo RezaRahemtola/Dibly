@@ -102,5 +102,12 @@ Meteor.methods({
     },
     'getGiphyApiKey'(){
         return process.env.GIPHY_API_KEY;
+    },
+    'removeImage'({imageId}){
+        // Type check to prevent malicious calls
+        check(imageId, String);
+
+        // TODO: check if file in dropbox before removing
+        Images.remove({_id: imageId});
     }
 });

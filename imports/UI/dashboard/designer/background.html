@@ -1,0 +1,44 @@
+<template name="background">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier le fond d'écran</h3>
+    </header>
+
+    <form id="background" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section>
+            <div class="columns">
+                <div class="column field has-text-centered">
+                    <span>Remplacer par une image :</span>
+                    <div class="file has-name is-boxed width-fit-content" style="margin: auto;">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="imageInput" id="imageInput" accept="image/*">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-file-image"></i>
+                                </span>
+                                <span class="file-label">Choisir un fichier…</span>
+                            </span>
+                        </label>
+                    </div>
+                    {{#with displayImage}}
+                        <div class="width-fit-content" style="position: relative; display: inline-block;">
+                            <img src="{{this.link}}" alt="{{this.name}}" class="image is-128x128"/>
+                            <button class="delete backgroundImage" id={{this._id}} style="position: absolute; top: 0; right: 0;"></button>
+                        </div>
+                    {{/with}}
+                </div>
+            </div>
+        </section>
+
+        <section class="section has-text-centered" style="border-top: solid grey 0.1rem;">
+            <label for="color">Remplacer par une couleur :</label>
+            <br>
+            <input type="color" id="color" name="color">
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitBackground" type="submit">Modifier le fond d'écran</button>
+    </form>
+</template>

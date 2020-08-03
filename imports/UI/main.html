@@ -1,4 +1,7 @@
 <template name="main">
+    <!-- Display the background defined in the design options -->
+    {{displayBackground}}
+
     <div id="content-wrap">
         <header>
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -20,7 +23,7 @@
                             <span class="icon"><i class="fas fa-calendar-alt"></i></span>
                             <span>Événements</span>
                         </a>
-
+                        
                         <a class="navbar-item" id="individualInitiatives">
                             <span class="icon"><i class="fas fa-user-graduate"></i></span>
                             <span>Initiatives individuelles</span>

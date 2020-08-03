@@ -1,10 +1,3 @@
-/* Defining the background of the page */
-html{
-    background: url("https://ecoclub.rezarahemtola.com/wp-content/uploads/2020/06/tournesol.jpg") no-repeat;
-    background-size: cover;
-}
-
-
 /* Disable text selection */
 .label, .navbar-item {
   -webkit-touch-callout: none;  /* iOS Safari */

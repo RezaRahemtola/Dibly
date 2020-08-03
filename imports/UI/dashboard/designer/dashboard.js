@@ -11,6 +11,7 @@ import './columns.js';
 import './addColumn.js';
 import './editColumn.js';
 import './deleteColumn.js';
+import './background.js';
 
 
 Template.designerDashboard.onRendered(function(){

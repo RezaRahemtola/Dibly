@@ -35,6 +35,9 @@ import './modals/resetPassword.js';
 // CSS import
 import './css/_all.js';
 
+// Database import
+import { Images } from '../databases/images.js';
+
 // Render layouts directly into the body
 BlazeLayout.setRoot('body');
 
@@ -128,6 +131,25 @@ Template.main.helpers({
                     column.style.background = "white";  // White background to overwrite the page background
                     column.innerHTML = columnHTML;  // Adding the HTML content in the column
                     columnsContainer.appendChild(column);  // Adding the column at the last child of the container
+                }
+            }
+        });
+    },
+    displayBackground: function(){
+        // Calling a server-side method to catch the background design
+        Meteor.call('getBackground', function(error, background){
+            if(error){
+                // TODO: error
+            } else{
+                // Background design object was returned, checking if the color or imageUrl is defined
+                if(background.imageId !== ''){
+                    // Background image is defined, catching it's URL & updating the body background
+                    const imageUrl = Images.findOne({_id: background.imageId}).link();
+                    document.body.style.background = "url('"+imageUrl+"') no-repeat";
+                    document.body.style.backgroundSize = "cover";
+                } else if(background.color !== ''){
+                    // Background color is defined, change the body background
+                    document.body.style.background = background.color;
                 }
             }
         });
