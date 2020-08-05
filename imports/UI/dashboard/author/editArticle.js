@@ -178,6 +178,7 @@ Template.editArticle.events({
         const articleId = Session.get('currentArticle')._id;
         const form = new FormData(document.getElementById('editArticle'));
         const title = form.get('title');
+        document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
         const categories = Session.get('selectedCategories');
 

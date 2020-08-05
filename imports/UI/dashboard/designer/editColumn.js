@@ -123,6 +123,7 @@ Template.editColumn.events({
         // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#editColumn'));
         const position = form.get('position');
+        document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
 
         Meteor.call('editMainPageColumn', {position: position, html: html}, function(error, result){

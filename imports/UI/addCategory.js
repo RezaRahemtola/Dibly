@@ -44,7 +44,6 @@ Template.addCategory.events({
         // Catching input for the call :
         const form = new FormData(document.querySelector('form#newCategory'));
         const name = form.get('name');
-        console.log(name)
 
         Meteor.call('addCategory', {name: name}, function(error, result){
             if(error){

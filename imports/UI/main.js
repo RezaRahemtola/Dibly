@@ -137,22 +137,24 @@ Template.main.helpers({
     },
     displayBackground: function(){
         // Calling a server-side method to catch the background design
-        Meteor.call('getBackground', function(error, background){
-            if(error){
-                // TODO: error
-            } else{
-                // Background design object was returned, checking if the color or imageUrl is defined
-                if(background.imageId !== ''){
-                    // Background image is defined, catching it's URL & updating the body background
-                    const imageUrl = Images.findOne({_id: background.imageId}).link();
-                    document.body.style.background = "url('"+imageUrl+"') no-repeat";
-                    document.body.style.backgroundSize = "cover";
-                } else if(background.color !== ''){
-                    // Background color is defined, change the body background
-                    document.body.style.background = background.color;
+        if(Meteor.subscribe('images').ready()){
+            Meteor.call('getBackground', function(error, background){
+                if(error){
+                    // TODO: error
+                } else{
+                    // Background design object was returned, checking if the color or imageUrl is defined
+                    if(background.imageId !== ''){
+                        // Background image is defined, catching it's URL & updating the body background
+                        const imageUrl = Images.findOne({_id: background.imageId}).link();
+                        document.body.style.background = "url('"+imageUrl+"') no-repeat";
+                        document.body.style.backgroundSize = "cover";
+                    } else if(background.color !== ''){
+                        // Background color is defined, change the body background
+                        document.body.style.background = background.color;
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 });
 

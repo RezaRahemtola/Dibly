@@ -102,6 +102,7 @@ Template.addArticle.events({
         // Catching inputs for the call :
         const form = new FormData(document.getElementById('newArticle'));
         const title = form.get('title');
+        document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
         const categories = Session.get('selectedCategories');
 
