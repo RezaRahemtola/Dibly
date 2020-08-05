@@ -9,16 +9,66 @@
             <span> par </span>
             <span class="icon"><i class="fas fa-user"></i></span>
             <span>{{author}}</span>
-            <span> dans </span>
-            {{#each categories}}
-                <span class="tag is-link">
-                    <span class="icon"><i class="fas fa-folder-open"></i></span>
-                    <span> {{this}}</span>
-                </span>
-            {{/each}}
+
+            {{#if categories.length}}
+            <!-- 0 returns false, so this will only be shown if the article was posted in one or several categories -->
+                <span> dans </span>
+                {{#each categories}}
+                    <span class="tag is-link">
+                        <span class="icon"><i class="fas fa-folder-open"></i></span>
+                        <span> {{this}}</span>
+                    </span>
+                {{/each}}
+            {{/if}}
         </p>
         <br>
         <div class="htmlContainer" id={{_id}}></div>
-
     {{/with}}
+
+    <section class="section" style="border-top: solid grey 0.1rem; background: transparent;">
+        <h2 class="title is-3">Laisser un commentaire</h2>
+
+
+        <form id="registerForm">
+            <div class="field has-animated-label">
+                <div class="control has-icons-left">
+                    <textarea class="textarea has-animated-label" name="comment" id="comment" placeholder=" " required></textarea>
+                    <label for="comment" class="label is-animated">Commentaire <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field has-animated-label" id="nameField">
+                <div class="control has-icons-left">
+                    <input type="text" class="input has-animated-label" name="name" id="name" placeholder=" " required/>
+                    <label for="name" class="label is-animated">Nom <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-user-circle"></i>
+                    </span>
+                </div>
+                <p class="help is-success"></p>
+                <p class="help is-danger"></p>
+            </div>
+
+            <div class="field has-animated-label" id="emailField">
+                <div class="control has-icons-left">
+                    <input type="email" class="input has-animated-label" name="email" id="email" placeholder=" " required>
+                    <label for="email" class="label is-animated">Email <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <p class="help">Votre adresse de messagerie ne sera pas publiée.</p>
+                <p class="help is-danger"></p>
+            </div>
+        </form>
+
+        <br>
+
+        <button class="button is-medium is-fullwidth has-background-success" id="registerSubmit">S'inscrire</button>
+
+
+    </section>
 </template>

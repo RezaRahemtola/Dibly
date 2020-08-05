@@ -117,8 +117,8 @@ Meteor.methods({
     'getLatestArticles'(){
         // Return all articles sorted by date of creation
 
-        // Catching articles
-        var articlesCursor = Articles.find({}, {sort: { createdAt: -1 }});
+        // Catching the 10 latest articles
+        var articlesCursor = Articles.find({}, {sort: { createdAt: -1 }, limit: 10});
 
         // Iterating through the cursor to collect useful data and return the articles in an array instead of the cursor given by find()
         var articles = [];

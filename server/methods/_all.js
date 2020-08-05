@@ -2,6 +2,7 @@
 import './articles.js';
 import './categories.js';
 import './checkInputs.js';
+import './comments.js';
 import './design.js';
 import './generic.js';
 import './search.js';
