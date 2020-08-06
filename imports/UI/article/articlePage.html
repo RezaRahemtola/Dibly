@@ -25,11 +25,48 @@
         <div class="htmlContainer" id={{_id}}></div>
     {{/with}}
 
-    <section class="section" style="border-top: solid grey 0.1rem; background: transparent;">
-        <h2 class="title is-3">Laisser un commentaire</h2>
+    <br>
+    
+    <section class="section" style="border-top: solid grey 0.1rem;">
+        {{#if displayComments.length}}
+            <!-- 0 returns false, so this will only be shown if one or several comments were posted -->
+
+            {{#if isOne displayComments.length}}
+                <h4 class="title is-4">{{displayComments.length}} commentaire</h4>
+            {{else}}
+                <h4 class="title is-4">{{displayComments.length}} commentaires</h4>
+            {{/if}}
+            <br>
+
+            {{#each displayComments}}
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                            <img src="/user.svg">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{this.name}}</strong> <span> - </span> <small>{{this.createdAt}}</small>
+                                <br>
+                                {{this.comment}}
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            {{/each}}
+        {{else}}
+            <!-- No comments on this article-->
+            <h4 class="title is-4">Aucun commentaire</h4>
+        {{/if}}
+    </section>
+
+    <section class="section" style="border-top: solid grey 0.1rem;">
+        <h4 class="title is-4">Laisser un commentaire</h4>
 
 
-        <form id="registerForm">
+        <form id="commentForm">
             <div class="field has-animated-label">
                 <div class="control has-icons-left">
                     <textarea class="textarea has-animated-label" name="comment" id="comment" placeholder=" " required></textarea>
@@ -67,8 +104,7 @@
 
         <br>
 
-        <button class="button is-medium is-fullwidth has-background-success" id="registerSubmit">S'inscrire</button>
-
+        <button class="button is-medium has-background-success" id="submitComment">Envoyer</button>
 
     </section>
 </template>

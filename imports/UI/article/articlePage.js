@@ -7,8 +7,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // HTML import
 import './articlePage.html';
 
-// Initializing Session variable
+// Initializing Session variables
 Session.set('currentArticle', {});
+Session.set('currentComments', []);
 
 FlowRouter.route('/article/:_id', {
     name: 'articlePage',
@@ -72,8 +73,55 @@ Template.articlePage.onRendered(function(){
 
 
 Template.articlePage.helpers({
-    'displayArticle': function(){
+    displayArticle: function(){
         // Return article informations
         return Session.get('currentArticle');
+    },
+    displayComments: function(){
+        // Return all the comments for the current article
+
+        const articleId = Session.get('currentArticle')._id;
+
+        Meteor.call('showArticleComments', {articleId: articleId}, function(error, commentsArray){
+            if(error){
+                // TODO: error
+            } else{
+                // An array of comments was returned, saving it in a Session variable
+                Session.set('currentComments', commentsArray);
+            }
+        });
+        return Session.get('currentComments');
+    },
+    isOne: function(number){
+        return (number === 1) ? true : false;
+    }
+});
+
+
+Template.articlePage.events({
+    'click #submitComment'(event){
+        event.preventDefault();
+        // Button to submit a comment is clicked, catching inputs for the call
+        const form = new FormData(document.getElementById('commentForm'));
+        const comment = form.get('comment');
+        const name = form.get('name');
+        const email = form.get('email');
+        const articleId = Session.get('currentArticle')._id;
+
+        Meteor.call('addComment', {articleId: articleId, comment: comment, name: name, email: email}, function(error, result){
+            if(error){
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});  // Display an error message
+            } else{
+                // Comment successfully added, reset the form
+                document.querySelector('form#commentForm').reset();
+                // Display a success message
+                Session.set('message', {type:"header", headerContent:"Commentaire publié avec succès.", style:"is-success"});
+                // Refreshing the displayed comments by calling the helper
+                Template.articlePage.__helpers.get('displayComments').call();
+                // Scrolling the window back to the top to make the message visible
+                window.scrollTo(0, 0);
+            }
+        });
     }
 });
