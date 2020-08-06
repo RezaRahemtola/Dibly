@@ -28,6 +28,8 @@ FlowRouter.route('/dashboard/articles/add', {
             } else if(role === 'admin' || role === 'author'){
                 // User can add an article
                 BlazeLayout.render('main', {currentPage: 'addArticle'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
@@ -38,9 +40,6 @@ FlowRouter.route('/dashboard/articles/add', {
 
 
 Template.addArticle.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
     // Dynamically check and show selected categories
     Session.set('selectedCategories', []);  // Creating an array to store the categories and saving it in a Session variable to allow removing from events
     const select = document.querySelector("select#categories");  // Catching the select element

@@ -10,9 +10,3 @@ import './articlesDashboard.js';
 import './addArticle.js';
 import './editArticle.js';
 import './deleteArticle.js';
-
-
-Template.authorDashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-});

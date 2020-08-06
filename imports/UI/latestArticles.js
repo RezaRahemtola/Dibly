@@ -15,13 +15,9 @@ FlowRouter.route('/latest-articles', {
     name: 'latestArticles',
     action(){
         BlazeLayout.render('main', {currentPage: 'latestArticles'});
+        // Scrolling the window back to the top
+        window.scrollTo(0, 0);
     }
-});
-
-
-Template.latestArticles.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

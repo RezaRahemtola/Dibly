@@ -47,6 +47,8 @@ FlowRouter.route('/', {
     action(){
         // Render a template using Blaze
         BlazeLayout.render('main', {currentPage: 'home'});
+        // Scrolling the window back to the top
+        window.scrollTo(0, 0);
     }
 });
 

@@ -22,18 +22,14 @@ FlowRouter.route('/dashboard/categories/add', {
             } else if(role === 'admin'){
                 // User can add a category
                 BlazeLayout.render('main', {currentPage: 'addCategory'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-
-Template.addCategory.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

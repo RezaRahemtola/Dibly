@@ -21,16 +21,12 @@ FlowRouter.route('/dashboard/categories', {
             } else if(role === 'admin'){
                 // User can access the dashboard
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminCategoriesDashboard'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-
-Template.adminCategoriesDashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });

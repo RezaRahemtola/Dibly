@@ -28,6 +28,8 @@ FlowRouter.route('/dashboard/design/columns/add', {
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
                 BlazeLayout.render('main', {currentPage: 'addColumn'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
@@ -37,9 +39,6 @@ FlowRouter.route('/dashboard/design/columns/add', {
 });
 
 Template.addColumn.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
     // Display the Trumbowyg editor on the given selector
     displayEditorOn('div#editor');
 

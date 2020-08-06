@@ -13,14 +13,13 @@ FlowRouter.route('/search', {
     action(){
         // Render a template using Blaze
         BlazeLayout.render('main', {currentPage: 'search'});
+        // Scrolling the window back to the top
+        window.scrollTo(0, 0);
     }
 });
 
 
 Template.search.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
     Session.set("searchedArticles", []);
 
     // Dynamically check and show selected categories

@@ -23,8 +23,11 @@ FlowRouter.route('/dashboard/articles/delete', {
                 // Sending user back to home page to avoid a blank page displayed
                 FlowRouter.go('/');
             } else if(role === 'admin' || role === 'author'){
-                // User can delete an article
+                // User can delete an article, render thhe template
                 BlazeLayout.render('main', {currentPage: 'deleteArticle'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
+                // Calling the method to refresh the list of articles to delete (in case we just deleted one)
                 Template.deleteArticle.__helpers.get('displayArticles').call();
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
@@ -32,12 +35,6 @@ FlowRouter.route('/dashboard/articles/delete', {
             }
         });
     }
-});
-
-
-Template.deleteArticle.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

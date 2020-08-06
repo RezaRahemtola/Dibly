@@ -25,6 +25,8 @@ FlowRouter.route('/dashboard/design/background', {
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
                 BlazeLayout.render('main', {currentPage: 'background'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
@@ -34,9 +36,6 @@ FlowRouter.route('/dashboard/design/background', {
 });
 
 Template.background.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
     // Create an event listener on the file input
     var imageInput = document.querySelector('input#imageInput');
     Session.set('currentImageId', '');  // Reset the variable

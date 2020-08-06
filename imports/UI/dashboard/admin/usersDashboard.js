@@ -22,6 +22,8 @@ FlowRouter.route('/dashboard/users', {
             } else if(role === 'admin'){
                 // User is an admin, we will render admin dashboard
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminUsersDashboard'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');

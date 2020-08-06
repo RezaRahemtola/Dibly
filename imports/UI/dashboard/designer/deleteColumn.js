@@ -22,6 +22,8 @@ FlowRouter.route('/dashboard/design/columns/delete', {
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
                 BlazeLayout.render('main', {currentPage: 'deleteColumn'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
@@ -31,9 +33,6 @@ FlowRouter.route('/dashboard/design/columns/delete', {
 });
 
 Template.deleteColumn.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
     // Display the Trumbowyg editor
     $('div#editor').trumbowyg({
         lang: 'fr',

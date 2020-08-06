@@ -22,15 +22,12 @@ FlowRouter.route('/dashboard/articles', {
             } else if(role === 'author' || role === 'admin'){
                 // User is allowed to access articles dashboard, rendering it
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'articlesDashboard'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-Template.articlesDashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });

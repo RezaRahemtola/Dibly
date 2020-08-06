@@ -22,15 +22,12 @@ FlowRouter.route('/dashboard/design', {
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access design dashboard, rendering it
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'designDashboard'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-Template.designDashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });

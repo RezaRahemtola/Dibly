@@ -28,15 +28,11 @@ FlowRouter.route('/category/:_id', {
                 // Articles were successfully retrieved, saving them in a Session variable & displaying the page
                 Session.set('categoryArticles', articles);
                 BlazeLayout.render('main', {currentPage: 'categoryPage'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             }
         });
     }
-});
-
-
-Template.categoryPage.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

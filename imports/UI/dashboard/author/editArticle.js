@@ -31,18 +31,14 @@ FlowRouter.route('/dashboard/articles/edit', {
             } else if(role === 'admin' || role === 'author'){
                 // User can edit an article, sending him to the page to choose the article
                 BlazeLayout.render('main', {currentPage: 'chooseArticleToEdit'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-
-Template.chooseArticleToEdit.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

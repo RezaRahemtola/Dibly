@@ -26,18 +26,14 @@ FlowRouter.route('/dashboard/users/manage', {
             } else if(role === 'admin'){
                 // User is an admin, we will render the template
                 BlazeLayout.render('main', {currentPage: 'adminUsersManagement'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');
             }
         });
     }
-});
-
-
-Template.adminUsersManagement.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });
 
 

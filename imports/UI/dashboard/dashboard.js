@@ -34,12 +34,8 @@ FlowRouter.route('/dashboard', {
                 // User is a designer, we will send him to designer dashboard
                 BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'designerDashboard'});
             }
+            // Scrolling the window back to the top
+            window.scrollTo(0, 0);
         });
     }
-});
-
-
-Template.dashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
 });

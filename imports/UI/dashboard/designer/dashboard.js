@@ -12,9 +12,3 @@ import './addColumn.js';
 import './editColumn.js';
 import './deleteColumn.js';
 import './background.js';
-
-
-Template.designerDashboard.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-});

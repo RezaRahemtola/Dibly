@@ -2,7 +2,13 @@
 
 Web App for the Lycée Jules Ferry's Eco-club, used as a WordPress-like system to manage articles & pages with a simple interface.
 
-Before using the app, you need to run the following command to install the required modules :
+## Installation:
+
+After cloning this repository, you need to install the required modules with
 ```
-npm install bulma bulma-switch dropbox node-fetch node-sass request trumbowyg jquery-resizable-dom @sendgrid/mail
+npm install
 ```
+
+## Support this project:
+
+- [One-time donation via PayPal](https://paypal.me/RezaRahemtola)

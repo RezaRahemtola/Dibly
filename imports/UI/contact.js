@@ -13,15 +13,13 @@ FlowRouter.route('/contact', {
     action(){
         // Render a template using Blaze
         BlazeLayout.render('main', {currentPage: 'contact'});
+        // Scrolling the window back to the top
+        window.scrollTo(0, 0);
     }
 });
 
 
 Template.contact.onRendered(function(){
-    // Scrolling the window back to the top
-    window.scrollTo(0, 0);
-
-
     // Live email validation
     const emailInput = document.querySelector('input#email');
     emailInput.onchange = function(){
