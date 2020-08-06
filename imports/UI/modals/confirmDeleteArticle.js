@@ -28,7 +28,7 @@ FlowRouter.route('/dashboard/articles/delete/confirm', {
 
 
 Template.confirmDeleteArticle.helpers({
-    'getArticleById': function(){
+    getArticleById: function(){
         if(FlowRouter.getQueryParam('articleId')){
             Meteor.call('getArticleById', {articleId: FlowRouter.getQueryParam('articleId')}, function(error, article){
                 if(error){

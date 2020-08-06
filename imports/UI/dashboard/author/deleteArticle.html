@@ -11,14 +11,19 @@
             </tr>
         </thead>
         <tbody>
-            {{#each displayArticles}}
+            {{#each article in displayArticles}}
                 <tr>
-                    <td>{{title}}</td>
-                    <td>{{author}}</td>
-                    <td>{{createdAt}}</td>
-                    <td class="deleteArticle" id={{_id}} style="cursor: pointer;">
+                    <td>{{article.title}}</td>
+                    <td>{{article.author}}</td>
+                    <td>{{article.createdAt}}</td>
+                    <td class="deleteArticle" id={{article._id}} style="cursor: pointer;">
                         <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
                     </td>
+                </tr>
+            {{else}}
+                <!-- No articles to delete, showing a full width message-->
+                <tr>
+                    <td colspan="4" class="has-text-centered">Aucun article à supprimer</td>
                 </tr>
             {{/each}}
         </tbody>

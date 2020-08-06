@@ -25,6 +25,7 @@ FlowRouter.route('/dashboard/articles/delete', {
             } else if(role === 'admin' || role === 'author'){
                 // User can delete an article
                 BlazeLayout.render('main', {currentPage: 'deleteArticle'});
+                Template.deleteArticle.__helpers.get('displayArticles').call();
             } else{
                 // User doesn't have the correct role to access this page, sending him back to home page
                 FlowRouter.go('/');

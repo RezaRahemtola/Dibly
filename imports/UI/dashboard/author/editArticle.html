@@ -11,14 +11,19 @@
             </tr>
         </thead>
         <tbody>
-            {{#each displayArticles}}
+            {{#each article in displayArticles}}
                 <tr>
-                    <td>{{title}}</td>
-                    <td>{{author}}</td>
-                    <td>{{createdAt}}</td>
-                    <td class="editArticle" id={{_id}} style="cursor: pointer;">
+                    <td>{{article.title}}</td>
+                    <td>{{article.author}}</td>
+                    <td>{{article.createdAt}}</td>
+                    <td class="editArticle" id={{article._id}} style="cursor: pointer;">
                         <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
                     </td>
+                </tr>
+            {{else}}
+                <!-- No articles to edit, showing a full width message-->
+                <tr>
+                    <td colspan="4" class="has-text-centered">Aucun article à modifier</td>
                 </tr>
             {{/each}}
         </tbody>
@@ -82,17 +87,17 @@
                 <div class="select width-fit-content" style="margin: 0 auto; display: block;">
                     <select id="categories">
                         <option value="add" selected disabled hidden>Ajouter une catégorie</option>
-                        {{#each displayCategories}}
-                            <option value="{{this}}">{{this}}</option>
+                        {{#each category in displayCategories}}
+                            <option value="{{category}}">{{category}}</option>
                         {{/each}}
                     </select>
                 </div>
                 <br>
                 <div class="field is-grouped is-grouped-multiline width-fit-content" id="categoryTags" style="margin: 1rem auto;">
-                    {{#each displaySelectedCategories}}
+                    {{#each category in displaySelectedCategories}}
                         <div class="control">
                             <div class="tags has-addons">
-                                <a class="tag is-link">{{this}}</a>
+                                <a class="tag is-link">{{category}}</a>
                                 <a class="tag is-delete"></a>
                             </div>
                         </div>

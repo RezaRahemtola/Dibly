@@ -79,6 +79,7 @@ FlowRouter.route('/dashboard/articles/edit/:_id', {
     action(params, queryParams){
         // We will render the edit article template using Blaze, checking if user is allowed to add an article
         const articleId = params['_id'];
+
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
                 // There was an error

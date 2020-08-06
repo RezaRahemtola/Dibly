@@ -90,6 +90,7 @@ Meteor.methods({
         } else{
             // User is logged in, catching his role to check if he's allowed to delete this article
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+            // TODO: check if article really exists
             // By default we assume the user isn't allowed to delete this article
             var isAllowed = false;
 
@@ -196,25 +197,30 @@ Meteor.methods({
         // Catching article informations
         const article = Articles.findOne({_id: articleId});
 
-        // Catching author's username with his userId
-        const author = Meteor.users.findOne({_id: article.authorId}).username;
+        if(article === undefined){
+            // Article isn't in our database, throwing an error
+            throw new Meteor.Error('articleNotFound', "Cet article est introuvable.");
+        } else{
+            // Article is in our database, catching author's username with his userId
+            const author = Meteor.users.findOne({_id: article.authorId}).username;
 
-        // Converting the creation date to a classic format
-        var year = article.createdAt.getFullYear();  // Catching the year
-        var month = article.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
-        var date = article.createdAt.getDate();  // Catching the date
-        if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
-        if(month < 10){ month = '0' + month; }
-        const createdAt = date+ '/' +month+ '/' +year;  // Updating the document with the new creation date
+            // Converting the creation date to a classic format
+            var year = article.createdAt.getFullYear();  // Catching the year
+            var month = article.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
+            var date = article.createdAt.getDate();  // Catching the date
+            if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
+            if(month < 10){ month = '0' + month; }
+            const createdAt = date+ '/' +month+ '/' +year;  // Updating the document with the new creation date
 
-        // Creating a new object to return
-        return {
-            _id: articleId,
-            title: article.title,
-            html: article.html,
-            categories: article.categories,
-            createdAt: createdAt,
-            author: author
+            // Creating a new object to return
+            return {
+                _id: articleId,
+                title: article.title,
+                html: article.html,
+                categories: article.categories,
+                createdAt: createdAt,
+                author: author
+            }
         }
     },
     'getArticlesByCategoryId'({categoryId}){

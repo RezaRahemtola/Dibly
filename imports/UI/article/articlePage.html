@@ -24,9 +24,9 @@
         <br>
         <div class="htmlContainer" id={{_id}}></div>
     {{/with}}
-
-    <br>
     
+    <br>
+
     <section class="section" style="border-top: solid grey 0.1rem;">
         {{#if displayComments.length}}
             <!-- 0 returns false, so this will only be shown if one or several comments were posted -->
@@ -38,7 +38,7 @@
             {{/if}}
             <br>
 
-            {{#each displayComments}}
+            {{#each comment in displayComments}}
                 <article class="media">
                     <figure class="media-left">
                         <p class="image is-64x64">
@@ -48,17 +48,17 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong>{{this.name}}</strong> <span> - </span> <small>{{this.createdAt}}</small>
+                                <strong>{{comment.name}}</strong> <span> - </span> <small>{{comment.createdAt}}</small>
                                 <br>
-                                {{this.comment}}
+                                {{comment.comment}}
                             </p>
                         </div>
                     </div>
                 </article>
+            {{else}}
+                <!-- No comments on this article-->
+                <h4 class="title is-4">Aucun commentaire</h4>
             {{/each}}
-        {{else}}
-            <!-- No comments on this article-->
-            <h4 class="title is-4">Aucun commentaire</h4>
         {{/if}}
     </section>
 

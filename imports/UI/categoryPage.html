@@ -5,5 +5,7 @@
     </h2>
     {{#each displayCategoryArticles}}
         {{> articleBanner}}
+    {{else}}
+        <p>Il n'y a aucun article dans cette catégorie.</p>
     {{/each}}
 </template>

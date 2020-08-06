@@ -22,6 +22,8 @@ FlowRouter.route('/category/:_id', {
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // Sending user back to home page to avoid a blank page displayed
+                FlowRouter.go('/');
             } else{
                 // Articles were successfully retrieved, saving them in a Session variable & displaying the page
                 Session.set('categoryArticles', articles);

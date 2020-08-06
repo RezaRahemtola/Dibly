@@ -53,17 +53,17 @@
                 <div class="select width-fit-content" style="margin: 0 auto; display: block;">
                     <select id="categories">
                         <option value="add" selected disabled hidden>Ajouter une catégorie</option>
-                        {{#each displayCategories}}
-                            <option value="{{this}}">{{this}}</option>
+                        {{#each category in displayCategories}}
+                            <option value="{{category}}">{{category}}</option>
                         {{/each}}
                     </select>
                 </div>
                 <br>
                 <div class="field is-grouped is-grouped-multiline width-fit-content" id="categoryTags" style="margin: 1rem auto;">
-                    {{#each displaySelectedCategories}}
+                    {{#each category in displaySelectedCategories}}
                         <div class="control">
                             <div class="tags has-addons">
-                                <a class="tag is-link">{{this}}</a>
+                                <a class="tag is-link">{{category}}</a>
                                 <a class="tag is-delete"></a>
                             </div>
                         </div>

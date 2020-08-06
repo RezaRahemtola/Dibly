@@ -14,6 +14,7 @@ Meteor.methods({
         check(name, String);
         check(email, String);
 
+        // TODO: check if article really exists
         // TODO: check email
         // TODO: check if articleId really exists in article db
 

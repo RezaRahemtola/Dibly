@@ -11,27 +11,27 @@
             </tr>
         </thead>
         <tbody>
-            {{#each displayUsers}}
+            {{#each user in displayUsers}}
                 <tr>
-                    <td>{{username}}</td>
-                    <td>{{email}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
                     <td>
                         <div class="select">
-                            <select id={{email}}>
-                                {{#each displayRoles}}
-                                    <option value="{{this}}">{{this}}</option>
+                            <select id={{user.email}}>
+                                {{#each role in displayRoles}}
+                                    <option value="{{role}}">{{role}}</option>
+                                    <!-- Using an helper to select the corresponding role in the list -->
+                                    {{selectUserRole user.email}}
                                 {{/each}}
                             </select>
                         </div>
-                        <!-- Using an helper to select the corresponding role in the list -->
-                        {{selectUserRole email}}
                     </td>
                     <td>
                         <div class="field">
-                            <input class="switch is-rounded" type="checkbox" id={{email}} name="accessAllowed">
-                            <label class="label" for={{email}} style="font-weight: inherit;"></label>
+                            <input class="switch is-rounded" type="checkbox" id={{user.email}} name="accessAllowed">
+                            <label class="label" for={{user.email}} style="font-weight: inherit;"></label>
                             <!-- Using an helper to check the switch input and fill the label -->
-                            {{checkAccessAllowedInput email}}
+                            {{checkAccessAllowedInput user.email}}
                         </div>
                     </td>
                 </tr>
