@@ -1,0 +1,31 @@
+<template name="commentsManagement">
+    <h2 class="title is-2 has-text-centered">Gestion des commentaires</h2>
+
+    <table class="table is-bordered is-striped is-hoverable" style="margin: 3rem auto;">
+        <thead>
+            <tr class="has-text-centered">
+                <th>Auteur</th>
+                <th>Commentaire</th>
+                <th>Article concerné</th>
+                <th>Date</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each comment in displayComments}}
+                <tr>
+                    <td>{{comment.author}}</td>
+                    <td>{{comment.comment}}</td>
+                    <td>{{comment.article}}</td>
+                    <td>{{comment.createdAt}}</td>
+                    <td class="editComment" id={{comment._id}} style="cursor: pointer;">
+                        <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
+                    </td>
+                    <td class="deleteComment" id={{comment._id}} style="cursor: pointer;">
+                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>

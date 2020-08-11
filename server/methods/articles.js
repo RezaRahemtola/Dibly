@@ -4,6 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 // Importing databases
 import { Articles } from '../../imports/databases/articles.js';
+import { Comments } from '../../imports/databases/comments.js';
 import { Categories } from '../../imports/databases/categories.js';
 import { UsersInformations } from '../../imports/databases/usersInformations.js';
 
@@ -36,7 +37,7 @@ Meteor.methods({
                         authorId: Meteor.userId()
                     });
                 } else{
-                    // This user has not the correct role to publish an article, throwing an error message
+                    // This user does't have the correct role to publish an article, throwing an error message
                     throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de publier des articles.');
                 }
             }
@@ -110,7 +111,9 @@ Meteor.methods({
             } else{
                 // User is allowed to delete this article
                 Articles.remove({_id: articleId});
-
+                // Removing the comments on this article
+                Comments.remove({articleId: articleId});
+                
                 return true;
             }
         }

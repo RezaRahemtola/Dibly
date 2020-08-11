@@ -27,6 +27,7 @@ import './messages/verifyEmail.js';
 
 // Modals imports
 import './modals/confirmDeleteArticle.js';
+import './modals/confirmDeleteComment.js';
 import './modals/forgotPassword.js';
 import './modals/login.js';
 import './modals/register.js';
