@@ -1,12 +1,40 @@
-# EcoClubJulesFe
+![Dibly logo](https://github.com/RezaRahemtola/Dibly/raw/master/public/dibly.png "Dibly")
 
-Web App for the Lycée Jules Ferry's Eco-club, used as a WordPress-like system to manage articles & pages with a simple interface.
+A simple, modern and complete blog management system to allow everyone to start blogging.  
+No need for programming knowledge or learning to use a large CMS overloaded with options that make it difficult to learn and are unnecessary for novice users.
+
+Publication and management of articles, comment space to interact with visitors, customizable design, attendance statistics and much more ...
+It has all the essential features of a blog.
+
+Dibly benefits from completely free hosting (with Heroku, MongoDB and Dropbox).
 
 ## Installation:
 
 After cloning this repository, you need to install the required modules with
 ```
 npm install
+```
+
+You also need to create a `settings.json` file (to set up email sending & admin list) with the following content :
+```json
+{
+    "smtp": {
+        "isSecure": "Boolean, set to true if your smtp service provides a secure connexion (https), else (http) set to false",
+        "username": "With SendGrid it's generally apikey",
+        "password": "With SendGrid it generally starts with SG.",
+        "host": "With SendGrid it's generally smtp.sendgrid.net",
+        "port": "Integer, with SendGrid it's generally 465"
+    },
+    "sendgridContactApiKey": "API Key provided by SendGrid & used to send contact emails (you can use the same that in smtp if you want)",
+    "giphyApiKey": "API given at https://developers.giphy.com/ and used to allow GIF in articles"
+}
+```
+
+If you fork this project, I strongly recommand to add this file in a `.gitignore` as it contains sensitive data.
+
+The app can then be run with those settings like that :
+```
+meteor --settings path/to/settings.json
 ```
 
 ## Support this project:
