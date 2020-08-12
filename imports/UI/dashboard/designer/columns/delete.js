@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './deleteColumn.html';
+import './delete.html';
 
 
 FlowRouter.route('/dashboard/design/columns/delete', {

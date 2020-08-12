@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './usersManagement.html';
+import './management.html';
 
 // Initializing Session variables
 Session.set('displayUsersManagement', []);  // Array used to store all users

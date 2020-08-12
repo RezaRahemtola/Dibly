@@ -8,9 +8,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './articles.html';
 
 // JS imports
-import './addArticle.js';
-import './editArticle.js';
-import './deleteArticle.js';
+import './add.js';
+import './edit.js';
+import './delete.js';
 
 
 FlowRouter.route('/dashboard/articles', {

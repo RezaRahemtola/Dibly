@@ -8,7 +8,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './categories.html';
 
 // JS imports
-import './addCategory.js';
+import './add.js';
 
 
 FlowRouter.route('/dashboard/categories', {

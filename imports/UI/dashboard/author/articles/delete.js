@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './deleteArticle.html';
+import './delete.html';
 
 // Initializing Session variable
 Session.set('articlesToDelete', []);

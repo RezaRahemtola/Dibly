@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './editArticle.html';
+import './edit.html';
 
 // Functions import
 import '../../../functions/trumbowyg.js';

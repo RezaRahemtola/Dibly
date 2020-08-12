@@ -8,9 +8,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './columns.html';
 
 // JS imports
-import './addColumn.js';
-import './editColumn.js';
-import './deleteColumn.js';
+import './add.js';
+import './edit.js';
+import './delete.js';
 
 
 FlowRouter.route('/dashboard/design/columns', {

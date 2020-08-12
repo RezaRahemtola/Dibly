@@ -8,8 +8,8 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './users.html';
 
 // JS imports
-import './addUser.js';
-import './usersManagement.js';
+import './add.js';
+import './management.js';
 
 
 FlowRouter.route('/dashboard/users', {

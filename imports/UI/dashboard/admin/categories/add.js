@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './addCategory.html';
+import './add.html';
 
 
 FlowRouter.route('/dashboard/categories/add', {
