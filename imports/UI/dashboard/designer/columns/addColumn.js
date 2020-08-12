@@ -8,10 +8,10 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './addColumn.html';
 
 // Functions import
-import '../../functions/trumbowyg.js';
+import '../../../functions/trumbowyg.js';
 
 // Database import
-import { Images } from '../../../databases/images.js';
+import { Images } from '../../../../databases/images.js';
 
 
 FlowRouter.route('/dashboard/design/columns/add', {

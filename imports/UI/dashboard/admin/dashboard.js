@@ -6,7 +6,5 @@ import { Template } from 'meteor/templating';
 import './dashboard.html';
 
 // JS imports
-import './addUser.js';
-import './usersDashboard.js';
-import './usersManagement.js';
+import './users/users.js';
 import './categoriesDashboard.js';

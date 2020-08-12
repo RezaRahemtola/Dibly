@@ -7,9 +7,6 @@ import './dashboard.html';
 
 // JS imports
 import './design.js';
-import './columns.js';
-import './addColumn.js';
-import './editColumn.js';
-import './deleteColumn.js';
+import './columns/columns.js';
 import './background.js';
 import './editFooter.js';

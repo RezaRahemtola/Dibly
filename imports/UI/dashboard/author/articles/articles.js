@@ -5,13 +5,18 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './columns.html';
+import './articles.html';
+
+// JS imports
+import './addArticle.js';
+import './editArticle.js';
+import './deleteArticle.js';
 
 
-FlowRouter.route('/dashboard/design/columns', {
-    name: 'dashboardDesignColumns',
+FlowRouter.route('/dashboard/articles', {
+    name: 'dashboardArticles',
     action(){
-        // We will render the columns design dashboard template using Blaze, but we need the user's role to check if access is allowed
+        // We will render the articles dashboard template using Blaze, but we need the user's role to check if access is allowed
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
@@ -19,9 +24,9 @@ FlowRouter.route('/dashboard/design/columns', {
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 // Sending user back to home page to avoid a blank page displayed
                 FlowRouter.go('/');
-            } else if(role === 'designer' || role === 'admin'){
-                // User is allowed to access columns design dashboard, rendering it
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'columnsDashboard'});
+            } else if(role === 'author' || role === 'admin'){
+                // User is allowed to access articles dashboard, rendering it
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'articlesDashboard'});
                 // Scrolling the window back to the top
                 window.scrollTo(0, 0);
             } else{

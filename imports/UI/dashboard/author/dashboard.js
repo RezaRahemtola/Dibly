@@ -6,8 +6,5 @@ import { Template } from 'meteor/templating';
 import './dashboard.html';
 
 // JS imports
-import './articlesDashboard.js';
-import './addArticle.js';
-import './editArticle.js';
-import './deleteArticle.js';
+import './articles/articles.js';
 import './commentsManagement.js';
