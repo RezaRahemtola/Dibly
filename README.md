@@ -1,9 +1,9 @@
 ![Dibly logo](https://github.com/RezaRahemtola/Dibly/raw/master/public/dibly.png "Dibly")
 
 A simple, modern and complete blog management system to allow everyone to start blogging.  
-No need for programming knowledge or learning to use a large CMS overloaded with options that make it difficult to learn and are unnecessary for novice users.
+No need for programming knowledge or learning to use a large CMS overloaded with options that make it difficult to master and are unnecessary for novice users.
 
-Publication and management of articles, comment space to interact with visitors, customizable design, attendance statistics and much more ...
+Publication and management of articles, comment space to interact with visitors, customizable design, attendance statistics and much more...
 It has all the essential features of a blog.
 
 Dibly benefits from completely free hosting (with Heroku, MongoDB and Dropbox).
