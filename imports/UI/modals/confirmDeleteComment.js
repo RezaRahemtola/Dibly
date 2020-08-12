@@ -55,7 +55,7 @@ Template.confirmDeleteComment.events({
     'click #delete'(event){
         event.preventDefault();
 
-        // Delete article button was clicked, calling the method to delete the comment
+        // Delete comment button was clicked, calling the method to delete it
         Meteor.call('deleteComment', {commentId: FlowRouter.getQueryParam('commentId')}, function(error, result){
             if(error){
                 // There was an error

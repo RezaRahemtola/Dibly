@@ -1,0 +1,30 @@
+<template name="categoriesManagement">
+    <h2 class="title is-2 has-text-centered">Gestion des catégories</h2>
+
+    <table class="table is-bordered is-striped is-hoverable" style="margin: 3rem auto;">
+        <thead>
+            <tr class="has-text-centered">
+                <th>Nom</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each category in displayCategories}}
+                <tr>
+                    <td>{{category.name}}</td>
+                    <td class="editCategory" id={{category._id}} style="cursor: pointer;">
+                        <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
+                    </td>
+                    <td class="deleteCategory" id={{category._id}} style="cursor: pointer;">
+                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    </td>
+                </tr>
+            {{else}}
+                <!-- No categories to manage, showing a full width message-->
+                <tr>
+                    <td colspan="3" class="has-text-centered">Aucune catégorie</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>

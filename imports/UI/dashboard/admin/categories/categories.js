@@ -9,6 +9,8 @@ import './categories.html';
 
 // JS imports
 import './add.js';
+import './management.js';
+import './delete.js';
 
 
 FlowRouter.route('/dashboard/categories', {

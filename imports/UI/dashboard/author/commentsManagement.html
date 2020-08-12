@@ -25,6 +25,11 @@
                         <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
                     </td>
                 </tr>
+            {{else}}
+                <!-- No comments to manage, showing a full width message -->
+                <tr>
+                    <td colspan="6" class="has-text-centered">Aucun commentaire</td>
+                </tr>
             {{/each}}
         </tbody>
     </table>

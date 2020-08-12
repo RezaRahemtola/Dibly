@@ -60,7 +60,7 @@ Template.commentsManagement.events({
 
         // Delete comment icon is clicked, catching commentId
         const commentId = event.currentTarget.id;
-        // Sending user to the confirmation page with articleId in query params
+        // Sending user to the confirmation page with commentId in query params
         FlowRouter.go('/dashboard/comments/delete/confirm?commentId='+commentId);
     }
 });

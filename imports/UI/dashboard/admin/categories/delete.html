@@ -1,0 +1,40 @@
+<template name="confirmDeleteCategory">
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+
+        <div class="modal-card">
+
+            <header class="modal-card-head">
+                <p class="modal-card-title">Confirmer la suppression de la catégorie</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+
+            <section class="modal-card-body">
+                {{> Template.dynamic template=messageToDisplay}}  <!-- Display the current message (if there's one) -->
+
+                {{#with getCategory}}
+                    <p>
+                        Voulez-vous vraiment supprimer la catégorie "{{this}}" ?
+                        <br>
+                        Cette catégorie sera également supprimée de tous les articles qui y étaient classés.
+                        Cette action est irréversible.
+                    </p>
+                {{/with}}
+
+            </section>
+
+            <footer class="modal-card-foot" style="display: block;">
+                <div class="card-footer-item">
+                    <div class="columns">
+                        <div class="column">
+                            <button class="button is-danger is-large is-fullwidth" id="delete">Supprimer</button>
+                        </div>
+                        <div class="column">
+                            <button class="button is-large is-fullwidth" id="cancel">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</template>
