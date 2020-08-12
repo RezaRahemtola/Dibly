@@ -1,0 +1,40 @@
+<template name="editFooter">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier le bas de page</h3>
+    </header>
+
+    <form id="editFooter" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <div id="editor"></div>
+
+        <section style="border-top: solid grey 0.1rem;">
+            <div class="columns">
+                <div class="column field has-text-centered">
+                    <span>Ajouter une image depuis votre ordinateur :</span>
+                    <div class="file has-name is-boxed width-fit-content" style="margin: auto;">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="imageInput" id="imageInput" accept="image/*">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-file-image"></i>
+                                </span>
+                                <span class="file-label">Choisir un fichier…</span>
+                            </span>
+                        </label>
+                    </div>
+                    {{#with displayImage}}
+                        <div class="width-fit-content" style="display: inline-block;">
+                            <img src="{{this.link}}" alt="{{this.name}}" class="image is-128x128"/>
+                        </div>
+                        <p class="has-text-centered">{{this.link}}</p>
+                    {{/with}}
+                </div>
+            </div>
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitEditFooter" type="submit">Valider les modifications</button>
+    </form>
+</template>

@@ -12,3 +12,4 @@ npm install
 ## Support this project:
 
 - [One-time donation via PayPal](https://paypal.me/RezaRahemtola)
+- If you're using [Brave Browser](https://brave.com/rez051), you can tip me with [BAT](https://basicattentiontoken.org/)

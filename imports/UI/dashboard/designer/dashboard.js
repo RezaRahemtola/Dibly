@@ -12,3 +12,4 @@ import './addColumn.js';
 import './editColumn.js';
 import './deleteColumn.js';
 import './background.js';
+import './editFooter.js';

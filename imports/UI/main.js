@@ -158,6 +158,19 @@ Template.main.helpers({
                 }
             });
         }
+    },
+    displayFooter: function(){
+        // Calling a server-side method to catch the footer content
+        if(Meteor.subscribe('images').ready()){
+            Meteor.call('getFooter', function(error, footer){
+                if(error){
+                    // TODO: error
+                } else{
+                    // Footer HTML content was returned, filling the container with it
+                    document.querySelector('div#footerContainer').innerHTML = footer;
+                }
+            });
+        }
     }
 });
 

@@ -28,6 +28,13 @@ Meteor.methods({
                 }
             });
         }
+        if(Design.findOne({name: 'footer'}) === undefined){
+            // Footer design isn't defined, inserting blank data in the database
+            Design.insert({
+                name: 'footer',
+                value: ''
+            });
+        }
     },
     'getMainPageColumns'(){
         // Catch & return the main page columns array (array of HTML content)
@@ -124,7 +131,7 @@ Meteor.methods({
             } else{
                 // User is allowed to delete a column, converting the position to integer
                 position = parseInt(position);
-                // Catching if of columns in the database and the columnsArray
+                // Catching id of columns in the database and the columnsArray
                 const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
@@ -196,6 +203,35 @@ Meteor.methods({
                     // No background option given, throwing an error
                     throw new Meteor.Error('noBackgroundOption', "Veuillez renseigner une couleur ou une image.");
                 }
+            }
+        }
+    },
+    'getFooter'(){
+        // Catch & return the footer content (HTML)
+        return Design.findOne({name: 'footer'}).value;
+    },
+    'editFooter'({html}){
+        // Type check to prevent malicious calls
+        check(html, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to edit the footer (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to edit the footer, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to modify the footer, catching id of the footer in the database
+                const footerId = Design.findOne({name: 'footer'})._id;
+
+                // Updating the database
+                Design.update(footerId, { $set: {
+                    value: html
+                }});
             }
         }
     }
