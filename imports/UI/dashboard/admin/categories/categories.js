@@ -5,7 +5,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './categoriesDashboard.html';
+import './categories.html';
+
+// JS imports
+import './addCategory.js';
 
 
 FlowRouter.route('/dashboard/categories', {
@@ -20,7 +23,7 @@ FlowRouter.route('/dashboard/categories', {
                 FlowRouter.go('/');
             } else if(role === 'admin'){
                 // User can access the dashboard
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminCategoriesDashboard'});
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'categoriesDashboard'});
                 // Scrolling the window back to the top
                 window.scrollTo(0, 0);
             } else{

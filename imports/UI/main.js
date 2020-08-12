@@ -11,11 +11,9 @@ import './main.html';
 import './home.js';
 import './search.js';
 import './errorPage.js';
-import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
 import './contact.js';
-import './categoryPage.js';
 
 // Article pages imports
 import './article/articleBanner.js';

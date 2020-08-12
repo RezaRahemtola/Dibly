@@ -7,4 +7,4 @@ import './dashboard.html';
 
 // JS imports
 import './users/users.js';
-import './categoriesDashboard.js';
+import './categories/categories.js';
