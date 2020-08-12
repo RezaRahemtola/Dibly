@@ -35,10 +35,29 @@ Meteor.methods({
                 value: ''
             });
         }
-    },
-    'getMainPageColumns'(){
-        // Catch & return the main page columns array (array of HTML content)
-        return Design.findOne({name: 'mainPageColumns'}).value;
+        if(Design.findOne({name: 'homePage'}) === undefined){
+            // Home page design isn't defined, inserting example data in the database
+            Design.insert({
+                name: 'homePage',
+                value: `<h2 class="title is-2 has-text-centered">Welcome to my blog !</h2>
+                        <p class="subtitle has-text-centered">This is the home page</p>`
+            });
+        }
+        if(Design.findOne({name: 'errorPage'}) === undefined){
+            // Error page design isn't defined, inserting example data in the database
+            Design.insert({
+                name: 'errorPage',
+                value: `<h3 class="title is-3 has-text-centered">Oops, something went wrong</h3>
+                        <p class="has-text-centered">
+                            An error has occurred, please try to
+                            <a href="#" onclick="window.location.href=window.location.href">
+                                reload this page
+                            </a>
+                            or come back to the
+                            <a href="/">home page</a>.
+                        </p>`
+            });
+        }
     },
     'addMainPageColumn'({position, html}){
         // Type check to prevent malicious calls
@@ -150,10 +169,6 @@ Meteor.methods({
             }
         }
     },
-    'getBackground'(){
-        // Catch & return the background object (color & imageUrl)
-        return Design.findOne({name: 'background'}).value;
-    },
     'editBackground'({imageId, color}){
         // Type check to prevent malicious calls
         check(imageId, String);
@@ -206,31 +221,38 @@ Meteor.methods({
             }
         }
     },
-    'getFooter'(){
-        // Catch & return the footer content (HTML)
-        return Design.findOne({name: 'footer'}).value;
-    },
-    'editFooter'({html}){
+    'getDesignValueByName'({name}){
         // Type check to prevent malicious calls
-        check(html, String);
+        check(name, String);
+
+        // TODO: check if not undefined
+
+        // Catch & return the value of the corresponding element in the database
+        return Design.findOne({name: name}).value;
+    },
+    'editElement'({name, value}){
+        // Type check to prevent malicious calls
+        check(name, String);
+        check(value, String);
 
         if(!Meteor.userId()){
             // User isn't logged in
             throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
         } else{
-            // User is logged in, checking if he is allowed to edit the footer (designer or administrator)
+            // User is logged in, checking if he is allowed to edit an element (designer or administrator)
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
 
             if(userRole !== 'designer' && userRole !== 'admin'){
-                // User isn't allowed to edit the footer, throwing an error
+                // User isn't allowed to edit an element, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to modify the footer, catching id of the footer in the database
-                const footerId = Design.findOne({name: 'footer'})._id;
+                // User is allowed to modify an element, catching it's id with the given name
+                const elementId = Design.findOne({name: name})._id;
+                // TODO: check if id is defined
 
                 // Updating the database
-                Design.update(footerId, { $set: {
-                    value: html
+                Design.update(elementId, { $set: {
+                    value: value
                 }});
             }
         }

@@ -10,7 +10,7 @@ import './main.html';
 // JS imports
 import './home.js';
 import './search.js';
-import './404NotFound.js';
+import './errorPage.js';
 import './addCategory.js';
 import './dashboard/dashboard.js';
 import './latestArticles.js';
@@ -118,7 +118,7 @@ Template.main.helpers({
     },
     displayColumns: function(){
         // Calling a server-side method to get the array of columns
-        Meteor.call('getMainPageColumns', function(error, columnsArray){
+        Meteor.call('getDesignValueByName', {name: 'mainPageColumns'}, function(error, columnsArray){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
@@ -141,7 +141,7 @@ Template.main.helpers({
     displayBackground: function(){
         // Calling a server-side method to catch the background design
         if(Meteor.subscribe('images').ready()){
-            Meteor.call('getBackground', function(error, background){
+            Meteor.call('getDesignValueByName', {name: 'background'}, function(error, background){
                 if(error){
                     // TODO: error
                 } else{
@@ -162,12 +162,12 @@ Template.main.helpers({
     displayFooter: function(){
         // Calling a server-side method to catch the footer content
         if(Meteor.subscribe('images').ready()){
-            Meteor.call('getFooter', function(error, footer){
+            Meteor.call('getDesignValueByName', {name: 'footer'}, function(error, footerHTML){
                 if(error){
                     // TODO: error
                 } else{
                     // Footer HTML content was returned, filling the container with it
-                    document.querySelector('div#footerContainer').innerHTML = footer;
+                    document.querySelector('div#footerContainer').innerHTML = footerHTML;
                 }
             });
         }

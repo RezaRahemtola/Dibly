@@ -9,4 +9,4 @@ import './dashboard.html';
 import './design.js';
 import './columns/columns.js';
 import './background.js';
-import './editFooter.js';
+import './editElement.js';
