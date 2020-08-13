@@ -7,4 +7,4 @@ import './dashboard.html';
 
 // JS imports
 import './articles/articles.js';
-import './commentsManagement.js';
+import './comments/management.js';

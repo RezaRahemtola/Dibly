@@ -12,6 +12,7 @@ import './home.js';
 import './search.js';
 import './errorPage.js';
 import './dashboard/dashboard.js';
+import './user/user.js';
 import './latestArticles.js';
 import './contact.js';
 
@@ -22,14 +23,6 @@ import './article/articlePage.js';
 // Messages imports
 import './messages/header.js';
 import './messages/verifyEmail.js';
-
-// Modals imports
-import './modals/confirmDeleteArticle.js';
-import './modals/confirmDeleteComment.js';
-import './modals/forgotPassword.js';
-import './modals/login.js';
-import './modals/register.js';
-import './modals/resetPassword.js';
 
 // CSS import
 import './css/_all.js';

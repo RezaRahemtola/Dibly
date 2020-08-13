@@ -11,6 +11,7 @@ import './articles.html';
 import './add.js';
 import './edit.js';
 import './delete.js';
+import './modals/confirmDelete.js';
 
 
 FlowRouter.route('/dashboard/articles', {

@@ -5,7 +5,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './commentsManagement.html';
+import './management.html';
+
+// JS import
+import './modals/confirmDelete.js';
 
 // Initializing Session variable
 Session.set('commentsManagement', []);

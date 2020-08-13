@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './confirmDeleteComment.html';
+import './confirmDelete.html';
 
 // Initializing Session variable
 Session.set('confirmDeleteComment', {});
