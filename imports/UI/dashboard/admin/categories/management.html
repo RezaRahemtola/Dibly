@@ -12,11 +12,15 @@
             {{#each category in displayCategories}}
                 <tr>
                     <td>{{category.name}}</td>
-                    <td class="editCategory" id={{category._id}} style="cursor: pointer;">
-                        <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
+                    <td style="padding: 0; vertical-align: inherit;">
+                        <a href="/dashboard/categories/manage/edit?categoryId={{category._id}}" style="padding: .5em .75em;">
+                            <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
+                        </a>
                     </td>
-                    <td class="deleteCategory" id={{category._id}} style="cursor: pointer;">
-                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    <td style="padding: 0; vertical-align: inherit;">
+                        <a href="/dashboard/categories/manage/delete/confirm?categoryId={{category._id}}" style="padding: .5em .75em;">
+                            <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                        </a>
                     </td>
                 </tr>
             {{else}}

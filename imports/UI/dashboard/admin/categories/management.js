@@ -52,15 +52,3 @@ Template.categoriesManagement.helpers({
         return Session.get('categoriesManagement');
     }
 });
-
-
-Template.categoriesManagement.events({
-    'click .deleteCategory'(event){
-        event.preventDefault();
-
-        // Delete category icon is clicked, catching it's id
-        const categoryId = event.currentTarget.id;
-        // Sending user to the confirmation page with categoryId in query params
-        FlowRouter.go('/dashboard/categories/manage/delete/confirm?categoryId='+categoryId);
-    }
-});

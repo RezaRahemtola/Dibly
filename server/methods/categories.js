@@ -30,6 +30,51 @@ Meteor.methods({
             }
         }
     },
+    'editCategory'({categoryId, name}){
+        // Type check to prevent malicious calls
+        check(categoryId, String);
+        check(name, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in, throwing an error message
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, catching his role to check if he's allowed to delete a category
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole === 'admin'){
+                // User is an administrator, he's allowed to edit a category
+
+                // TODO: check if category really exists
+
+                // Catching current category's name to edit it in all articles that contains it
+                const currentCategoryName = Categories.findOne({_id: categoryId}).name;
+                // Catching all the articles that contains it
+                const articles = Articles.find({categories: currentCategoryName});
+                for(var article of articles){
+                    // For each article, we remove the category
+                    var newCategories = article.categories.filter(function(category){
+                        return category !== currentCategoryName;
+                    });
+                    // Add the updated category
+                    newCategories.push(name);
+                    // Updating the database
+                    Articles.update(article._id, { $set: {
+                        categories: newCategories
+                    }});
+                }
+
+                // The old category isn't on any article anymore, we can edit it
+                Categories.update(categoryId, { $set: {
+                    name: name
+                }});
+
+            } else{
+                // User isn't allowed to edit a category, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas de modifier une catégorie.");
+            }
+        }
+    },
     'deleteCategory'({categoryId}){
         // Type check to prevent malicious calls
         check(categoryId, String);
@@ -65,7 +110,7 @@ Meteor.methods({
                 Categories.remove({_id: categoryId});
 
             } else{
-                // User isn't allowed to delete this article, throwing an error
+                // User isn't allowed to delete this category, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas de créer supprimer une catégorie.");
             }
         }

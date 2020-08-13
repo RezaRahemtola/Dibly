@@ -8,8 +8,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './categories.html';
 
 // JS imports
-import './add.js';
 import './management.js';
+import './add.js';
+import './edit.js';
 import './delete.js';
 
 

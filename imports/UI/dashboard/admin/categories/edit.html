@@ -1,0 +1,26 @@
+<template name="editCategory">
+
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier une catégorie</h3>
+    </header>
+
+    <form id="editCategory" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <section class="section">
+            <div class="field has-animated-label">
+                <div class="control has-icons-left">
+                    <input type="text" class="input has-animated-label" name="name" id="name" placeholder=" " required>
+                    <label for="name" class="label is-animated">Nom de la catégorie <span class="has-text-danger">*</span></label>
+                    <span class="icon is-left">
+                        <i class="fas fa-list"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitEditCategory" type="submit">Valider les modifications</button>
+    </form>
+</template>
