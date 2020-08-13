@@ -16,8 +16,10 @@
                     <td>{{article.title}}</td>
                     <td>{{article.author}}</td>
                     <td>{{article.createdAt}}</td>
-                    <td class="deleteArticle" id={{article._id}} style="cursor: pointer;">
-                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    <td style="padding: 0; vertical-align: inherit;">
+                        <a href="/dashboard/articles/delete/confirm?articleId={{article._id}}" style="padding: .5em .75em;">
+                            <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                        </a>
                     </td>
                 </tr>
             {{else}}

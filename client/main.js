@@ -4,6 +4,8 @@ import '../imports/config/accounts-config.js';
 // JS import
 import '../imports/UI/main.js';
 
+// Importing FontAwesome
+import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
 
 // Importing Trumbowyg editor files
 import '../node_modules/trumbowyg/dist/ui/trumbowyg.min.css';

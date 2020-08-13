@@ -18,11 +18,13 @@
                     <td>{{comment.comment}}</td>
                     <td>{{comment.article}}</td>
                     <td>{{comment.createdAt}}</td>
-                    <td class="editComment" id={{comment._id}} style="cursor: pointer;">
+                    <td id={{comment._id}} style="cursor: pointer;">
                         <span class="icon has-text-success"><i class="fas fa-pen"></i></span>
                     </td>
-                    <td class="deleteComment" id={{comment._id}} style="cursor: pointer;">
-                        <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                    <td style="padding: 0; vertical-align: inherit;">
+                        <a href="/dashboard/comments/delete/confirm?commentId={{comment._id}}" style="padding: .5em .75em;">
+                            <span class="icon has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                        </a>
                     </td>
                 </tr>
             {{else}}

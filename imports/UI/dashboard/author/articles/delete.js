@@ -52,15 +52,3 @@ Template.deleteArticle.helpers({
         return Session.get('articlesToDelete');
     }
 });
-
-
-Template.deleteArticle.events({
-    'click .deleteArticle'(event){
-        event.preventDefault();
-
-        // Delete article icon is clicked, catching articleId
-        const articleId = event.currentTarget.id;
-        // Sending user to the confirmation page with articleId in query params
-        FlowRouter.go('/dashboard/articles/delete/confirm?articleId='+articleId);
-    }
-});

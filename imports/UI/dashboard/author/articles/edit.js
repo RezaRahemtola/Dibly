@@ -58,18 +58,6 @@ Template.chooseArticleToEdit.helpers({
 });
 
 
-Template.chooseArticleToEdit.events({
-    'click .editArticle'(event){
-        event.preventDefault();
-
-        // Edit article icon is clicked, catching articleId
-        const articleId = event.currentTarget.id;
-        // Sending user to the confirmation page with articleId in params
-        FlowRouter.go('/dashboard/articles/edit/'+articleId);
-    }
-});
-
-
 FlowRouter.route('/dashboard/articles/edit/:_id', {
     name: 'dashboardEditArticle',
     action(params, queryParams){
