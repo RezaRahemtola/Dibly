@@ -58,6 +58,20 @@ Meteor.methods({
                         </p>`
             });
         }
+        if(Design.findOne({name: 'browserTitle'}) === undefined){
+            // Title for the browser tab isn't defined,inserting blank data in the database
+            Design.insert({
+                name: 'browserTitle',
+                value: ''
+            });
+        }
+        if(Design.findOne({name: 'browserFavicon'}) === undefined){
+            // Favicon for the browser tab isn't defined, inserting blank data in the database
+            Design.insert({
+                name: 'browserFavicon',
+                value: ''
+            });
+        }
     },
     'addMainPageColumn'({position, html}){
         // Type check to prevent malicious calls
@@ -253,6 +267,37 @@ Meteor.methods({
                 // Updating the database
                 Design.update(elementId, { $set: {
                     value: value
+                }});
+            }
+        }
+    },
+    'editBrowserTab'({imageUrl, title}){
+        // Type check to prevent malicious calls
+        check(imageUrl, String);
+        check(title, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to edit browser tab elements (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to edit those elements, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to modify browser tab title & favicon, catching their id & updating the database
+                const browserTitleId = Design.findOne({name: 'browserTitle'})._id;
+                // Updating the database
+                Design.update(browserTitleId, { $set: {
+                    value: title
+                }});
+
+                const browserFaviconId = Design.findOne({name: 'browserFavicon'})._id;
+                // Updating the database
+                Design.update(browserFaviconId, { $set: {
+                    value: imageUrl
                 }});
             }
         }

@@ -157,6 +157,30 @@ Template.main.helpers({
             });
         }
     },
+    displayTitleAndFavicon: function(){
+        // Calling a server-side method to catch the title
+
+        Meteor.call('getDesignValueByName', {name: 'browserTitle'}, function(error, title){
+            if(error){
+                // TODO: error
+            } else{
+                // Title was returned, updating it in the document
+                document.title = title;
+
+                // Now let's catch the favicon link
+                if(Meteor.subscribe('images').ready()){
+                    Meteor.call('getDesignValueByName', {name: 'browserFavicon'}, function(error, faviconLink){
+                        if(error){
+                            // TODO: error
+                        } else{
+                            // Favicon link was returned, updating it in the document
+                            document.querySelector("link[rel='icon']").href = faviconLink;
+                        }
+                    });
+                }
+            }
+        });
+    },
     displayFooter: function(){
         // Calling a server-side method to catch the footer content
         if(Meteor.subscribe('images').ready()){
