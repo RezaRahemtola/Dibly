@@ -5,13 +5,13 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 // HTML import
-import './edit.html';
+import './delete.html';
 
 
-FlowRouter.route('/dashboard/design/navbar/edit', {
-    name: 'dashboardDesignNavbarEdit',
+FlowRouter.route('/dashboard/design/navbar/delete', {
+    name: 'dashboardDesignNavbarDelete',
     action(){
-        // We will render the edit navbar item form using Blaze, but we need the user's role to check if access is allowed
+        // We will render the delete navbar item form using Blaze, but we need the user's role to check if access is allowed
 
         Meteor.call('getCurrentUserRole', function(error, role){
             if(error){
@@ -21,7 +21,7 @@ FlowRouter.route('/dashboard/design/navbar/edit', {
                 FlowRouter.go('/');
             } else if(role === 'designer' || role === 'admin'){
                 // User is allowed to access the form, rendering it
-                BlazeLayout.render('main', {currentPage: 'editNavbarItem'});
+                BlazeLayout.render('main', {currentPage: 'deleteNavbarItem'});
                 // Scrolling the window back to the top
                 window.scrollTo(0, 0);
             } else{
@@ -33,18 +33,18 @@ FlowRouter.route('/dashboard/design/navbar/edit', {
 });
 
 
-Template.editNavbarItem.onRendered(function(){
+Template.deleteNavbarItem.onRendered(function(){
     // Catching the inputs
     const linkInput = document.querySelector('input#link');
     const iconInput = document.querySelector('input#icon');
     const textInput = document.querySelector('input#text');
 
     // Catching the submit button
-    const submitButton = document.querySelector('button#editNavbarItemSubmit');
+    const submitButton = document.querySelector('button#deleteNavbarItemSubmit');
     submitButton.disabled = true;  // Submit button is disabled until a valid item is chosen
 
     // Catching the position input & watching for changes
-    const positionInput = document.querySelector('input#currentPosition');
+    const positionInput = document.querySelector('input#position');
     positionInput.oninput = function(){
         // Calling a server-side method to get the columns array
         Meteor.call('getDesignValueByName', {name: 'navbarItems'}, function(error, navbarItems){
@@ -79,25 +79,21 @@ Template.editNavbarItem.onRendered(function(){
 });
 
 
-Template.editNavbarItem.events({
-    'click #editNavbarItemSubmit'(event){
+Template.deleteNavbarItem.events({
+    'click #deleteNavbarItemSubmit'(event){
         event.preventDefault();
 
         // Catching inputs for the call :
-        const form = new FormData(document.querySelector('form#editNavbarItemForm'));
-        const currentPosition = form.get('currentPosition');
-        const newPosition = form.get('newPosition');
-        const href = form.get('link');
-        const icon = form.get('icon');
-        const text = form.get('text');
+        const form = new FormData(document.querySelector('form#deleteNavbarItemForm'));
+        const position = form.get('position');
 
-        Meteor.call('editNavbarItem', {currentPosition: currentPosition, newPosition: newPosition, href: href, icon: icon, text: text}, function(error, result){
+        Meteor.call('deleteNavbarItem', {position: position}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
-                // Item was edited without any error, displaying a success message
-                Session.set('message', {type: "header", headerContent: "Élément modifié avec succès !", style:"is-success"});
+                // Item was deleted without any error, displaying a success message
+                Session.set('message', {type: "header", headerContent: "Élément supprimé avec succès !", style:"is-success"});
                 // Sending user to navbar dashboard
                 FlowRouter.go('/dashboard/design/navbar');
             }

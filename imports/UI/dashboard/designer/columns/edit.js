@@ -45,7 +45,7 @@ Template.editColumn.onRendered(function(){
     document.querySelector('button#submitEditColumn').disabled = true;  // Submit button is disabled until a valid column is chosen
 
     // Catching the column position input & watching for changes
-    const positionInput = document.querySelector('input#position');
+    const positionInput = document.querySelector('input#currentPosition');
     positionInput.oninput = function(){
         // Calling a server-side method to get the columns array
         Meteor.call('getDesignValueByName', {name: 'mainPageColumns'}, function(error, columnsArray){
@@ -121,11 +121,12 @@ Template.editColumn.events({
 
         // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#editColumn'));
-        const position = form.get('position');
+        const currentPosition = form.get('currentPosition');
+        const newPosition = form.get('newPosition');
         document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
 
-        Meteor.call('editMainPageColumn', {position: position, html: html}, function(error, result){
+        Meteor.call('editMainPageColumn', {currentPosition: currentPosition, newPosition: newPosition, html: html}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});

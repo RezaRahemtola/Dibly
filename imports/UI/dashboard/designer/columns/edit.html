@@ -9,11 +9,26 @@
         <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
         <div class="field has-animated-label">
-            <input type="number" class="input has-animated-label" name="position" id="position" placeholder=" " required >
-            <label for="position" class="label is-animated">Position de la colonne <span class="has-text-danger">*</span></label>
+            <div class="control has-icons-left">
+                <input type="number" class="input has-animated-label" name="currentPosition" id="currentPosition" placeholder=" " required/>
+                <label for="position" class="label is-animated">Position de la colonne <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-sort-numeric-down"></i>
+                </span>
+            </div>
         </div>
 
         <div id="editor"></div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="number" class="input has-animated-label" name="newPosition" id="newPosition" placeholder=" "/>
+                <label for="newPosition" class="label is-animated">Nouvelle position</label>
+                <span class="icon is-left">
+                    <i class="fas fa-sort-numeric-down"></i>
+                </span>
+            </div>
+        </div>
 
         <section style="border-top: solid grey 0.1rem;">
             <div class="columns">

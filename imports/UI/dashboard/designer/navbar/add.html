@@ -6,6 +6,16 @@
     <form id="addNavbarItemForm" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
         <div class="field has-animated-label">
             <div class="control has-icons-left">
+                <input type="number" class="input has-animated-label" name="position" id="position" placeholder=" ">
+                <label for="position" class="label is-animated">Insérer à une position</label>
+                <span class="icon is-left">
+                    <i class="fas fa-sort-numeric-down"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
                 <input type="text" class="input has-animated-label" name="link" id="link" placeholder=" " required/>
                 <label for="link" class="label is-animated">Lien <span class="has-text-danger">*</span></label>
                 <span class="icon is-left">
@@ -16,7 +26,7 @@
 
         <div class="field has-animated-label">
             <div class="control has-icons-left">
-                <input type="text" class="input has-animated-label" name="icon" id="icon" placeholder=" " required>
+                <input type="text" class="input has-animated-label" name="icon" id="icon" placeholder=" " required/>
                 <label for="icon" class="label is-animated">Icône <span class="has-text-danger">*</span></label>
                 <span class="icon is-left">
                     <i class="fas fa-icons"></i>
@@ -26,7 +36,7 @@
 
         <div class="field has-animated-label">
             <div class="control has-icons-left">
-                <input type="text" class="input has-animated-label" name="text" id="text" placeholder=" " required>
+                <input type="text" class="input has-animated-label" name="text" id="text" placeholder=" " required/>
                 <label for="text" class="label is-animated">Texte à afficher <span class="has-text-danger">*</span></label>
                 <span class="icon is-left">
                     <i class="fas fa-font"></i>
