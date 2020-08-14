@@ -389,5 +389,41 @@ Meteor.methods({
                 }
             }
         }
+    },
+    'deleteNavbarItem'({position}){
+        // Type check to prevent malicious calls
+        check(position, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to delete a navbar item (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to remove an item, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to delete an item, converting the position to integer
+                position = parseInt(position);
+                // Catching id of navbar items in the database and the items themselves
+                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+                var navbarItems = Design.findOne({name: 'navbarItems'}).value;
+
+                // Checking if the position is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
+                if(!isNaN(position) && navbarItems.hasOwnProperty(position-1)){
+                    // Position is an integer & the corresponding index exists, we can remove the value from the array
+                    navbarItems.splice(position-1, 1);
+
+                    // Updating the database
+                    Design.update(navbarItemsId, { $set: {
+                        value: navbarItems
+                    }});
+                } else{
+                    // TODO: throw error
+                }
+            }
+        }
     }
 });

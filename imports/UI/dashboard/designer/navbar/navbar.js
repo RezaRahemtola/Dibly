@@ -10,6 +10,7 @@ import './navbar.html';
 // JS imports
 import './add.js';
 import './edit.js';
+import './delete.js';
 
 
 FlowRouter.route('/dashboard/design/navbar', {
