@@ -13,6 +13,7 @@ import './search.js';
 import './errorPage.js';
 import './dashboard/dashboard.js';
 import './user/user.js';
+import './categoryPage.js';
 import './latestArticles.js';
 import './contact.js';
 

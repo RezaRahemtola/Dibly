@@ -7,8 +7,9 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 // HTML import
 import './navbar.html';
 
-// JS import
+// JS imports
 import './add.js';
+import './edit.js';
 
 
 FlowRouter.route('/dashboard/design/navbar', {

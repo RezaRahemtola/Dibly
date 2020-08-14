@@ -142,7 +142,7 @@ Meteor.methods({
             } else{
                 // User is allowed to modify a column, converting the position to integer
                 position = parseInt(position);
-                // Catching if of columns in the database and the columnsArray
+                // Catching id of columns in the database and the columnsArray
                 const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
@@ -348,6 +348,45 @@ Meteor.methods({
                 Design.update(navbarItemsId, { $set: {
                     value: navbarItems
                 }});
+            }
+        }
+    },
+    'editNavbarItem'({position, href, icon, text}){
+        // Type check to prevent malicious calls
+        check(position, String);
+        check(href, String);
+        check(icon, String);
+        check(text, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to edit a navbar item (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to edit an item, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to modify a navbar item, converting the position to integer
+                position = parseInt(position);
+                // Catching id of navbar items in the database and it's value
+                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+                var navbarItems = Design.findOne({name: 'navbarItems'}).value;
+
+                // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
+                if(!isNaN(position) && navbarItems.hasOwnProperty(position-1)){
+                    // Position is an integer & the corresponding index exists, we can update the value in the array
+                    navbarItems[position-1] = {href: href, icon: icon, text: text};
+
+                    // Updating the database
+                    Design.update(navbarItemsId, { $set: {
+                        value: navbarItems
+                    }});
+                } else{
+                    // TODO: throw error
+                }
             }
         }
     }
