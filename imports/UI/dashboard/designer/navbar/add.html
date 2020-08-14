@@ -1,0 +1,42 @@
+<template name="addNavbarItem">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Ajouter un élément</h3>
+    </header>
+
+    <form id="addNavbarItemForm" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="link" id="link" placeholder=" " required/>
+                <label for="link" class="label is-animated">Lien <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-link"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="icon" id="icon" placeholder=" " required>
+                <label for="icon" class="label is-animated">Icône <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-icons"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="text" id="text" placeholder=" " required>
+                <label for="text" class="label is-animated">Texte à afficher <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-font"></i>
+                </span>
+            </div>
+        </div>
+
+    </form>
+
+    <br>
+
+    <button class="button is-medium is-fullwidth has-background-success" id="addNavbarItemSubmit">Ajouter l'élément</button>
+</template>

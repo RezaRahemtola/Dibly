@@ -138,5 +138,41 @@ Meteor.methods({
 
         // TODO: check if the category for this id is defined
         return Categories.findOne({_id: categoryId}).name;
+    },
+    'getArticlesByCategoryId'({categoryId}){
+        // Type check to prevent malicious calls
+        check(categoryId, String);
+
+        // Catching category name :
+        const category = Categories.findOne({_id: categoryId}).name;
+
+        // Catching all articles with this category
+        const articlesCursor = Articles.find({categories: category});
+
+        var articles = [];
+
+        articlesCursor.forEach(function(doc){
+            // Catching author's username with his userId
+            const author = Meteor.users.findOne({_id: doc.authorId}).username;
+
+            // Converting the creation date to a classic format
+            var year = doc.createdAt.getFullYear();  // Catching the year
+            var month = doc.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
+            var date = doc.createdAt.getDate();  // Catching the date
+            if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
+            if(month < 10){ month = '0' + month; }
+            const createdAt = date+ '/' +month+ '/' +year;  // Updating the document with the new creation date
+
+            articles.push({
+                _id: doc._id,
+                title: doc.title,
+                html: doc.html,
+                categories: doc.categories,
+                createdAt: createdAt,
+                author: author
+            });
+        });
+
+        return articles;
     }
 });

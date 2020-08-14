@@ -48,7 +48,7 @@ Template.editColumn.onRendered(function(){
     const positionInput = document.querySelector('input#position');
     positionInput.oninput = function(){
         // Calling a server-side method to get the columns array
-        Meteor.call('getMainPageColumns', function(error, columnsArray){
+        Meteor.call('getDesignValueByName', {name: 'mainPageColumns'}, function(error, columnsArray){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});

@@ -27,30 +27,12 @@
 
                 <div id="mainNavbar" class="navbar-menu">
                     <div class="navbar-start">
-                        <a class="navbar-item" id="events">
-                            <span class="icon"><i class="fas fa-calendar-alt"></i></span>
-                            <span>Événements</span>
-                        </a>
-
-                        <a class="navbar-item" id="individualInitiatives">
-                            <span class="icon"><i class="fas fa-user-graduate"></i></span>
-                            <span>Initiatives individuelles</span>
-                        </a>
-
-                        <a class="navbar-item" href="/latest-articles">
-                            <span class="icon"><i class="fas fa-file-alt"></i></span>
-                            <span>Nos derniers articles</span>
-                        </a>
-
-                        <a class="navbar-item" href="/search">
-                            <span class="icon"><i class="fas fa-search"></i></span>
-                            <span>Rechercher</span>
-                        </a>
-
-                        <a class="navbar-item" href="/contact">
-                            <span class="icon"><i class="fas fa-edit"></i></span>
-                            <span>Contact</span>
-                        </a>
+                        {{#each item in displayNavbarItems}}
+                            <a class="navbar-item" href={{item.href}}>
+                                <span class="icon"><i class={{item.icon}}></i></span>
+                                <span>{{item.text}}</span>
+                            </a>
+                        {{/each}}
                     </div>
 
                     <div class="navbar-end">

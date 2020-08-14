@@ -13,6 +13,7 @@ import './search.js';
 import './errorPage.js';
 import './dashboard/dashboard.js';
 import './user/user.js';
+import './categoryPage.js';
 import './latestArticles.js';
 import './contact.js';
 
@@ -50,6 +51,7 @@ Session.set("searchedArticles", [] );  // No search for the moment
 Session.set('search', {query: "", categories: []});
 Session.set('message', null);  // No message to display for the moment
 Session.set('currentImageId', '');  // No image for the moment
+Session.set('navbaritems', []);  // No item in the navbar for the moment
 
 
 Template.main.onCreated(function(){
@@ -173,6 +175,17 @@ Template.main.helpers({
                 }
             });
         }
+    },
+    displayNavbarItems: function(){
+        Meteor.call('getDesignValueByName', {name: 'navbarItems'}, function(error, navbarItems){
+            if(error){
+                // TODO: error
+            } else{
+                // Navbar items array was returned, saving it in a Session variable
+                Session.set('navbarItems', navbarItems);
+            }
+        });
+        return Session.get('navbarItems');
     },
     displayFooter: function(){
         // Calling a server-side method to catch the footer content

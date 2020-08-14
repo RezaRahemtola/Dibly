@@ -1,0 +1,50 @@
+<template name="editNavbarItem">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier un élément</h3>
+    </header>
+
+    <form id="editNavbarItemForm" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <div class="field has-animated-label">
+            <input type="number" class="input has-animated-label" name="position" id="position" placeholder=" " required >
+            <label for="position" class="label is-animated">Position de l'élément <span class="has-text-danger">*</span></label>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="link" id="link" placeholder=" " required/>
+                <label for="link" class="label is-animated">Lien <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-link"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="icon" id="icon" placeholder=" " required>
+                <label for="icon" class="label is-animated">Icône <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-icons"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field has-animated-label">
+            <div class="control has-icons-left">
+                <input type="text" class="input has-animated-label" name="text" id="text" placeholder=" " required>
+                <label for="text" class="label is-animated">Texte à afficher <span class="has-text-danger">*</span></label>
+                <span class="icon is-left">
+                    <i class="fas fa-font"></i>
+                </span>
+            </div>
+        </div>
+
+    </form>
+
+    <br>
+
+    <button class="button is-medium is-fullwidth has-background-success" id="editNavbarItemSubmit">Modifier l'élément</button>
+</template>
