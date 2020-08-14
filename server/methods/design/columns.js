@@ -44,9 +44,10 @@ Meteor.methods({
             }
         }
     },
-    'editMainPageColumn'({position, html}){
+    'editMainPageColumn'({currentPosition, newPosition, html}){
         // Type check to prevent malicious calls
-        check(position, String);
+        check(currentPosition, String);
+        check(newPosition, String);
         check(html, String);
 
         if(!Meteor.userId()){
@@ -61,15 +62,25 @@ Meteor.methods({
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
                 // User is allowed to modify a column, converting the position to integer
-                position = parseInt(position);
+                currentPosition = parseInt(currentPosition);
                 // Catching id of columns in the database and the columnsArray
                 const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
                 // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
-                if(!isNaN(position) && columnsArray.hasOwnProperty(position-1)){
+                if(!isNaN(currentPosition) && columnsArray.hasOwnProperty(currentPosition-1)){
                     // Position is an integer & the corresponding index exists, we can update the value in the array
-                    columnsArray[position-1] = html;
+
+                    // Converting the new position to integer to check if it was filled
+                    newPosition = parseInt(newPosition);
+                    if(isNaN(newPosition)){
+                        // New position isn't a number, replace the value at the current position with the new item
+                        columnsArray[currentPosition-1] = html;
+                    } else{
+                        // Position is a valid number, removing the old item & adding the edited column at the new position
+                        columnsArray.splice(currentPosition-1, 1);
+                        columnsArray.splice(newPosition-1, 0, html);
+                    }
 
                     // Updating the database
                     Design.update(columnsId, { $set: {

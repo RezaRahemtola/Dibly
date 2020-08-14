@@ -44,7 +44,7 @@ Template.editNavbarItem.onRendered(function(){
     submitButton.disabled = true;  // Submit button is disabled until a valid item is chosen
 
     // Catching the position input & watching for changes
-    const positionInput = document.querySelector('input#position');
+    const positionInput = document.querySelector('input#currentPosition');
     positionInput.oninput = function(){
         // Calling a server-side method to get the columns array
         Meteor.call('getDesignValueByName', {name: 'navbarItems'}, function(error, navbarItems){
@@ -85,12 +85,13 @@ Template.editNavbarItem.events({
 
         // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#editNavbarItemForm'));
-        const position = form.get('position');
+        const currentPosition = form.get('currentPosition');
+        const newPosition = form.get('newPosition');
         const href = form.get('link');
         const icon = form.get('icon');
         const text = form.get('text');
 
-        Meteor.call('editNavbarItem', {position: position, href: href, icon: icon, text: text}, function(error, result){
+        Meteor.call('editNavbarItem', {currentPosition: currentPosition, newPosition: newPosition, href: href, icon: icon, text: text}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});

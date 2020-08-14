@@ -39,11 +39,12 @@ Template.addNavbarItem.events({
 
         // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#addNavbarItemForm'));
+        const position = form.get('position');
         const href = form.get('link');
         const icon = form.get('icon');
         const text = form.get('text');
 
-        Meteor.call('addNavbarItem', {href: href, icon: icon, text: text}, function(error, result){
+        Meteor.call('addNavbarItem', {position: position, href: href, icon: icon, text: text}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
