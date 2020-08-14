@@ -29,10 +29,13 @@ Meteor.methods({
             });
         }
         if(Design.findOne({name: 'footer'}) === undefined){
-            // Footer design isn't defined, inserting blank data in the database
+            // Footer design isn't defined, inserting example data in the database
             Design.insert({
                 name: 'footer',
-                value: ''
+                value: `<p class="has-text-centered" style="font-family: 'Changa One'; background-color: #f3f3f3;">
+                        <span>Site réalisé par </span>
+                        <a href="https://rezarahemtola.com" target="_blank" class="link" style="font-family: 'Changa One';">Reza Rahemtola</a>
+                        </p>`
             });
         }
         if(Design.findOne({name: 'homePage'}) === undefined){
@@ -70,6 +73,17 @@ Meteor.methods({
             Design.insert({
                 name: 'browserFavicon',
                 value: ''
+            });
+        }
+        if(Design.findOne({name: 'navbarItems'}) === undefined){
+            // Navbar items aren't defined, inserting example data in the database
+            Design.insert({
+                name: 'navbarItems',
+                value: [
+                    {href: "/latest-articles", icon: "fas fa-file-alt", text: "Nos derniers articles"},
+                    {href: "/search", icon: "fas fa-search", text: "Rechercher"},
+                    {href: "/contact", icon: "fas fa-edit", text: "Contact"}
+                ]
             });
         }
     },
@@ -298,6 +312,41 @@ Meteor.methods({
                 // Updating the database
                 Design.update(browserFaviconId, { $set: {
                     value: imageUrl
+                }});
+            }
+        }
+    },
+    'addNavbarItem'({href, icon, text}){
+        // Type check to prevent malicious calls
+        check(href, String);
+        check(icon, String);
+        check(text, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to add an item to the navbar (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to add an item, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to add an item to the navbar, catching the current element & the id
+                var navbarItems = Design.findOne({name: 'navbarItems'}).value;
+                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+
+                // Push the new item to the array of existing items
+                navbarItems.push({
+                    href: href,
+                    icon: icon,
+                    text: text
+                });
+
+                // Updating the database
+                Design.update(navbarItemsId, { $set: {
+                    value: navbarItems
                 }});
             }
         }
