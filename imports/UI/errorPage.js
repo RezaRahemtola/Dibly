@@ -25,7 +25,8 @@ Template.errorPage.helpers({
         if(Meteor.subscribe('images').ready()){
             Meteor.call('getDesignValueByName', {name: 'errorPage'}, function(error, errorPageHTML){
                 if(error){
-                    // TODO: error
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 } else{
                     // Error page HTML content was returned, filling the container with it
                     document.querySelector('div#errorPageContainer').innerHTML = errorPageHTML;

@@ -12,7 +12,8 @@ Template.home.helpers({
         if(Meteor.subscribe('images').ready()){
             Meteor.call('getDesignValueByName', {name: 'homePage'}, function(error, homePageHTML){
                 if(error){
-                    // TODO: error
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 } else{
                     // Home page HTML content was returned, filling the container with it
                     document.querySelector('div#homePageContainer').innerHTML = homePageHTML;

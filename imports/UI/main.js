@@ -136,7 +136,8 @@ Template.main.helpers({
         if(Meteor.subscribe('images').ready()){
             Meteor.call('getDesignValueByName', {name: 'background'}, function(error, background){
                 if(error){
-                    // TODO: error
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 } else{
                     // Background design object was returned, checking if the color or imageUrl is defined
                     if(background.imageId !== ''){
@@ -157,7 +158,8 @@ Template.main.helpers({
 
         Meteor.call('getDesignValueByName', {name: 'browserTitle'}, function(error, title){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Title was returned, updating it in the document
                 document.title = title;
@@ -168,7 +170,8 @@ Template.main.helpers({
         if(Meteor.subscribe('images').ready()){
             Meteor.call('getDesignValueByName', {name: 'browserFavicon'}, function(error, faviconLink){
                 if(error){
-                    // TODO: error
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 } else{
                     // Favicon link was returned, updating it in the document
                     document.querySelector("link[rel='icon']").href = faviconLink;
@@ -179,7 +182,8 @@ Template.main.helpers({
     displayNavbarItems: function(){
         Meteor.call('getDesignValueByName', {name: 'navbarItems'}, function(error, navbarItems){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Navbar items array was returned, saving it in a Session variable
                 Session.set('navbarItems', navbarItems);
@@ -192,7 +196,8 @@ Template.main.helpers({
         if(Meteor.subscribe('images').ready()){
             Meteor.call('getDesignValueByName', {name: 'footer'}, function(error, footerHTML){
                 if(error){
-                    // TODO: error
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 } else{
                     // Footer HTML content was returned, filling the container with it
                     document.querySelector('div#footerContainer').innerHTML = footerHTML;

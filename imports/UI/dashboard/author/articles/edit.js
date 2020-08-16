@@ -74,7 +74,8 @@ FlowRouter.route('/dashboard/articles/edit/:_id', {
                 // User can edit an article, catching the article with the given id
                 Meteor.call('getArticleById', {articleId: articleId}, function(error, article){
                     if(error){
-                        // TODO: error
+                        // There was an error
+                        Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                     } else{
                         // Article was successfully retrieved, sendind user to edit article page
                         Session.set('currentArticle', article);

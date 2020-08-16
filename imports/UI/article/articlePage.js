@@ -86,7 +86,8 @@ Template.articlePage.helpers({
 
         Meteor.call('showArticleComments', {articleId: articleId}, function(error, commentsArray){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // An array of comments was returned, saving it in a Session variable
                 Session.set('currentComments', commentsArray);

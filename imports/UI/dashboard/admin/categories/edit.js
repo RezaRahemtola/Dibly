@@ -44,7 +44,8 @@ Template.editCategory.onRendered(function(){
     // Calling a server-side method to get the corresponding name
     Meteor.call('getCategoryNameById', {categoryId: categoryId}, function(error, categoryName){
         if(error){
-            // TODO: error
+            // There was an error
+            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
         } else{
             // Category name was successfully retrieved, catching & filling the input
             document.querySelector('input#name').value = categoryName;
@@ -60,7 +61,6 @@ Template.editCategory.events({
         const form = new FormData(document.querySelector('form#editCategory'));
         const name = form.get('name');
         const categoryId = FlowRouter.getQueryParam('categoryId');
-        // TODO: check if categoryId is defined
 
         Meteor.call('editCategory', {categoryId: categoryId, name: name}, function(error, result){
             if(error){

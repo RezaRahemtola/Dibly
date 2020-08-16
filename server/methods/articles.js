@@ -91,30 +91,36 @@ Meteor.methods({
         } else{
             // User is logged in, catching his role to check if he's allowed to delete this article
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
-            // TODO: check if article really exists
-            // By default we assume the user isn't allowed to delete this article
-            var isAllowed = false;
 
-            if(userRole === 'admin'){
-                // User is an administrator, he's allowed to delete the article
-                isAllowed = true;
-            } else if(userRole === 'author'){
-                // User is an author so he's only allowed to delete his own articles, checking if this article was written by him
-                const authorId = Articles.findOne({_id: articleId}).authorId;
-                // Changing the value of the variable if authorId matches with current user's id
-                isAllowed = (authorId === Meteor.userId()) ? true : false;
-            }
-
-            if(!isAllowed){
-                // User isn't allowed to delete this article, throwing an error
-                throw new Meteor.Error('accessDenied', "Vous n'êtes pas autorisé à supprimer cet article.");
+            if(Articles.findOne({_id: articleId}) === undefined){
+                // The given articleId doesn't corresponds to any article, throwing an error
+                throw new Meteor.Error('articleNotFound', "Cet article est introuvable.");
             } else{
-                // User is allowed to delete this article
-                Articles.remove({_id: articleId});
-                // Removing the comments on this article
-                Comments.remove({articleId: articleId});
+                // The article exists, we can continue
+                // By default we assume the user isn't allowed to delete this article
+                var isAllowed = false;
 
-                return true;
+                if(userRole === 'admin'){
+                    // User is an administrator, he's allowed to delete the article
+                    isAllowed = true;
+                } else if(userRole === 'author'){
+                    // User is an author so he's only allowed to delete his own articles, checking if this article was written by him
+                    const authorId = Articles.findOne({_id: articleId}).authorId;
+                    // Changing the value of the variable if authorId matches with current user's id
+                    isAllowed = (authorId === Meteor.userId()) ? true : false;
+                }
+
+                if(!isAllowed){
+                    // User isn't allowed to delete this article, throwing an error
+                    throw new Meteor.Error('accessDenied', "Vous n'êtes pas autorisé à supprimer cet article.");
+                } else{
+                    // User is allowed to delete this article
+                    Articles.remove({_id: articleId});
+                    // Removing the comments on this article
+                    Comments.remove({articleId: articleId});
+
+                    return true;
+                }
             }
         }
     },

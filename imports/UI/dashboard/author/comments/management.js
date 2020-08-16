@@ -46,7 +46,8 @@ Template.commentsManagement.helpers({
         // Return the comments that the current user can manage
         Meteor.call('getCommentsForManagement', function(error, comments){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Comments were successfully retrieved, saving them in a Session variable
                 Session.set('commentsManagement', comments);
