@@ -26,11 +26,11 @@ You also need to create a `settings.json` file (to set up email sending & admin 
         "port": "Integer, with SendGrid it's generally 465"
     },
     "sendgridContactApiKey": "API Key provided by SendGrid & used to send contact emails (you can use the same that in smtp if you want)",
-    "giphyApiKey": "API given at https://developers.giphy.com/ and used to allow GIF in articles"
+    "giphyApiKey": "API key given at https://developers.giphy.com/ and used to allow GIF in articles"
 }
 ```
 
-If you fork this project, I strongly recommand to add this file in a `.gitignore` as it contains sensitive data.
+If you fork this project, I strongly recommend to add this file in a `.gitignore` as it contains sensitive data.
 
 The app can then be run with those settings like that :
 ```

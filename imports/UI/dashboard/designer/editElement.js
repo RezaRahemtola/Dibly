@@ -113,8 +113,8 @@ Template.editElement.events({
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Element was modified without any error, displaying a success message
-                Session.set('message', {type: "header", headerContent: "Modifications effectuée avec succès !", style:"is-success"});
-                // Sending user to columns dashboard
+                Session.set('message', {type: "header", headerContent: "Modification effectuée avec succès !", style:"is-success"});
+                // Sending user to the design dashboard
                 FlowRouter.go('/dashboard/design');
             }
         });

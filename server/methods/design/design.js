@@ -92,15 +92,25 @@ Meteor.methods({
                 ]
             });
         }
+        if(Design.findOne({name: 'navbarBrand'}) === undefined){
+            // Navbar brand isn't defined, inserting example data in the database
+            Design.insert({
+                name: 'navbarBrand',
+                value: `<h3 class="title is-3 is-family-monospace">Dibly</h3>`
+            });
+        }
     },
     'getDesignValueByName'({name}){
         // Type check to prevent malicious calls
         check(name, String);
 
-        // TODO: check if not undefined
-
-        // Catch & return the value of the corresponding element in the database
-        return Design.findOne({name: name}).value;
+        if(Design.findOne({name: name}) === undefined){
+            // The given name doesn't corresponds to any design, throwing an error
+            throw new Meteor.Error('designNotFound', "Ce design est introuvable.");
+        } else{
+            // The design exists, catch & return the value of the corresponding element in the database
+            return Design.findOne({name: name}).value;
+        }
     },
     'editElement'({name, value}){
         // Type check to prevent malicious calls
@@ -118,14 +128,20 @@ Meteor.methods({
                 // User isn't allowed to edit an element, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to modify an element, catching it's id with the given name
-                const elementId = Design.findOne({name: name})._id;
-                // TODO: check if id is defined
+                // User is allowed to modify an element, checking if the design exists
 
-                // Updating the database
-                Design.update(elementId, { $set: {
-                    value: value
-                }});
+                if(Design.findOne({name: name}) === undefined){
+                    // The given name doesn't corresponds to any design, throwing an error
+                    throw new Meteor.Error('designNotFound', "Ce design est introuvable.");
+                } else{
+                    // The design exists, catching the corresponding id in the database
+                    const elementId = Design.findOne({name: name})._id;
+
+                    // Updating the database
+                    Design.update(elementId, { $set: {
+                        value: value
+                    }});
+                }
             }
         }
     }

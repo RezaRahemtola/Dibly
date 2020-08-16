@@ -1,5 +1,5 @@
-displayEditorOn = function(selector){
-    // Display our custom Trumbowyg editor on a given jQuery selector
+displayTextEditorOn = function(selector){
+    // Display our custom text-only Trumbowyg editor on a given jQuery selector
     $(selector).trumbowyg({
         lang: 'fr',
         autogrow: true,
@@ -10,21 +10,6 @@ displayEditorOn = function(selector){
                             Docs about semantic: https://alex-d.github.io/Trumbowyg/documentation/#semantic */
         },
         btnsDef: {
-            columns: {
-                fn: function(){
-                    document.querySelector(selector).innerHTML += `
-                    <br>
-                    <div class='columns'>
-                        <div class='column' style="text-align: center;">Colonne 1</div>
-                        <div class='column' style="text-align: center;">Colonne 2</div>
-                    </div>
-                    <p>Après les colonnes</p>`;
-                },
-                title: 'Insérer des colonnes',
-                text: 'Colonnes',
-                isSupported: function () { return true; },
-                hasIcon: false
-            },
             align: {
                 dropdown: ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
                 title: 'Alignement',
@@ -42,22 +27,12 @@ displayEditorOn = function(selector){
             ['formatage'],
             ['strong', 'em', 'del'],
             ['foreColor', 'backColor'],
-            // ['superscript', 'subscript'],
             ['fontfamily'],
-            ['link'],
-            ['insertImage', 'giphy', 'noembed'],
-            ['align'],
             ['removeformat'],
-            //['horizontalRule'],
-            ['unorderedList', 'orderedList'],
-            ['columns'],
             ['fullscreen']
 
         ],
         plugins: {
-            giphy: {
-                apiKey: Session.get('giphyApiKey')
-            },
             fontfamily: {
                 fontList: [
                     {name: 'Arial Black', family: 'Arial Black, Gadget, sans-serif'},
@@ -80,8 +55,5 @@ displayEditorOn = function(selector){
         $('.trumbowyg-editor h4').addClass('title is-4');
         $('.trumbowyg-editor h5').addClass('title is-5');
         $('.trumbowyg-editor h6').addClass('title is-6');
-
-        // iframe generally have a fixed width that may exceed their container, set a max-width to handle it
-        $('.trumbowyg-editor iframe').css('max-width', '-webkit-fill-available');
      });
 }

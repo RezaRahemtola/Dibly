@@ -1,6 +1,5 @@
 // Useful imports
 import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
@@ -8,6 +7,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import './navbar.html';
 
 // JS imports
+import './brand.js';
 import './add.js';
 import './edit.js';
 import './delete.js';

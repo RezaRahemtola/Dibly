@@ -16,25 +16,33 @@ Meteor.methods({
         check(name, String);
         check(email, String);
 
-        // TODO: check if article really exists
-        // TODO: check email
-        // TODO: check if articleId really exists in article db
+        if(Articles.findOne({_id: articleId}) === undefined){
+            // The given articleId doesn't corresponds to any article, throwing an error
+            throw new Meteor.Error('articleNotFound', "Cet article est introuvable.");
+        } else{
+            // The article exists, we can continue
+            // TODO: check email
 
-        Comments.insert({
-            articleId: articleId,
-            comment: comment,
-            name: name,
-            email: email,
-            createdAt: new Date
-        });
+            Comments.insert({
+                articleId: articleId,
+                comment: comment,
+                name: name,
+                email: email,
+                createdAt: new Date
+            });
+        }
     },
     'deleteComment'({commentId}){
         // Type check to prevent malicious calls
         check(commentId, String);
 
-        // TODO: check if comment really exists
-
-        Comments.remove({_id: commentId});
+        if(Comments.findOne({_id: commentId}) === undefined){
+            // The given commentId doesn't corresponds to any comment, throwing an error
+            throw new Meteor.Error('categoryNotFound', "Ce commentaire est introuvable.");
+        } else{
+            // The comment exists, we can remove it
+            Comments.remove({_id: commentId});
+        }
     },
     'showArticleComments'({articleId}){
         // Type check to prevent malicious calls

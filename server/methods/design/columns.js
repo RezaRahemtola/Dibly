@@ -87,7 +87,8 @@ Meteor.methods({
                         value: columnsArray
                     }});
                 } else{
-                    // TODO: throw error
+                    // Position isn't an integer and/or the corresponding index doesn't exists, throwing an error
+                    throw new Meteor.Error('invalidPosition', "La position est invalide.");
                 }
             }
         }
@@ -123,7 +124,8 @@ Meteor.methods({
                         value: columnsArray
                     }});
                 } else{
-                    // TODO: throw error
+                    // Position isn't an integer and/or the corresponding index doesn't exists, throwing an error
+                    throw new Meteor.Error('invalidPosition', "La position est invalide.");
                 }
             }
         }

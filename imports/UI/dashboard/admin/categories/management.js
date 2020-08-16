@@ -43,7 +43,8 @@ Template.categoriesManagement.helpers({
         // Return the categoriesManagement that the current user can manage
         Meteor.call('getCategoriesForManagement', function(error, categories){
             if(error){
-                // TODO: error
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
             } else{
                 // Categories were successfully retrieved, saving them in a Session variable
                 Session.set('categoriesManagement', categories);

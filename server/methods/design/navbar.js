@@ -93,7 +93,8 @@ Meteor.methods({
                         value: navbarItems
                     }});
                 } else{
-                    // TODO: throw error
+                    // Position isn't an integer and/or the corresponding index doesn't exists, throwing an error
+                    throw new Meteor.Error('invalidPosition', "La position est invalide.");
                 }
             }
         }
@@ -129,8 +130,34 @@ Meteor.methods({
                         value: navbarItems
                     }});
                 } else{
-                    // TODO: throw error
+                    // Position isn't an integer and/or the corresponding index doesn't exists, throwing an error
+                    throw new Meteor.Error('invalidPosition', "La position est invalide.");
                 }
+            }
+        }
+    },
+    'editNavbarBrand'({html}){
+        // Type check to prevent malicious calls
+        check(html, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if he is allowed to edit the navbar brand (designer or administrator)
+            const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
+
+            if(userRole !== 'designer' && userRole !== 'admin'){
+                // User isn't allowed to edit the navbar brand, throwing an error
+                throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
+            } else{
+                // User is allowed to modify the brand, catching the id of the corresponding design
+                const navbarBrandid = Design.findOne({name: 'navbarBrand'});
+
+                // Updating the database
+                Design.update(navbarBrandid, { $set: {
+                    value: html
+                }});
             }
         }
     }

@@ -1,5 +1,4 @@
-// Useful imports
-import { Meteor } from 'meteor/meteor';
+// Useful import
 import { Template } from 'meteor/templating';
 
 // HTML import
