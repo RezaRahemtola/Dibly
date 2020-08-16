@@ -10,13 +10,8 @@ displayTextEditorOn = function(selector){
                             Docs about semantic: https://alex-d.github.io/Trumbowyg/documentation/#semantic */
         },
         btnsDef: {
-            align: {
-                dropdown: ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                title: 'Alignement',
-                ico: 'justifyLeft'
-            },
             formatage: {
-                dropdown: ['p', 'blockquote', 'h3', 'h4', 'h5', 'h6'],
+                dropdown: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
                 title: 'Formatage',
                 ico: 'p'
             }
@@ -30,7 +25,6 @@ displayTextEditorOn = function(selector){
             ['fontfamily'],
             ['removeformat'],
             ['fullscreen']
-
         ],
         plugins: {
             fontfamily: {
@@ -48,9 +42,9 @@ displayTextEditorOn = function(selector){
         }
     })
     .on('tbwchange', function(){
-        // When the content is changed, add Bulma CSS classes to style the elements
-
-        // Titles
+        // When content is changed, add Bulma CSS classes to style the titles
+        $('.trumbowyg-editor h1').addClass('title is-1');
+        $('.trumbowyg-editor h2').addClass('title is-2');
         $('.trumbowyg-editor h3').addClass('title is-3');
         $('.trumbowyg-editor h4').addClass('title is-4');
         $('.trumbowyg-editor h5').addClass('title is-5');

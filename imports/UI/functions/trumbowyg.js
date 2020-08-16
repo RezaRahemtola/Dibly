@@ -73,7 +73,7 @@ displayEditorOn = function(selector){
         }
     })
     .on('tbwchange', function(){
-        // When the content is changed, add Bulma CSS classes to style the elements
+        // When content is changed, add Bulma CSS classes to style the elements
 
         // Titles
         $('.trumbowyg-editor h3').addClass('title is-3');
