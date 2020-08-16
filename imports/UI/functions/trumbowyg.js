@@ -12,7 +12,7 @@ displayEditorOn = function(selector){
         btnsDef: {
             columns: {
                 fn: function(){
-                    document.querySelector('div#editor').innerHTML += `
+                    document.querySelector(selector).innerHTML += `
                     <br>
                     <div class='columns'>
                         <div class='column' style="text-align: center;">Colonne 1</div>
