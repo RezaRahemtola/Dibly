@@ -1,6 +1,19 @@
 <template name="designNavbarDashboard">
     <div class="columns is-multiline">
         <div class="column is-half">
+            <a href="/dashboard/design/navbar/brand">
+                <div class="card width-fit-content" style="cursor: pointer; margin: 0 auto;">
+                    <header class="card-header">
+                        <p class="card-header-title has-text-centered" style="display: block;">Marque</p>
+                    </header>
+                    <div class="card-content">
+                        <img src="/navbarBrand.svg" class="image is-128x128" style="margin: 0 auto;" alt="Logo marque">
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="column">
             <a href="/dashboard/design/navbar/add">
                 <div class="card width-fit-content" style="cursor: pointer; margin: 0 auto;">
                     <header class="card-header">
@@ -13,7 +26,7 @@
             </a>
         </div>
 
-        <div class="column">
+        <div class="column is-half">
             <a href="/dashboard/design/navbar/edit">
                 <div class="card width-fit-content" style="cursor: pointer; margin: 0 auto;">
                     <header class="card-header">
@@ -26,7 +39,7 @@
             </a>
         </div>
 
-        <div class="column is-half">
+        <div class="column">
             <a href="/dashboard/design/navbar/delete">
                 <div class="card width-fit-content" style="cursor: pointer; margin: 0 auto;">
                     <header class="card-header">

@@ -191,6 +191,17 @@ Template.main.helpers({
         });
         return Session.get('navbarItems');
     },
+    displayNavbarBrand: function(){
+        Meteor.call('getDesignValueByName', {name: 'navbarBrand'}, function(error, navbarBrandHTML){
+            if(error){
+                // There was an error
+                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+            } else{
+                // Navbar brand HTML content was returned, filling the container with it
+                document.querySelector('a#navbarBrand').innerHTML = navbarBrandHTML;
+            }
+        });
+    },
     displayFooter: function(){
         // Calling a server-side method to catch the footer content
         if(Meteor.subscribe('images').ready()){

@@ -92,6 +92,13 @@ Meteor.methods({
                 ]
             });
         }
+        if(Design.findOne({name: 'navbarBrand'}) === undefined){
+            // Navbar brand isn't defined, inserting example data in the database
+            Design.insert({
+                name: 'navbarBrand',
+                value: `<h3 class="title is-3 is-family-monospace">Dibly</h3>`
+            });
+        }
     },
     'getDesignValueByName'({name}){
         // Type check to prevent malicious calls

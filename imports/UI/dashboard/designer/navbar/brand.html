@@ -1,0 +1,15 @@
+<template name="navbarBrand">
+    <header class="card-header container" style="border: ridge grey 0.1rem; border-bottom: none;">
+        <h3 class="card-header-title title is-3 is-centered" style="margin-bottom: 0;">Modifier la marque</h3>
+    </header>
+
+    <form id="navbarBrand" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+        <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+        <div id="editor"></div>
+
+        <button class="button is-success is-medium is-fullwidth" id="submitNavbarBrand" type="submit">Valider les modifications</button>
+    </form>
+</template>
