@@ -37,11 +37,10 @@ Meteor.methods({
         } else{
             // User is logged in
             if(UsersInformations.find().count() >= 1){
-                // There's at least one user (administrator), so this new user was created by him and already has some informations in the database, retrieving the id
-                const usersInformationsId = UsersInformations.findOne({email: email})._id;
+                // There's at least one user (administrator), so this new user was created by him and already has some informations in the database
 
                 // Updating informations with userId & username
-                UsersInformations.update(usersInformationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     userId: Meteor.userId(),
                     username: username
                 }});
@@ -112,6 +111,7 @@ Meteor.methods({
         // Type check to prevent malicious calls
         check(email, String);
 
+        // TODO: check if informations really exists
         // Find and return role of the corresponding user
         return UsersInformations.findOne({email: email}).role;
     },
@@ -162,10 +162,10 @@ Meteor.methods({
                 // User isn't allowed to change user access, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching id of the targeted user's informations
-                const informationsId = UsersInformations.findOne({email: email})._id;
+                // User is an administrator, updating the database
+                // TODO: check if informations really exists
 
-                UsersInformations.update(informationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     accessAllowed: true
                 }});
             }
@@ -185,10 +185,10 @@ Meteor.methods({
                 // User isn't allowed to change user access, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching id of the targeted user's informations
-                const informationsId = UsersInformations.findOne({email: email})._id;
+                // User is an administrator, updating the database
+                // TODO: check if informations really exists
 
-                UsersInformations.update(informationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     accessAllowed: false
                 }});
             }
@@ -216,11 +216,10 @@ Meteor.methods({
                     // The role isn't in the list of available roles, throwing an error
                     throw new Meteor.Error('roleNotAvailable', 'Le rôle "'+role+'" ne peut pas être sélectionné, veuillez choisir un autre rôle.');
                 } else{
-                    // The role is available, catching id of the targeted user's informations
-                    const informationsId = UsersInformations.findOne({email: email})._id;
+                    // The role is available, updating the database
+                    // TODO: check if informations really exists
 
-                    // Updating database
-                    UsersInformations.update(informationsId, { $set: {
+                    UsersInformations.update({email: email}, { $set: {
                         role: newRole
                     }});
                 }

@@ -25,8 +25,7 @@ Meteor.methods({
             } else{
                 // User is allowed to add a column, converting the position to integer
                 position = parseInt(position);
-                // Catching if of columns in the database and the columnsArray
-                const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
+                // Catching the columnsArray
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
                 if(isNaN(position)){
@@ -38,7 +37,7 @@ Meteor.methods({
                 }
 
                 // Updating the database
-                Design.update(columnsId, { $set: {
+                Design.update({name: 'mainPageColumns'}, { $set: {
                     value: columnsArray
                 }});
             }
@@ -63,8 +62,7 @@ Meteor.methods({
             } else{
                 // User is allowed to modify a column, converting the position to integer
                 currentPosition = parseInt(currentPosition);
-                // Catching id of columns in the database and the columnsArray
-                const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
+                // Catching the columnsArray
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
                 // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
@@ -83,7 +81,7 @@ Meteor.methods({
                     }
 
                     // Updating the database
-                    Design.update(columnsId, { $set: {
+                    Design.update({name: 'mainPageColumns'}, { $set: {
                         value: columnsArray
                     }});
                 } else{
@@ -110,8 +108,7 @@ Meteor.methods({
             } else{
                 // User is allowed to delete a column, converting the position to integer
                 position = parseInt(position);
-                // Catching id of columns in the database and the columnsArray
-                const columnsId = Design.findOne({name: 'mainPageColumns'})._id;
+                // Catching the columnsArray
                 var columnsArray = Design.findOne({name: 'mainPageColumns'}).value;
 
                 // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
@@ -120,7 +117,7 @@ Meteor.methods({
                     columnsArray.splice(position-1, 1);
 
                     // Updating the database
-                    Design.update(columnsId, { $set: {
+                    Design.update({name: 'mainPageColumns'}, { $set: {
                         value: columnsArray
                     }});
                 } else{

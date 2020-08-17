@@ -134,11 +134,8 @@ Meteor.methods({
                     // The given name doesn't corresponds to any design, throwing an error
                     throw new Meteor.Error('designNotFound', "Ce design est introuvable.");
                 } else{
-                    // The design exists, catching the corresponding id in the database
-                    const elementId = Design.findOne({name: name})._id;
-
-                    // Updating the database
-                    Design.update(elementId, { $set: {
+                    // The design exists, updating the database
+                    Design.update({name: name}, { $set: {
                         value: value
                     }});
                 }

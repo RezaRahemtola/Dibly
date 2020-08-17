@@ -24,9 +24,9 @@ Meteor.methods({
                 // User isn't allowed to add an item, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to add an item to the navbar, catching the current element & the id
+                // User is allowed to add an item to the navbar, catching the current elements
                 var navbarItems = Design.findOne({name: 'navbarItems'}).value;
-                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+
                 // Creating the new item
                 const item = {href: href, icon: icon, text: text};
 
@@ -41,7 +41,7 @@ Meteor.methods({
                 }
 
                 // Updating the database
-                Design.update(navbarItemsId, { $set: {
+                Design.update({name: 'navbarItems'}, { $set: {
                     value: navbarItems
                 }});
             }
@@ -68,8 +68,7 @@ Meteor.methods({
             } else{
                 // User is allowed to modify a navbar item, converting the position to integer
                 currentPosition = parseInt(currentPosition);
-                // Catching id of navbar items in the database and it's value
-                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+                // Catching the items
                 var navbarItems = Design.findOne({name: 'navbarItems'}).value;
 
                 // Checking if the value is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
@@ -89,7 +88,7 @@ Meteor.methods({
                     }
 
                     // Updating the database
-                    Design.update(navbarItemsId, { $set: {
+                    Design.update({name: 'navbarItems'}, { $set: {
                         value: navbarItems
                     }});
                 } else{
@@ -116,8 +115,7 @@ Meteor.methods({
             } else{
                 // User is allowed to delete an item, converting the position to integer
                 position = parseInt(position);
-                // Catching id of navbar items in the database and the items themselves
-                const navbarItemsId = Design.findOne({name: 'navbarItems'})._id;
+                // Catching the items
                 var navbarItems = Design.findOne({name: 'navbarItems'}).value;
 
                 // Checking if the position is a number & a valid index value in the array (position is in natural format, we need to substract 1 to have an index)
@@ -126,7 +124,7 @@ Meteor.methods({
                     navbarItems.splice(position-1, 1);
 
                     // Updating the database
-                    Design.update(navbarItemsId, { $set: {
+                    Design.update({name: 'navbarItems'}, { $set: {
                         value: navbarItems
                     }});
                 } else{
@@ -151,11 +149,8 @@ Meteor.methods({
                 // User isn't allowed to edit the navbar brand, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to modify the brand, catching the id of the corresponding design
-                const navbarBrandid = Design.findOne({name: 'navbarBrand'});
-
-                // Updating the database
-                Design.update(navbarBrandid, { $set: {
+                // User is allowed to modify the brand, updating the database
+                Design.update({name: 'navbarBrand'}, { $set: {
                     value: html
                 }});
             }

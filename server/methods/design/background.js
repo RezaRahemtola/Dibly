@@ -24,8 +24,7 @@ Meteor.methods({
                 // User isn't allowed to edit the background, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to edit the background, catching database id
-                const backgroundId = Design.findOne({name: 'background'})._id;
+                // User is allowed to edit the background, checking if a background option was given
 
                 if(imageId !== '' || color !== ''){
                     // At least one background option was given, catching the old image background (if there was one) to delete it
@@ -38,7 +37,7 @@ Meteor.methods({
                     // Checking which background option was given
                     if(imageId !== ''){
                         // Image was given, updating the database with it
-                        Design.update(backgroundId, { $set: {
+                        Design.update({name: 'background'}, { $set: {
                             value: {
                                 imageId: imageId,
                                 color: ''  // Reset the color so only one background option is set
@@ -46,7 +45,7 @@ Meteor.methods({
                         }});
                     } else if(color !== ''){
                         // Color was given, updating the database with it
-                        Design.update(backgroundId, { $set: {
+                        Design.update({name: 'background'}, { $set: {
                             value: {
                                 imageId: '',  // Reset the imageId so only one background option is set
                                 color: color

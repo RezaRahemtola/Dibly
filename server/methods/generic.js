@@ -108,6 +108,7 @@ Meteor.methods({
         check(imageId, String);
 
         // TODO: check if file in dropbox before removing
+        // TODO: check if image really exists
         Images.remove({_id: imageId});
     }
 });
