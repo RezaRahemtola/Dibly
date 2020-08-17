@@ -12,18 +12,14 @@ Meteor.methods({
         // Type check to prevent malicious calls
         check(username, String);
 
-        if(Meteor.user()){
-            // If user is logged in, check if username exists and if it's different than current user's
-            return (Meteor.users.findOne({username: username}) && username !== Meteor.user().username) ? true : false;
-        } else{
-            // Only check if username exists
-            return (Meteor.users.findOne({username: username})) ? true : false;
-        }
+        // Check if the given string is registered as someone's username in the database and return a boolean
+        return (Meteor.users.findOne({username: username})) ? true : false;
     },
     'checkIfEmailIsTaken'({email}){
         // Type check to prevent malicious calls
         check(email, String);
 
+        // Check if the given string is registered as someone's email in the database and return a boolean
         return (Accounts.findUserByEmail(email)) ? true : false;
     },
     'createNewUser'({username, email}){
@@ -71,6 +67,27 @@ Meteor.methods({
             } else{
                 // Email is verified, throwing an error
                 throw new Meteor.Error('emailAlreadyVerified', 'Votre adresse email est déjà validée.');
+            }
+        }
+    },
+    'changeUsername'({newUsername}){
+        // Type check to prevent malicious calls
+        check(newUsername, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if the selected username isn't already taken
+            const isTaken = (Meteor.users.findOne({username: newUsername})) ? true : false;
+            if(!isTaken){
+                // We can change his username
+                Accounts.setUsername(Meteor.userId(), newUsername);
+                // Updating the value in our database
+                UsersInformations.update({userId: Meteor.userId()}, { $set: { username: newUsername } } );
+            } else if(newUsername !== Meteor.user().username){
+                // Username is already used by someone else than the current user, throwing an error
+                throw new Meteor.Error('usernameTaken', "Ce nom d'utilisateur n'est pas disponible, veuillez en sélectionner un autre.");
             }
         }
     },

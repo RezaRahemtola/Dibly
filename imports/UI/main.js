@@ -61,6 +61,7 @@ Template.main.onCreated(function(){
             // There was an error
             Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
         } else{
+            // API key was retrieved, saving it in a Session variable
             Session.set('giphyApiKey', apikey);
         }
     });
@@ -86,7 +87,7 @@ Template.main.onRendered(function(){
             } else if(!isAllowed){
                 // Access isn't allowed, logout the user and sending him to home page
                 FlowRouter.go('/');  // Sending user to the home page
-                Meteor.logout()
+                Meteor.logout();
             }
         });
     }
@@ -105,7 +106,7 @@ Template.main.helpers({
             const hasVerifiedEmail = Meteor.user().emails[0].verified;
             if(!hasVerifiedEmail){
                 // User email isn't verified, display a warning message
-                Session.set('message', {type:"verifyEmail"} );  // Set the message
+                Session.set('message', {type:"verifyEmail"});  // Set the message
             }
         }
     },
@@ -115,7 +116,6 @@ Template.main.helpers({
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
-                console.log(error)
             } else{
                 // Columns array was returned, catching the container
                 var columnsContainer = document.querySelector('#columnsContainer');
