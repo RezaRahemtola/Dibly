@@ -21,9 +21,7 @@ Meteor.methods({
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
             if(userRole === 'admin'){
                 // User can create a new category, inserting it in the database
-                Categories.insert({
-                    name: name
-                });
+                Categories.insert({name: name});
             } else{
                 // This user has not the correct role to publish an article, throwing an error message
                 throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de créer une catégorie.');
@@ -52,8 +50,7 @@ Meteor.methods({
                     // The category exists, catching it's name to edit it in all articles that contains it
                     const currentCategoryName = Categories.findOne({_id: categoryId}).name;
                     // Catching all the articles that contains it
-                    const articles = Articles.find({categories: currentCategoryName});
-                    for(var article of articles){
+                    Articles.find({categories: currentCategoryName}).forEach(function(article){
                         // For each article, we remove the category
                         var newCategories = article.categories.filter(function(category){
                             return category !== currentCategoryName;
@@ -61,15 +58,11 @@ Meteor.methods({
                         // Add the updated category
                         newCategories.push(name);
                         // Updating the database
-                        Articles.update({_id: article._id}, { $set: {
-                            categories: newCategories
-                        }});
-                    }
+                        Articles.update({_id: article._id}, { $set: { categories: newCategories } });
+                    });
 
                     // The old category isn't on any article anymore, we can edit it
-                    Categories.update(categoryId, { $set: {
-                        name: name
-                    }});
+                    Categories.update({_id: categoryId}, { $set: { name: name } });
                 }
             } else{
                 // User isn't allowed to edit a category, throwing an error
@@ -98,8 +91,7 @@ Meteor.methods({
                     // The category exists, catching it's name to delete it in articles
                     const categoryName = Categories.findOne({_id: categoryId}).name;
                     // Catching all the articles that contains it
-                    const articles = Articles.find({categories: categoryName});
-                    for(var article of articles){
+                    Articles.find({categories: categoryName}).forEach(function(article){
                         // For each article, we remove the category
                         const newCategories = article.categories.filter(function(category){
                             return category !== categoryName;
@@ -108,7 +100,7 @@ Meteor.methods({
                         Articles.update({_id: article._id}, { $set: {
                             categories: newCategories
                         }});
-                    }
+                    });
 
                     // The category isn't on any article anymore, we can remove it
                     Categories.remove({_id: categoryId});
@@ -120,20 +112,21 @@ Meteor.methods({
         }
     },
     'getCategories'(){
-        const categoriesCursor = Categories.find();
+        // Return the names of all the categories
         var categories = [];
-        for(var category of categoriesCursor){
+        Categories.find().forEach(function(category){
             categories.push(category.name);
-        }
+        });
+
         return categories;
     },
     'getCategoriesForManagement'(){
         // Return all the data of the categories database
-        const categoriesCursor = Categories.find();
         var categories = [];
-        for(var category of categoriesCursor){
+        Categories.find().forEach(function(category){
             categories.push(category);
-        }
+        });
+
         return categories;
     },
     'getCategoryNameById'({categoryId}){
@@ -158,12 +151,10 @@ Meteor.methods({
         } else{
             // The category exists, catching it's name :
             const category = Categories.findOne({_id: categoryId}).name;
-            // Catching all articles with this category
-            const articlesCursor = Articles.find({categories: category});
-
+            // Creating an array to store the articles' data
             var articles = [];
-
-            articlesCursor.forEach(function(doc){
+            // Catching all articles with this category
+            Articles.find({categories: category}).forEach(function(doc){
                 // Catching author's username with his userId
                 const author = Meteor.users.findOne({_id: doc.authorId}).username;
 

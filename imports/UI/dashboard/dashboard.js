@@ -23,18 +23,12 @@ FlowRouter.route('/dashboard', {
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
                 // Sending user back to home page to avoid a blank page displayed
                 FlowRouter.go('/');
-            } else if(role === 'admin'){
-                // User is an admin, we will render admin dashboard
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'adminDashboard'});
-            } else if(role === 'author'){
-                // User is an author, we will send him to author dashboard
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'authorDashboard'});
-            } else if(role === 'designer'){
-                // User is a designer, we will send him to designer dashboard
-                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: 'designerDashboard'});
+            } else{
+                // User role was returned, render the corresponding dashboard
+                BlazeLayout.render('main', {currentPage: 'dashboard', currentDashboard: role+'Dashboard'});
+                // Scrolling the window back to the top
+                window.scrollTo(0, 0);
             }
-            // Scrolling the window back to the top
-            window.scrollTo(0, 0);
         });
     }
 });

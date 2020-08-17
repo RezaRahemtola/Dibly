@@ -146,19 +146,18 @@ Meteor.methods({
                 // User isn't allowed to access users management, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching the list of all users
-                const usersCursor = UsersInformations.find();
-                // Initializing an array to return informations in a proper format
+                // User is an administrator, initializing an array to return informations in a proper format
                 var usersInformations = [];
 
-                usersCursor.forEach(function(doc){
+                // Catching the list of all users & adding it's useful data to the array
+                UsersInformations.find().forEach(function(doc){
                     usersInformations.push({
                         userId: doc.userId,
                         username: doc.username,
                         email: doc.email,
                         role: doc.role,
                         accessAllowed: doc.accessAllowed
-                    })
+                    });
                 });
 
                 return usersInformations;
