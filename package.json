@@ -1,18 +1,15 @@
 {
-    "name": "EcoClubJulesFe",
+    "name": "Dibly",
     "private": true,
     "scripts": {
         "start": "npm run css-watch",
         "css-build": "node-sass --omit-source-map-url sass/mystyles.scss client/main.css",
-        "css-watch": "npm run css-build -- --watch",
-        "test": "meteor test --once --driver-package meteortesting:mocha",
-        "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-        "visualize": "meteor --production --extra-packages bundle-visualizer"
+        "css-watch": "npm run css-build -- --watch"
     },
     "dependencies": {
         "@babel/runtime": "^7.11.2",
         "@fortawesome/fontawesome-free": "^5.14.0",
-        "@sendgrid/mail": "^7.2.3",
+        "@sendgrid/mail": "^7.2.4",
         "bcrypt": "^5.0.0",
         "bulma-switch": "^2.0.0",
         "dropbox": "^5.2.1",

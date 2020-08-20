@@ -12,18 +12,14 @@ Meteor.methods({
         // Type check to prevent malicious calls
         check(username, String);
 
-        if(Meteor.user()){
-            // If user is logged in, check if username exists and if it's different than current user's
-            return (Meteor.users.findOne({username: username}) && username !== Meteor.user().username) ? true : false;
-        } else{
-            // Only check if username exists
-            return (Meteor.users.findOne({username: username})) ? true : false;
-        }
+        // Check if the given string is registered as someone's username in the database and return a boolean
+        return (Meteor.users.findOne({username: username})) ? true : false;
     },
     'checkIfEmailIsTaken'({email}){
         // Type check to prevent malicious calls
         check(email, String);
 
+        // Check if the given string is registered as someone's email in the database and return a boolean
         return (Accounts.findUserByEmail(email)) ? true : false;
     },
     'createNewUser'({username, email}){
@@ -37,11 +33,10 @@ Meteor.methods({
         } else{
             // User is logged in
             if(UsersInformations.find().count() >= 1){
-                // There's at least one user (administrator), so this new user was created by him and already has some informations in the database, retrieving the id
-                const usersInformationsId = UsersInformations.findOne({email: email})._id;
+                // There's at least one user (administrator), so this new user was created by him and already has some informations in the database
 
                 // Updating informations with userId & username
-                UsersInformations.update(usersInformationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     userId: Meteor.userId(),
                     username: username
                 }});
@@ -72,6 +67,27 @@ Meteor.methods({
             } else{
                 // Email is verified, throwing an error
                 throw new Meteor.Error('emailAlreadyVerified', 'Votre adresse email est déjà validée.');
+            }
+        }
+    },
+    'changeUsername'({newUsername}){
+        // Type check to prevent malicious calls
+        check(newUsername, String);
+
+        if(!Meteor.userId()){
+            // User isn't logged in
+            throw new Meteor.Error('userNotLoggedIn', 'Utilisateur non-connecté, veuillez vous connecter et réessayer.');
+        } else{
+            // User is logged in, checking if the selected username isn't already taken
+            const isTaken = (Meteor.users.findOne({username: newUsername})) ? true : false;
+            if(!isTaken){
+                // We can change his username
+                Accounts.setUsername(Meteor.userId(), newUsername);
+                // Updating the value in our database
+                UsersInformations.update({userId: Meteor.userId()}, { $set: { username: newUsername } } );
+            } else if(newUsername !== Meteor.user().username){
+                // Username is already used by someone else than the current user, throwing an error
+                throw new Meteor.Error('usernameTaken', "Ce nom d'utilisateur n'est pas disponible, veuillez en sélectionner un autre.");
             }
         }
     },
@@ -112,6 +128,7 @@ Meteor.methods({
         // Type check to prevent malicious calls
         check(email, String);
 
+        // TODO: check if informations really exists
         // Find and return role of the corresponding user
         return UsersInformations.findOne({email: email}).role;
     },
@@ -129,19 +146,18 @@ Meteor.methods({
                 // User isn't allowed to access users management, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching the list of all users
-                const usersCursor = UsersInformations.find();
-                // Initializing an array to return informations in a proper format
+                // User is an administrator, initializing an array to return informations in a proper format
                 var usersInformations = [];
 
-                usersCursor.forEach(function(doc){
+                // Catching the list of all users & adding it's useful data to the array
+                UsersInformations.find().forEach(function(doc){
                     usersInformations.push({
                         userId: doc.userId,
                         username: doc.username,
                         email: doc.email,
                         role: doc.role,
                         accessAllowed: doc.accessAllowed
-                    })
+                    });
                 });
 
                 return usersInformations;
@@ -162,10 +178,10 @@ Meteor.methods({
                 // User isn't allowed to change user access, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching id of the targeted user's informations
-                const informationsId = UsersInformations.findOne({email: email})._id;
+                // User is an administrator, updating the database
+                // TODO: check if informations really exists
 
-                UsersInformations.update(informationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     accessAllowed: true
                 }});
             }
@@ -185,10 +201,10 @@ Meteor.methods({
                 // User isn't allowed to change user access, throwing an error
                 throw new Meteor.Error('adminAccessDenied', 'Vous devez être administrateur pour effectuer cette action.');
             } else{
-                // User is an administrator, catching id of the targeted user's informations
-                const informationsId = UsersInformations.findOne({email: email})._id;
+                // User is an administrator, updating the database
+                // TODO: check if informations really exists
 
-                UsersInformations.update(informationsId, { $set: {
+                UsersInformations.update({email: email}, { $set: {
                     accessAllowed: false
                 }});
             }
@@ -216,11 +232,10 @@ Meteor.methods({
                     // The role isn't in the list of available roles, throwing an error
                     throw new Meteor.Error('roleNotAvailable', 'Le rôle "'+role+'" ne peut pas être sélectionné, veuillez choisir un autre rôle.');
                 } else{
-                    // The role is available, catching id of the targeted user's informations
-                    const informationsId = UsersInformations.findOne({email: email})._id;
+                    // The role is available, updating the database
+                    // TODO: check if informations really exists
 
-                    // Updating database
-                    UsersInformations.update(informationsId, { $set: {
+                    UsersInformations.update({email: email}, { $set: {
                         role: newRole
                     }});
                 }

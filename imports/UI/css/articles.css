@@ -1,5 +1,4 @@
-.message.articleBanner{ margin-bottom: 4rem; }
+.message.articleBanner{margin-bottom: 4rem;}
 
-.message.articleBanner .message-body{
-    color: initial;
-}
+/* Reset the color so the message class doesn't impact the content color */
+.message.articleBanner .message-body{color: initial;}

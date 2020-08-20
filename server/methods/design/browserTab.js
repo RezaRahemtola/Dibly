@@ -23,16 +23,13 @@ Meteor.methods({
                 // User isn't allowed to edit those elements, throwing an error
                 throw new Meteor.Error('accessDenied', "Votre rôle ne vous permet pas d'effectuer cette action.");
             } else{
-                // User is allowed to modify browser tab title & favicon, catching their id & updating the database
-                const browserTitleId = Design.findOne({name: 'browserTitle'})._id;
-                // Updating the database
-                Design.update(browserTitleId, { $set: {
+                // User is allowed to modify browser tab title & favicon, updating the database
+
+                Design.update({name: 'browserTitle'}, { $set: {
                     value: title
                 }});
 
-                const browserFaviconId = Design.findOne({name: 'browserFavicon'})._id;
-                // Updating the database
-                Design.update(browserFaviconId, { $set: {
+                Design.update({name: 'browserFavicon'}, { $set: {
                     value: imageUrl
                 }});
             }

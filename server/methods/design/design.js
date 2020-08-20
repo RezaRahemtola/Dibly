@@ -39,8 +39,10 @@ Meteor.methods({
             Design.insert({
                 name: 'footer',
                 value: `<p class="has-text-centered" style="font-family: 'Changa One'; background-color: #f3f3f3;">
-                        <span>Site réalisé par </span>
-                        <a href="https://rezarahemtola.com" target="_blank" class="link" style="font-family: 'Changa One';">Reza Rahemtola</a>
+                            <span>Ce site est administré avec </span>
+                            <a href="https://github.com/RezaRahemtola/Dibly" target="_blank" class="link" style="font-family: 'Changa One';">Dibly</a>
+                            <span>, un système de gestion de blog créé par </span>
+                            <a href="https://rezarahemtola.com" target="_blank" class="link" style="font-family: 'Changa One';">Reza Rahemtola</a>
                         </p>`
             });
         }
@@ -134,11 +136,8 @@ Meteor.methods({
                     // The given name doesn't corresponds to any design, throwing an error
                     throw new Meteor.Error('designNotFound', "Ce design est introuvable.");
                 } else{
-                    // The design exists, catching the corresponding id in the database
-                    const elementId = Design.findOne({name: name})._id;
-
-                    // Updating the database
-                    Design.update(elementId, { $set: {
+                    // The design exists, updating the database
+                    Design.update({name: name}, { $set: {
                         value: value
                     }});
                 }

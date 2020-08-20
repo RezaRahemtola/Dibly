@@ -4,7 +4,7 @@ A simple, modern and complete blog management system to allow everyone to start 
 No need for programming knowledge or learning to use a large CMS overloaded with options that make it difficult to master and are unnecessary for novice users.
 
 Publication and management of articles, comment space to interact with visitors, customizable design, attendance statistics and much more...
-It has all the essential features of a blog.
+It has all the essential features for a blog.
 
 Dibly benefits from completely free hosting (with Heroku, MongoDB and Dropbox).
 
@@ -24,6 +24,18 @@ You also need to create a `settings.json` file (to set up email sending & admin 
         "password": "With SendGrid it generally starts with SG.",
         "host": "With SendGrid it's generally smtp.sendgrid.net",
         "port": "Integer, with SendGrid it's generally 465"
+    },
+    "email": {
+        "verifyEmail": {
+            "sender": "Sender for account verification emails (must match the one used for smtp)"
+        },
+        "resetPassword": {
+            "sender": "Sender for reset password emails (must match the one used for smtp)"
+        },
+        "contactForm": {
+            "sender": "Sender for contact form emails (must match the one used for contact API key)",
+            "receiver": "The email on which you want to receive the contact form submissions"
+        }
     },
     "sendgridContactApiKey": "API Key provided by SendGrid & used to send contact emails (you can use the same that in smtp if you want)",
     "giphyApiKey": "API key given at https://developers.giphy.com/ and used to allow GIF in articles"

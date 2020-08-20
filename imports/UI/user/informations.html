@@ -1,0 +1,85 @@
+<template name="userInformations">
+
+    {{#if currentUser}}
+        <div class="container" style="border: ridge grey 0.1rem; border-bottom: none;">
+            <h3 class="title is-3 has-text-centered">Mes informations</h3>
+        </div>
+
+        <form id="editProfileForm" class="container" style="border: ridge grey 0.1rem; padding: 0.8rem;">
+
+            <!-- Prevent form submission with enter key by adding a hidden submit button (https://stackoverflow.com/a/51507806/12171474) -->
+            <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
+            <section class="section">
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field has-animated-label">
+                            <div class="control has-icons-left">
+                                {{#with currentUser.username}}
+                                    <input type="text" class="input has-animated-label" name="username" id="username" value={{this}} placeholder=" " required/>
+                                {{/with}}
+                                <label for="username" class="label is-animated">Nom d'utilisateur</label>
+                                <span class="icon is-left">
+                                    <i class="fas fa-user-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field has-animated-label">
+                            <div class="control has-icons-left">
+                                <input type="email" class="input has-animated-label" id="email" placeholder=" " value={{displayUserEmail}} required disabled>
+                                <label for="email" class="label is-animated">Email</label>
+                                <span class="icon is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="section" style="border-top: solid grey 0.1rem;">
+                <h4 class="title is-4 has-text-centered">Changer le mot de passe</h4>
+
+                <div class="field has-animated-label">
+                    <div class="control has-icons-left">
+                        <input type="password" class="input has-animated-label" name="oldPassword" id="oldPassword" autocomplete="current-password" placeholder=" ">
+                        <label for="oldPassword" class="label is-animated">Mot de passe actuel</label>
+                        <span class="icon is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field has-animated-label">
+                    <div class="control has-icons-left">
+                        <input type="password" class="input has-animated-label" name="newPassword" id="newPassword" autocomplete="new-password" placeholder=" ">
+                        <label for="newPassword" class="label is-animated">Nouveau mot de passe</label>
+                        <span class="icon is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field has-animated-label">
+                    <div class="control has-icons-left">
+                        <input type="password" class="input has-animated-label" name="confirmNewPassword" id="confirmNewPassword" autocomplete="new-password" placeholder=" ">
+                        <label for="confirmNewPassword" class="label is-animated">Confirmer le mot de passe</label>
+                        <span class="icon is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <button type="submit" id="submitEditInformations" class="button is-success is-medium is-fullwidth">
+                <span class="icon"><i class="fas fa-user-edit"></i></span>
+                <p>Modifier mes informations</p>
+            </button>
+        </form>
+    {{/if}}
+</template>

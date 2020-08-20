@@ -48,12 +48,10 @@ Meteor.methods({
         // Type check to prevent malicious calls
         check(articleId, String);
 
-        // Catching all the comments for the given articleId
-        const commentsCursor = Comments.find({articleId: articleId});
         // Create a new array to return the comments
         var comments = [];
-
-        for(var comment of commentsCursor){
+        // Catching all the comments for the given articleId
+        Comments.find({articleId: articleId}).forEach(function(comment){
             // For each comment we add it's important data to the array
 
             // Catching the date
@@ -71,13 +69,12 @@ Meteor.methods({
             // Create a new string with the formatted date
             const createdAt = 'le ' +date+ '/' +month+ '/' +year+ ' à '+hours+ 'h' +minutes;
 
-
             comments.push({
                 comment: comment.comment,
                 name: comment.name,
                 createdAt: createdAt
             });
-        }
+        });
 
         return comments;
     },

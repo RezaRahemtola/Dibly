@@ -127,12 +127,9 @@ Meteor.methods({
     'getLatestArticles'(){
         // Return all articles sorted by date of creation
 
-        // Catching the 10 latest articles
-        var articlesCursor = Articles.find({}, {sort: { createdAt: -1 }, limit: 10});
-
-        // Iterating through the cursor to collect useful data and return the articles in an array instead of the cursor given by find()
+        // Catching the 10 latest articles & iterating through the cursor to collect useful data and return the articles in an array
         var articles = [];
-        articlesCursor.forEach(function(doc){
+        Articles.find({}, {sort: { createdAt: -1 }, limit: 10}).forEach(function(doc){
             // Catching author's username with his userId
             const author = Meteor.users.findOne({_id: doc.authorId}).username;
 

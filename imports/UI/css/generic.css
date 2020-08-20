@@ -1,3 +1,6 @@
+/* Full height so the background is shown on the whole page even if there's not enough content*/
+body{min-height: 100vh;}
+
 /* Disable text selection */
 .label, .navbar-item {
   -webkit-touch-callout: none;  /* iOS Safari */
@@ -30,7 +33,7 @@
 }
 
 /* Adding a bullet for ul */
-ul{ list-style: inside; }
+ul{list-style: inside;}
 
 
 /*  Styling blockquote elements (not handled by bulma)*/
