@@ -61,10 +61,12 @@ Meteor.methods({
             var year = comment.createdAt.getFullYear();  // Catching the year
             var month = comment.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
             var date = comment.createdAt.getDate();  // Catching the date
-            if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
-            if(month < 10){ month = '0' + month; }
             var hours = comment.createdAt.getHours();
             var minutes = comment.createdAt.getMinutes();
+            if(date < 10){ date = '0' + date; }  // Formatting the data properly (adding a 0 before if needed)
+            if(month < 10){ month = '0' + month; }
+            if(hours === 0){ hours = '0' + hours; }
+            if(minutes < 10){ minutes = '0' + minutes; }
 
             // Create a new string with the formatted date
             const createdAt = 'le ' +date+ '/' +month+ '/' +year+ ' à '+hours+ 'h' +minutes;
@@ -115,10 +117,12 @@ Meteor.methods({
                 var year = comment.createdAt.getFullYear();  // Catching the year
                 var month = comment.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
                 var date = comment.createdAt.getDate();  // Catching the date
-                if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
-                if(month < 10){ month = '0' + month; }
                 var hours = comment.createdAt.getHours();
                 var minutes = comment.createdAt.getMinutes();
+                if(date < 10){ date = '0' + date; }  // Formatting the data properly (adding a 0 before if needed)
+                if(month < 10){ month = '0' + month; }
+                if(hours === 10){ hours = '0' + hours; }
+                if(minutes < 10){ minutes = '0' + minutes; }
 
                 // Create a new string with the formatted date
                 const createdAt = date+ '/' +month+ '/' +year+ ' à '+hours+ 'h' +minutes;
@@ -156,10 +160,12 @@ Meteor.methods({
             var year = comment.createdAt.getFullYear();  // Catching the year
             var month = comment.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
             var date = comment.createdAt.getDate();  // Catching the date
-            if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
-            if(month < 10){ month = '0' + month; }
             var hours = comment.createdAt.getHours();
             var minutes = comment.createdAt.getMinutes();
+            if(date < 10){ date = '0' + date; }  // Formatting the data properly (adding a 0 before if needed)
+            if(month < 10){ month = '0' + month; }
+            if(hours === 0){ hours = '0' + hours; }
+            if(minutes < 10){ minutes = '0' + minutes; }
 
             // Create a new string with the formatted date
             const createdAt = date+ '/' +month+ '/' +year+ ' à '+hours+ 'h' +minutes;
