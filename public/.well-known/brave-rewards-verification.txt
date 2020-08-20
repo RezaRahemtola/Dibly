@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: dibly.herokuapp.com
+Token: 9b3afca4fa49bfb311f4f20478df81c182aa27f1f19b3314576ba255c35d5632
