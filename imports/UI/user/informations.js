@@ -59,7 +59,6 @@ Template.userInformations.events({
                         if(error){
                             // There is an error in password fields
                             Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"} );  // Display an error message
-                            $('input#newPassword, input#confirmNewPassword').addClass("is-danger");  // Adding a red border to those fields
                         } else{
                             // New passwords match all criteria, changing the current password to the new one
                             Accounts.changePassword(oldPassword, newPassword, function(error){

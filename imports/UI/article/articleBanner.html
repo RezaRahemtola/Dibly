@@ -13,14 +13,14 @@
                     <span> par </span>
                     <span class="icon"><i class="fas fa-user"></i></span>
                     <span>{{author}}</span>
-                    
+
                     {{#if categories.length}}
                     <!-- 0 returns false, so this will only be shown if the article was posted in one or several categories -->
                         <span> dans </span>
-                        {{#each categories}}
+                        {{#each category in categories}}
                             <span class="tag is-link">
                                 <span class="icon"><i class="fas fa-folder-open"></i></span>
-                                <span> {{this}}</span>
+                                <span> {{category}}</span>
                             </span>
                         {{/each}}
                     {{/if}}

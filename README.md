@@ -25,6 +25,18 @@ You also need to create a `settings.json` file (to set up email sending & admin 
         "host": "With SendGrid it's generally smtp.sendgrid.net",
         "port": "Integer, with SendGrid it's generally 465"
     },
+    "email": {
+        "verifyEmail": {
+            "sender": "Sender for account verification emails (must match the one used for smtp)"
+        },
+        "resetPassword": {
+            "sender": "Sender for reset password emails (must match the one used for smtp)"
+        },
+        "contactForm": {
+            "sender": "Sender for contact form emails (must match the one used for contact API key)",
+            "receiver": "The email on which you want to receive the contact form submissions"
+        }
+    },
     "sendgridContactApiKey": "API Key provided by SendGrid & used to send contact emails (you can use the same that in smtp if you want)",
     "giphyApiKey": "API key given at https://developers.giphy.com/ and used to allow GIF in articles"
 }

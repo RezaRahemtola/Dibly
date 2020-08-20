@@ -31,7 +31,7 @@ Meteor.methods({
         Accounts.emailTemplates.verifyEmail = {
             from(){
                 // Defining sending address
-                return Rules.email.verifyEmail.sender;
+                return Meteor.settings.email.verifyEmail.sender;
             },
             subject(){
                 return "Activez votre compte";
@@ -50,7 +50,7 @@ Meteor.methods({
         Accounts.emailTemplates.resetPassword = {
             from(){
                 // Defining sending address
-                return Rules.email.resetPassword.sender;
+                return Meteor.settings.email.resetPassword.sender;
             },
             subject(){
                 return "Réinitialiser votre mot passe";
@@ -82,8 +82,8 @@ Meteor.methods({
                 throw new Meteor.Error('invalidEmailAddress', "Adresse email invalide.");
             } else{
                 // Email address is valid
-                const from = Rules.email.contactForm.sender;
-                const to = Rules.email.contactForm.receiver;
+                const from = Meteor.settings.email.contactForm.sender;
+                const to = Meteor.settings.email.contactForm.receiver;
                 const emailSubject = "Formulaire de contact";
 
                 // Creating the body content of the email
