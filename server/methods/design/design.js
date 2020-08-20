@@ -39,8 +39,10 @@ Meteor.methods({
             Design.insert({
                 name: 'footer',
                 value: `<p class="has-text-centered" style="font-family: 'Changa One'; background-color: #f3f3f3;">
-                        <span>Site réalisé par </span>
-                        <a href="https://rezarahemtola.com" target="_blank" class="link" style="font-family: 'Changa One';">Reza Rahemtola</a>
+                            <span>Ce site est administré avec </span>
+                            <a href="https://github.com/RezaRahemtola/Dibly" target="_blank" class="link" style="font-family: 'Changa One';">Dibly</a>
+                            <span>, un système de gestion de blog créé par </span>
+                            <a href="https://rezarahemtola.com" target="_blank" class="link" style="font-family: 'Changa One';">Reza Rahemtola</a>
                         </p>`
             });
         }

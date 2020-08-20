@@ -4,7 +4,7 @@ A simple, modern and complete blog management system to allow everyone to start 
 No need for programming knowledge or learning to use a large CMS overloaded with options that make it difficult to master and are unnecessary for novice users.
 
 Publication and management of articles, comment space to interact with visitors, customizable design, attendance statistics and much more...
-It has all the essential features of a blog.
+It has all the essential features for a blog.
 
 Dibly benefits from completely free hosting (with Heroku, MongoDB and Dropbox).
 

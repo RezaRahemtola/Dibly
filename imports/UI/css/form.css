@@ -35,9 +35,5 @@ textarea:focus + label.is-animated, textarea.has-animated-label:not(:placeholder
             transform: translate3d(0, -10px, 0);
 }
 
-.character-counter{ float: right; }
-
-.file-name{ text-align: center; }
-
 /* Remove the scollbar */
 .textarea::-webkit-scrollbar{ display: none; }

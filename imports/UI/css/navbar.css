@@ -2,6 +2,5 @@
     max-width: none;
     max-height: none;
 }
-a.navbar-item{
-    display: flex;
-}
+
+a.navbar-item{display: flex;}

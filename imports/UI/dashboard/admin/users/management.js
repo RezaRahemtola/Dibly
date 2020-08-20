@@ -49,7 +49,6 @@ Template.adminUsersManagement.helpers({
             }
         });
         return Session.get('displayUsersManagement');
-        //document.querySelectorAll('input[name="accessAllowed"]')
     },
     displayRoles: function(){
         Meteor.call('getRoles', function(error, roles){
@@ -143,21 +142,26 @@ Template.adminUsersManagement.helpers({
                 var select = document.querySelector('select[id="'+email+'"]');
                 select.value = role;
 
-                // Adding an event listener on the select to change role of the user
-                select.onchange = function(){
-                    // Catching user email & the selected role
-                    const email = this.id;
-                    const newRole = this.value;
+                if(email === Meteor.user().emails[0].address){
+                    // This select is the one of the current user, he can't change is own role, disabling it
+                    select.disabled = true;
+                } else{
+                    // Adding an event listener on the select to change role of the user
+                    select.onchange = function(){
+                        // Catching user email & the selected role
+                        const email = this.id;
+                        const newRole = this.value;
 
-                    // Calling a method to update the role in the database
-                    Meteor.call('changeRole', {email: email, newRole: newRole}, function(error, result){
-                        if(error){
-                            // There was an error
-                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
-                        } else{
-                            // Role was successfully updated
-                        }
-                    });
+                        // Calling a method to update the role in the database
+                        Meteor.call('changeRole', {email: email, newRole: newRole}, function(error, result){
+                            if(error){
+                                // There was an error
+                                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                            } else{
+                                // Role was successfully updated
+                            }
+                        });
+                    }
                 }
             }
         });
