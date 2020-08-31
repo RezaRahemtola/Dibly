@@ -24,5 +24,5 @@ underscore@1.0.10
 accounts-password@1.6.2
 check@1.3.1
 ostrio:flow-router-extra
-kadira:blaze-layout
+kadira:blaze-layout@2.0.1
 ostrio:files
