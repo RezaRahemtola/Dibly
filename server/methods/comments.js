@@ -54,9 +54,6 @@ Meteor.methods({
         Comments.find({articleId: articleId}).forEach(function(comment){
             // For each comment we add it's important data to the array
 
-            // Catching the date
-            const originalDate = comment.createdAt;
-
             // Converting the creation date to a classic format
             var year = comment.createdAt.getFullYear();  // Catching the year
             var month = comment.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
@@ -110,9 +107,6 @@ Meteor.methods({
             for(var comment of commentsCursor){
                 // For each comment we add it's important data to the array
 
-                // Catching the date
-                const originalDate = comment.createdAt;
-
                 // Converting the creation date to a classic format
                 var year = comment.createdAt.getFullYear();  // Catching the year
                 var month = comment.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
@@ -153,8 +147,6 @@ Meteor.methods({
             // Comment isn't in our database, throwing an error
             throw new Meteor.Error('commentNotFound', "Ce commentaire est introuvable.");
         } else{
-            // Comment is in our database, catching the date
-            const originalDate = comment.createdAt;
 
             // Converting the creation date to a classic format
             var year = comment.createdAt.getFullYear();  // Catching the year
