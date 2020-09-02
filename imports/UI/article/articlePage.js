@@ -20,9 +20,25 @@ FlowRouter.route('/article/:_id', {
         Meteor.call('getArticleById', {articleId: articleId}, function(error, article){
             if(error){
                 // There was an error
-                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
-                // Sending user back to home page to avoid a blank page displayed
-                FlowRouter.go('/');
+                if(error.error === 'articleNotFound'){
+                    // This article isn't in the database, checking if the given param corresponds to the slug of an article
+                    Meteor.call('getArticleBySlug', {articleSlug: articleId}, function(error, article){
+                        if(error){
+                            // There was an error, displaying a message
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                            // Sending user back to home page to avoid a blank page displayed
+                            FlowRouter.go('/');
+                        } else{
+                            // Article was successfully retrieved, saving it in a Session variable & displaying the page
+                            Session.set('currentArticle', article);
+                            BlazeLayout.render('main', {currentPage: 'articlePage'});
+                        }
+                    });
+                } else{
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                    // Sending user back to home page to avoid a blank page displayed
+                    FlowRouter.go('/');
+                }
             } else{
                 // Article was successfully retrieved, saving it in a Session variable & displaying the page
                 Session.set('currentArticle', article);

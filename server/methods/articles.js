@@ -10,10 +10,11 @@ import { UsersInformations } from '../../imports/databases/usersInformations.js'
 
 
 Meteor.methods({
-    'addArticle'({title, html, categories}){
+    'addArticle'({title, html, categories, slug}){
         // Type check to prevent malicious calls
         check(title, String);
         check(html, String);
+        check(slug, String);
 
         if(!Array.isArray(categories)){
             // Categories isn't an array
@@ -28,11 +29,15 @@ Meteor.methods({
                 // User is logged in, checking if he's allowed to add an article
                 const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
                 if(userRole === 'admin' || userRole === 'author'){
-                    // User can create an article, inserting it in the database
+                    // User can create an article, encoding the slug to remove special characters
+                    let encodedSlug = encodeURIComponent(slug);
+
+                    // Inserting it in the database
                     Articles.insert({
                         title: title,
                         html: html,
                         categories: categories,
+                        slug: encodedSlug,
                         createdAt: new Date,
                         authorId: Meteor.userId()
                     });
@@ -43,11 +48,12 @@ Meteor.methods({
             }
         }
     },
-    'editArticle'({articleId, title, html, categories}){
+    'editArticle'({articleId, title, html, categories, slug}){
         // Type check to prevent malicious calls
         check(articleId, String);
         check(title, String);
         check(html, String);
+        check(slug, String);
 
         if(!Array.isArray(categories)){
             // Categories isn't an array
@@ -67,11 +73,15 @@ Meteor.methods({
                         // This article isn't in the database, throwing an error
                         throw new Meteor.Error('articleNotFound', "Cet article n'existe pas, veuillez réessayer.");
                     } else{
-                        // This article exists, edit the content in the database
+                        // This article exists, encoding the slug to remove special characters
+                        let encodedSlug = encodeURIComponent(slug);
+
+                        // Edit the content in the database
                         Articles.update(articleId, { $set: {
                             title: title,
                             html: html,
-                            categories: categories
+                            categories: categories,
+                            slug: encodedSlug
                         }});
                     }
                 } else{
@@ -146,6 +156,7 @@ Meteor.methods({
                 title: doc.title,
                 html: doc.html,
                 categories: doc.categories,
+                slug: doc.slug,
                 createdAt: createdAt,
                 author: author
             });
@@ -224,6 +235,41 @@ Meteor.methods({
                 title: article.title,
                 html: article.html,
                 categories: article.categories,
+                slug: article.slug,
+                createdAt: createdAt,
+                author: author
+            }
+        }
+    },
+    'getArticleBySlug'({articleSlug}){
+        // Type check to prevent malicious calls
+        check(articleSlug, String);
+
+        // Catching article informations
+        const article = Articles.findOne({slug: articleSlug});
+
+        if(article === undefined){
+            // Article isn't in our database, throwing an error
+            throw new Meteor.Error('articleNotFound', "Cet article est introuvable.");
+        } else{
+            // Article is in our database, catching author's username with his userId
+            const author = Meteor.users.findOne({_id: article.authorId}).username;
+
+            // Converting the creation date to a classic format
+            var year = article.createdAt.getFullYear();  // Catching the year
+            var month = article.createdAt.getMonth()+1;  // Catching the month (getMonth is 0 indexed so adding 1)
+            var date = article.createdAt.getDate();  // Catching the date
+            if(date < 10){ date = '0' + date; }  // Formatting the date and the month properly (adding a 0 before if needed)
+            if(month < 10){ month = '0' + month; }
+            const createdAt = date+ '/' +month+ '/' +year;  // Updating the document with the new creation date
+
+            // Creating a new object to return
+            return {
+                _id: article._id,
+                title: article.title,
+                html: article.html,
+                categories: article.categories,
+                slug: article.slug,
                 createdAt: createdAt,
                 author: author
             }

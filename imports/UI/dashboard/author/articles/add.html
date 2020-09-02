@@ -13,8 +13,18 @@
             <h4 class="title is-4 has-text-centered">Informations générales</h4>
 
             <div class="field has-animated-label">
-                <input type="text" class="input has-animated-label" name="title" id="title" placeholder=" " required >
+                <input type="text" class="input has-animated-label" name="title" id="title" placeholder=" " required/>
                 <label for="title" class="label is-animated">Titre de l'article <span class="has-text-danger">*</span></label>
+            </div>
+
+            <div class="field has-animated-label">
+                <div class="control has-icons-left">
+                    <input type="text" class="input has-animated-label" name="slug" id="slug" placeholder=" ">
+                    <label for="slug" class="label is-animated">Slug</label>
+                    <span class="icon is-left">
+                        <i class="fas fa-link"></i>
+                    </span>
+                </div>
             </div>
 
             <div id="editor"></div>

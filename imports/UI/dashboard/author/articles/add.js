@@ -101,11 +101,12 @@ Template.addArticle.events({
         // Catching inputs for the call :
         const form = new FormData(document.getElementById('newArticle'));
         const title = form.get('title');
+        const slug = form.get('slug');
         document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
         const categories = Session.get('selectedCategories');
 
-        Meteor.call('addArticle', {title: title, html: html, categories: categories}, function(error, result){
+        Meteor.call('addArticle', {title: title, html: html, categories: categories, slug: slug}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
