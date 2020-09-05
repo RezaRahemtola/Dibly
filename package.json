@@ -16,7 +16,7 @@
         "jquery": "^3.5.1",
         "jquery-resizable-dom": "^0.35.0",
         "meteor-node-stubs": "^1.0.1",
-        "node-fetch": "^2.6.0",
+        "node-fetch": "^2.6.1",
         "request": "^2.88.2",
         "trumbowyg": "^2.21.0"
     },
