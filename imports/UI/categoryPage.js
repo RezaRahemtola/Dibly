@@ -18,7 +18,7 @@ FlowRouter.route('/category/:_id', {
         // Catching categoryId
         const categoryId = params['_id'];
         // Retrieving product informations
-        Meteor.call('getArticlesByCategoryId', {categoryId: categoryId}, function(error, articles){
+        Meteor.call('getArticlesByCategoryIdOrSlug', {categoryId: categoryId}, function(error, articles){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
@@ -41,8 +41,21 @@ Template.categoryPage.helpers({
         // Return the name of the category with the id
         Meteor.call('getCategoryNameById', {categoryId: FlowRouter.getParam('_id')}, function(error, name){
             if(error){
-                // There was an error
-                Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                // There was an error, the param is maybe a slug
+                if(error.error === 'categoryNotFound'){
+                    Meteor.call('getCategoryNameBySlug', {slug: FlowRouter.getParam('_id')}, function(error, name){
+                        if(error){
+                            // The given param isn't an id or a slug in the categories database, showing an error message
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                        } else{
+                            // Category name was successfully retrieved, saving it in a Session variable
+                            Session.set('currentCategoryName', name);
+                        }
+                    });
+                } else{
+                    // Display an error message
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                }
             } else{
                 // Category name was successfully retrieved, saving it in a Session variable
                 Session.set('currentCategoryName', name);

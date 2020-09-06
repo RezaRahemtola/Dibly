@@ -90,6 +90,7 @@ FlowRouter.route('/dashboard/articles/edit/:_id', {
     }
 });
 
+
 Template.editArticle.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
