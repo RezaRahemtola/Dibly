@@ -37,11 +37,12 @@ Template.addCategory.events({
     'click #submitCategory'(event){
         event.preventDefault();
 
-        // Catching input for the call :
+        // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#newCategory'));
         const name = form.get('name');
+        const slug = form.get('slug');
 
-        Meteor.call('addCategory', {name: name}, function(error, result){
+        Meteor.call('addCategory', {name: name, slug: slug}, function(error, result){
             if(error){
                 // There was an error while adding the category, showing an error message
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});

@@ -38,7 +38,9 @@ You also need to create a `settings.json` file (to set up email sending & admin 
         }
     },
     "sendgridContactApiKey": "API Key provided by SendGrid & used to send contact emails (you can use the same that in smtp if you want)",
-    "giphyApiKey": "API key given at https://developers.giphy.com/ and used to allow GIF in articles"
+    "giphyApiKey": "API key given at https://developers.giphy.com/ and used to allow GIF in articles",
+    "statisticsLink": "Link to the statistics results",
+    "statisticsCode": "HTML code included in every page given by your statistics provider to analyze the traffic of your page (optional)."
 }
 ```
 

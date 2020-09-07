@@ -91,6 +91,16 @@ Template.main.onRendered(function(){
             }
         });
     }
+
+    // Catching the code to include in the template for statistics
+    Meteor.call('getStatisticsCode', function(error, statisticsCode){
+        if(error){
+            // TODO: error
+        } else{
+            // Statistics HTML code was returned, adding it to the container
+            document.querySelector('div#statisticsCodeContainer').innerHTML = statisticsCode;
+        }
+    });
 });
 
 

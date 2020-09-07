@@ -49,6 +49,15 @@ Template.editCategory.onRendered(function(){
         } else{
             // Category name was successfully retrieved, catching & filling the input
             document.querySelector('input#name').value = categoryName;
+            Meteor.call('getCategorySlugById',  {categoryId: categoryId}, function(error, slug){
+                if(error){
+                    // There was an error
+                    Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                } else{
+                    // Slug was successfully retrieved, filling the slug input
+                    document.querySelector('input#slug').value = slug;
+                }
+            });
         }
     });
 });
@@ -57,12 +66,13 @@ Template.editCategory.events({
     'click #submitEditCategory'(event){
         event.preventDefault();
 
-        // Catching input for the call :
+        // Catching inputs for the call :
         const form = new FormData(document.querySelector('form#editCategory'));
         const name = form.get('name');
+        const slug = form.get('slug');
         const categoryId = FlowRouter.getQueryParam('categoryId');
 
-        Meteor.call('editCategory', {categoryId: categoryId, name: name}, function(error, result){
+        Meteor.call('editCategory', {categoryId: categoryId, name: name, slug: slug}, function(error, result){
             if(error){
                 // There was an error while adding the category, showing an error message
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});

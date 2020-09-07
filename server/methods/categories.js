@@ -9,9 +9,10 @@ import { UsersInformations } from '../../imports/databases/usersInformations.js'
 
 
 Meteor.methods({
-    'addCategory'({name}){
-        // Type check to prevent malicious calls
+    'addCategory'({name, slug}){
+        // Type checks to prevent malicious calls
         check(name, String);
+        check(slug, String);
 
         if(!Meteor.userId()){
             // User isn't logged in, throwing an error message
@@ -20,18 +21,22 @@ Meteor.methods({
             // User is logged in, checking if he's allowed to add a category
             const userRole = UsersInformations.findOne({userId: Meteor.userId()}).role;
             if(userRole === 'admin'){
-                // User can create a new category, inserting it in the database
-                Categories.insert({name: name});
+                // User can create a new category, encoding the slug to remove special characters
+                let encodedSlug = encodeURIComponent(slug);
+
+                // Inserting content in the database
+                Categories.insert({name: name, slug: encodedSlug});
             } else{
                 // This user has not the correct role to publish an article, throwing an error message
                 throw new Meteor.Error('accessDenied', 'Votre rôle ne vous permet pas de créer une catégorie.');
             }
         }
     },
-    'editCategory'({categoryId, name}){
-        // Type check to prevent malicious calls
+    'editCategory'({categoryId, name, slug}){
+        // Type checks to prevent malicious calls
         check(categoryId, String);
         check(name, String);
+        check(slug, String);
 
         if(!Meteor.userId()){
             // User isn't logged in, throwing an error message
@@ -47,7 +52,10 @@ Meteor.methods({
                     // The given categoryId doesn't corresponds to any category, throwing an error
                     throw new Meteor.Error('categoryNotFound', "Cette catégorie est introuvable.");
                 } else{
-                    // The category exists, catching it's name to edit it in all articles that contains it
+                    // The category exists, encoding the slug to remove special characters
+                   let encodedSlug = encodeURIComponent(slug);
+
+                    // Catching current name to edit the category in all articles that contains it
                     const currentCategoryName = Categories.findOne({_id: categoryId}).name;
                     // Catching all the articles that contains it
                     Articles.find({categories: currentCategoryName}).forEach(function(article){
@@ -62,7 +70,7 @@ Meteor.methods({
                     });
 
                     // The old category isn't on any article anymore, we can edit it
-                    Categories.update({_id: categoryId}, { $set: { name: name } });
+                    Categories.update({_id: categoryId}, { $set: { name: name, slug: encodedSlug } });
                 }
             } else{
                 // User isn't allowed to edit a category, throwing an error
@@ -141,16 +149,16 @@ Meteor.methods({
             return Categories.findOne({_id: categoryId}).name;
         }
     },
-    'getArticlesByCategoryId'({categoryId}){
+    'getArticlesByCategoryIdOrSlug'({categoryId}){
         // Type check to prevent malicious calls
         check(categoryId, String);
 
-        if(Categories.findOne({_id: categoryId}) === undefined){
-            // The given categoryId doesn't corresponds to any category, throwing an error
+        if(Categories.findOne({_id: categoryId}) === undefined && Categories.findOne({slug: categoryId}) === undefined){
+            // The given id/slug doesn't corresponds to any category, throwing an error
             throw new Meteor.Error('categoryNotFound', "Cette catégorie est introuvable.");
         } else{
             // The category exists, catching it's name :
-            const category = Categories.findOne({_id: categoryId}).name;
+            const category = (Categories.findOne({_id: categoryId}) || Categories.findOne({slug: categoryId})).name;
             // Creating an array to store the articles' data
             var articles = [];
             // Catching all articles with this category
@@ -177,6 +185,30 @@ Meteor.methods({
             });
 
             return articles;
+        }
+    },
+    'getCategorySlugById'({categoryId}){
+        // Type check to prevent malicious calls
+        check(categoryId, String);
+
+        if(Categories.findOne({_id: categoryId}) === undefined){
+            // The given id doesn't corresponds to any category, throwing an error
+            throw new Meteor.Error('categoryNotFound', "Cette catégorie est introuvable.");
+        } else{
+            // The category exists, return it's slug
+            return Categories.findOne({_id: categoryId}).slug;
+        }
+    },
+    'getCategoryNameBySlug'({slug}){
+        // Type check to prevent malicious calls
+        check(slug, String);
+
+        if(Categories.findOne({slug: slug}) === undefined){
+            // The given slug doesn't corresponds to anu category, throwing an error
+            throw new Meteor.Error('categoryNotFound', 'Cette catégorie est introuvable.');
+        } else{
+            // The category exists, return it's name
+            return Categories.findOne({slug: slug}).name;
         }
     }
 });

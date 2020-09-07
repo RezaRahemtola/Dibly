@@ -23,6 +23,9 @@ Meteor.startup(function(){
         process.env.SENDGRID_CONTACT_API_KEY = Meteor.settings.sendgridContactApiKey;
 
         process.env.GIPHY_API_KEY = Meteor.settings.giphyApiKey;
+
+        process.env.STATISTICS_LINK = Meteor.settings.statisticsLink;
+        process.env.STATISTICS_CODE = Meteor.settings.statisticsCode;
     }
 
     // Creating text index to enable search in those fields of the database :

@@ -110,5 +110,13 @@ Meteor.methods({
         // TODO: check if file in dropbox before removing
         // TODO: check if image really exists
         Images.remove({_id: imageId});
+    },
+    'getStatisticsLink'(){
+        // Return the link of the statistics page
+        return process.env.STATISTICS_LINK;
+    },
+    'getStatisticsCode'(){
+        // Return the HTML code to include in every page for statistics
+        return process.env.STATISTICS_CODE;
     }
 });

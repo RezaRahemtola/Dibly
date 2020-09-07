@@ -90,6 +90,7 @@ FlowRouter.route('/dashboard/articles/edit/:_id', {
     }
 });
 
+
 Template.editArticle.onRendered(function(){
     // Scrolling the window back to the top
     window.scrollTo(0, 0);
@@ -99,6 +100,8 @@ Template.editArticle.onRendered(function(){
 
     // Fill the title
     document.querySelector('input#title').value = article.title;
+    // Fill the slug
+    document.querySelector('input#slug').value = article.slug;
 
     // Dynamically check and show selected categories
     Session.set('selectedCategories', article.categories);
@@ -164,11 +167,12 @@ Template.editArticle.events({
         const articleId = Session.get('currentArticle')._id;
         const form = new FormData(document.getElementById('editArticle'));
         const title = form.get('title');
+        const slug = form.get('slug');
         document.querySelector('div#editor').click();  // Trigger a click on the editor to transform all canvas to img
         const html = document.querySelector('div#editor').innerHTML;
         const categories = Session.get('selectedCategories');
 
-        Meteor.call('editArticle', {articleId: articleId, title: title, html: html, categories: categories}, function(error, result){
+        Meteor.call('editArticle', {articleId: articleId, title: title, html: html, categories: categories, slug: slug}, function(error, result){
             if(error){
                 // There was an error
                 Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
