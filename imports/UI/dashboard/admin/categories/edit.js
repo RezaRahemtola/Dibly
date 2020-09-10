@@ -62,6 +62,7 @@ Template.editCategory.onRendered(function(){
     });
 });
 
+
 Template.editCategory.events({
     'click #submitEditCategory'(event){
         event.preventDefault();
