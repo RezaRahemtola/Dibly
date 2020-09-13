@@ -29,7 +29,12 @@ FlowRouter.route('/article/:_id', {
                             // Sending user back to home page to avoid a blank page displayed
                             FlowRouter.go('/');
                         } else{
-                            // Article was successfully retrieved, saving it in a Session variable & displaying the page
+                            // Article was successfully retrieved, checking if the current page is already an article page
+                            var currentHtmlContainer = document.querySelector('.htmlContainer[id="'+Session.get('currentArticle')._id+'"]');
+                            // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
+                            if(currentHtmlContainer !== null){ currentHtmlContainer.innerHTML = article.html;}
+
+                            // Saving the article in a Session variable & displaying the page
                             Session.set('currentArticle', article);
                             BlazeLayout.render('main', {currentPage: 'articlePage'});
                         }
@@ -40,7 +45,12 @@ FlowRouter.route('/article/:_id', {
                     FlowRouter.go('/');
                 }
             } else{
-                // Article was successfully retrieved, saving it in a Session variable & displaying the page
+                // Article was successfully retrieved, checking if the current page is already an article page
+                var currentHtmlContainer = document.querySelector('.htmlContainer[id="'+Session.get('currentArticle')._id+'"]');
+                // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
+                if(currentHtmlContainer !== null){ currentHtmlContainer.innerHTML = article.html;}
+
+                // Saving the article in a Session variable & displaying the page
                 Session.set('currentArticle', article);
                 BlazeLayout.render('main', {currentPage: 'articlePage'});
             }
