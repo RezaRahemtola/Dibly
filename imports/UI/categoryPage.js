@@ -44,9 +44,9 @@ Template.categoryPage.helpers({
                 // There was an error, the param is maybe a slug
                 if(error.error === 'categoryNotFound'){
                     Meteor.call('getCategoryNameBySlug', {slug: FlowRouter.getParam('_id')}, function(error, name){
-                        if(error){
-                            // The given param isn't an id or a slug in the categories database, showing an error message
-                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});
+                        if(error && FlowRouter.getRouteName() === 'categoryPage'){
+                            // The given param isn't an id or a slug in the categories database and we are still in the category page (article banner not clicked)
+                            Session.set('message', {type:"header", headerContent:error.reason, style:"is-danger"});  // Showing an error message
                         } else{
                             // Category name was successfully retrieved, saving it in a Session variable
                             Session.set('currentCategoryName', name);
