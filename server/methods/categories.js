@@ -126,7 +126,7 @@ Meteor.methods({
             categories.push(category.name);
         });
 
-        return categories;
+        return categories.sort();
     },
     'getCategoriesForManagement'(){
         // Return all the data of the categories database
@@ -161,8 +161,8 @@ Meteor.methods({
             const category = (Categories.findOne({_id: categoryId}) || Categories.findOne({slug: categoryId})).name;
             // Creating an array to store the articles' data
             var articles = [];
-            // Catching all articles with this category
-            Articles.find({categories: category}).forEach(function(doc){
+            // Catching all articles with this category sorted by date of creation (newest first)
+            Articles.find({categories: category}, {sort: { createdAt: -1 }}).forEach(function(doc){
                 // Catching author's username with his userId
                 const author = Meteor.users.findOne({_id: doc.authorId}).username;
 
