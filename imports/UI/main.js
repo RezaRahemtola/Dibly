@@ -155,6 +155,7 @@ Template.main.helpers({
                         const imageUrl = Images.findOne({_id: background.imageId}).link();
                         document.body.style.background = "url('"+imageUrl+"') no-repeat";
                         document.body.style.backgroundSize = "cover";
+                        document.body.style.backgroundAttachment = "fixed";
                     } else if(background.color !== ''){
                         // Background color is defined, change the body background
                         document.body.style.background = background.color;
