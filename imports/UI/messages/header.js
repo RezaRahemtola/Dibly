@@ -1,7 +1,7 @@
 // Useful import
 import { Template } from 'meteor/templating';
 
-// HTML imports
+// HTML import
 import './header.html';
 
 

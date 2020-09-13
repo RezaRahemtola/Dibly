@@ -31,8 +31,8 @@
                         <div class="select">
                             <select id="categories">
                                 <option value="add" selected disabled hidden>Sélectionner</option>
-                                {{#each displayCategories}}
-                                    <option value="{{this}}">{{this}}</option>
+                                {{#each category in displayCategories}}
+                                    <option value="{{category}}">{{category}}</option>
                                 {{/each}}
                             </select>
                         </div>

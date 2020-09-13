@@ -80,7 +80,7 @@ Template.search.helpers({
         // Catching results and checking if there's one or more result
         const results = Session.get('searchedArticles');
         // Return true if there's no results
-        return (results.length === 0) ? true : false;
+        return (results.length === 0);
     }
 });
 

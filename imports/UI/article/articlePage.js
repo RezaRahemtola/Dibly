@@ -97,7 +97,6 @@ Template.articlePage.helpers({
     },
     displayComments: function(){
         // Return all the comments for the current article
-
         const articleId = Session.get('currentArticle')._id;
 
         Meteor.call('showArticleComments', {articleId: articleId}, function(error, commentsArray){
@@ -112,7 +111,7 @@ Template.articlePage.helpers({
         return Session.get('currentComments');
     },
     isOne: function(number){
-        return (number === 1) ? true : false;
+        return (number === 1);
     }
 });
 
