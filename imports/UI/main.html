@@ -94,7 +94,7 @@
         <br>
 
         <div class="columns">
-            <div class="column is-offset-1 is-7" style="background: white; height: fit-content">
+            <div class="column is-offset-1 is-7" style="background: white; height: fit-content; height: -moz-fit-content">
                 {{> Template.dynamic template=currentPage}}  <!-- Dynamic Template to display the current page -->
             </div>
             <div class="column is-3">
@@ -105,7 +105,5 @@
         </div>
     </div>
 
-    <div id="footerContainer">
-        {{displayFooter}}
-    </div>
+    <div id="footerContainer">{{displayFooter}}</div>
 </template>
