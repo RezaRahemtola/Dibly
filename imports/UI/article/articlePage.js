@@ -31,8 +31,12 @@ FlowRouter.route('/article/:_id', {
                         } else{
                             // Article was successfully retrieved, checking if the current page is already an article page
                             var currentHtmlContainer = document.querySelector('.htmlContainer[id="'+Session.get('currentArticle')._id+'"]');
-                            // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
-                            if(currentHtmlContainer !== null){ currentHtmlContainer.innerHTML = article.html;}
+                            if(currentHtmlContainer !== null){
+                                // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
+                                currentHtmlContainer.innerHTML = article.html;
+                                // Scrolling the window back to the top
+                                window.scrollTo(0, 0);
+                            }
 
                             // Saving the article in a Session variable & displaying the page
                             Session.set('currentArticle', article);
@@ -47,8 +51,12 @@ FlowRouter.route('/article/:_id', {
             } else{
                 // Article was successfully retrieved, checking if the current page is already an article page
                 var currentHtmlContainer = document.querySelector('.htmlContainer[id="'+Session.get('currentArticle')._id+'"]');
-                // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
-                if(currentHtmlContainer !== null){ currentHtmlContainer.innerHTML = article.html;}
+                if(currentHtmlContainer !== null){
+                    // Current page is an article page, replacing it's HTML content (the onRendered function is not called when rendering the same page)
+                    currentHtmlContainer.innerHTML = article.html;
+                    // Scrolling the window back to the top
+                    window.scrollTo(0, 0);
+                }
 
                 // Saving the article in a Session variable & displaying the page
                 Session.set('currentArticle', article);
