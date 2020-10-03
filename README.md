@@ -15,7 +15,7 @@ After cloning this repository, you need to install the required modules with
 npm install
 ```
 
-You also need to create a `settings.json` file (to set up email sending & admin list) with the following content :
+You also need to create a `settings.json` file (to set up email sending & API keys) with the following content :
 ```json
 {
     "smtp": {

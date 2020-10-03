@@ -1,4 +1,4 @@
-/* Full height so the background is shown on the whole page even if there's not enough content*/
+/* Full height so the background is shown on the whole page even if there's not enough content */
 body{min-height: 100vh;}
 
 /* Disable text selection */
@@ -12,7 +12,6 @@ body{min-height: 100vh;}
                                   supported by Chrome, Opera and Firefox */
 }
 
-
 .width-fit-content{
     width: -moz-fit-content;  /* Firefox */
          width: fit-content;  /* Non-prefixed version, currently supported by Chrome */
@@ -23,10 +22,8 @@ body{min-height: 100vh;}
          height: fit-content;  /* Non-prefixed version, currently supported by Chrome */
 }
 
-
 /* Styling icons in buttons */
 .button .icon:first-child:last-child { margin-right: 0; }
-
 
 /* Styling links */
 .link{
@@ -40,8 +37,7 @@ body{min-height: 100vh;}
 /* Adding a bullet for ul */
 ul{list-style: inside;}
 
-
-/*  Styling blockquote elements (not handled by bulma)*/
+/* Styling blockquote elements (not handled by bulma) */
 blockquote{
     margin-left: 32px;
     font-family: "Segoe Print", "Times New Roman", Verdana;
