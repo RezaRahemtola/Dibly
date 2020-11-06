@@ -9,7 +9,7 @@
     "dependencies": {
         "@babel/runtime": "^7.12.5",
         "@fortawesome/fontawesome-free": "^5.15.1",
-        "@sendgrid/mail": "^7.3.0",
+        "@sendgrid/mail": "^7.4.0",
         "bcrypt": "^5.0.0",
         "bulma-switch": "^2.0.0",
         "dropbox": "^5.2.1",
