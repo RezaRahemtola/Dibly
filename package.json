@@ -7,7 +7,7 @@
         "css-watch": "npm run css-build -- --watch"
     },
     "dependencies": {
-        "@babel/runtime": "^7.14.0",
+        "@babel/runtime": "^7.14.5",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@sendgrid/mail": "^7.4.4",
         "bcrypt": "^5.0.0",
@@ -18,7 +18,7 @@
         "meteor-node-stubs": "^1.0.1",
         "node-fetch": "^2.6.1",
         "request": "^2.88.2",
-        "trumbowyg": "^2.23.0"
+        "trumbowyg": "^2.24.0"
     },
     "meteor": {
         "mainModule": {
