@@ -7,18 +7,18 @@
         "css-watch": "npm run css-build -- --watch"
     },
     "dependencies": {
-        "@babel/runtime": "^7.14.6",
-        "@fortawesome/fontawesome-free": "^5.15.2",
-        "@sendgrid/mail": "^7.4.5",
+        "@babel/runtime": "^7.15.3",
+        "@fortawesome/fontawesome-free": "^5.15.4",
+        "@sendgrid/mail": "^7.4.6",
         "bcrypt": "^5.0.0",
         "bulma-switch": "^2.0.0",
         "dropbox": "^5.2.1",
         "jquery": "^3.5.1",
         "jquery-resizable-dom": "^0.35.0",
-        "meteor-node-stubs": "^1.0.1",
+        "meteor-node-stubs": "^1.1.0",
         "node-fetch": "^2.6.1",
         "request": "^2.88.2",
-        "trumbowyg": "^2.24.0"
+        "trumbowyg": "^2.25.1"
     },
     "meteor": {
         "mainModule": {
